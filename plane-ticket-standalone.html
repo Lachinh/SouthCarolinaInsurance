@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The plane ticket | SC Care Price Finder</title><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M20%203L34%209V20C34%2029%2027%2035%2020%2037C13%2035%206%2029%206%2020V9Z%22%20fill%3D%22%230E9E66%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><style>  :root{
+    --bg:#F7F8F6;--surface:#FFFFFF;--surface-2:#FBFBF9;
+    --ink:#15201A;--muted:#5A655E;--faint:#8A958E;
+    --brand:#10A06A;--brand-dark:#0A7048;--brand-soft:#E5F4EC;--brand-tint:#EFF8F2;
+    --accent:#D8452E;--accent-soft:#FBE8E2;--accent-dark:#A6351E;--good:#10A06A;--bad:#D8452E;
+    --indigo:#0A7048;
+    --line:rgba(21,32,26,0.08);--line-2:rgba(21,32,26,0.14);
+    --radius:20px;--radius-lg:26px;--radius-sm:13px;
+    --shadow-sm:0 1px 2px rgba(21,32,26,.05);
+    --shadow:0 1px 3px rgba(21,32,26,.05),0 16px 40px -26px rgba(21,32,26,.28);
+    --display:"Plus Jakarta Sans",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;letter-spacing:-0.03em;}
+  a{color:inherit;}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+  .prose{max-width:680px;}
+  :focus-visible{outline:2.5px solid var(--brand-dark);outline-offset:3px;border-radius:8px;}
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--brand);z-index:70;transition:width .08s linear;}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(247,248,246,0.82);backdrop-filter:saturate(150%) blur(16px);-webkit-backdrop-filter:saturate(150%) blur(16px);border-bottom:1px solid var(--line);}
+  .topbar .bar{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:13px 24px;}
+  .brandmark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:-0.03em;color:var(--ink);text-decoration:none;flex-shrink:0;}
+  .brandmark .dot{width:30px;height:30px;display:flex;}
+  .spacer{flex:1;}
+  .storynav{display:flex;gap:16px;align-items:center;}
+  .storynav a{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 2px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;}
+  .storynav a:hover{color:var(--ink);}
+  .storynav a.active{color:var(--ink);border-bottom-color:var(--brand);}
+  .navbtn{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:11px;transition:.18s;flex-shrink:0;}
+  .navbtn:hover{background:var(--brand-dark);}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--brand-dark);letter-spacing:0.13em;text-transform:uppercase;}
+  .scbadge{width:34px;height:34px;border-radius:50%;background:var(--indigo);display:inline-flex;flex-shrink:0;}
+  .hero{padding:64px 0 8px;text-align:center;}
+  .hero .eyebrow{margin-bottom:22px;}
+  .hero h1{font-size:clamp(38px,6vw,62px);font-weight:700;letter-spacing:-0.045em;}
+  .hero p.sub{font-size:20px;color:var(--muted);max-width:610px;margin:20px auto 0;line-height:1.5;}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.shown{opacity:1;transform:none;}
+  .section{padding:58px 0 0;}
+  .section h2{font-size:clamp(26px,3.8vw,38px);letter-spacing:-0.04em;margin-bottom:15px;}
+  .section .eyebrow{margin-bottom:13px;}
+  .section p{color:var(--muted);font-size:17.5px;}
+  .section p strong{color:var(--ink);font-weight:600;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:30px 32px;margin-top:28px;}
+  .card .c-h{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:4px;letter-spacing:-0.02em;}
+  .card .c-s{font-size:13.5px;color:var(--faint);margin-bottom:22px;}
+  .src{font-size:12px;color:var(--faint);margin-top:16px;}
+  .src a{color:var(--brand-dark);}
+  .cmp-bar{display:flex;align-items:center;gap:12px;margin:9px 0;}
+  .cmp-tag{width:150px;font-size:13px;color:var(--muted);font-weight:600;flex-shrink:0;}
+  .cmp-track{flex:1;}
+  .cmp-fill{height:36px;border-radius:9px;min-width:62px;display:flex;align-items:center;justify-content:flex-end;padding-right:13px;color:#fff;font-family:var(--display);font-weight:700;font-size:15px;width:0;transition:width 1s cubic-bezier(.2,.7,.2,1);font-variant-numeric:tabular-nums;}
+  .cmp-fill.lo{background:var(--brand);} .cmp-fill.hi{background:var(--accent);}
+  .cmp-note{font-size:13.5px;color:var(--accent-dark);font-weight:600;margin-top:10px;}
+  .bigstat{background:var(--indigo);color:#fff;border-radius:var(--radius-lg);padding:40px;text-align:center;margin-top:28px;}
+  .bigstat .n{font-family:var(--display);font-size:clamp(56px,9vw,76px);font-weight:700;letter-spacing:-.05em;line-height:1;}
+  .bigstat .l{font-size:16px;color:rgba(255,255,255,.8);margin:12px auto 0;max-width:520px;}
+  .pull{font-family:var(--display);font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:-.03em;line-height:1.3;margin:0;}
+  .pull em{font-style:normal;color:var(--brand-dark);}
+  .takeaways{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px;}
+  .tk{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+  .tk .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-tint);color:var(--brand-dark);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+  .tk h3{font-family:var(--body);font-weight:700;font-size:16px;margin-bottom:6px;}
+  .tk p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.5;}
+  .cta{background:var(--ink);border-radius:var(--radius-lg);padding:50px 40px;text-align:center;margin:62px 0 0;}
+  .cta h2{color:#fff;font-size:clamp(26px,3.6vw,38px);letter-spacing:-0.035em;margin-bottom:12px;}
+  .cta p{color:rgba(255,255,255,.66);max-width:500px;margin:0 auto 26px;font-size:16.5px;}
+  .cta a{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 28px;border-radius:14px;transition:.18s;}
+  .cta a:hover{background:#13B377;transform:translateY(-2px);}
+  .sources{margin-top:30px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px 22px;}
+  .sources h4{font-family:var(--body);font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);font-weight:700;margin-bottom:10px;}
+  .sources ol{margin:0;padding-left:18px;font-size:13px;color:var(--muted);line-height:1.7;}
+  .sources a{color:var(--brand-dark);}
+  .footer{text-align:center;color:var(--faint);font-size:13px;padding:46px 0 64px;}
+  @media(max-width:720px){ .storynav{display:none;} }
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;}*{transition:none!important;}}
+
+  :root{--mono:"IBM Plex Mono",ui-monospace,monospace;}
+  .phero{background-color:#0b2b50;background-image:linear-gradient(157deg,rgba(11,43,80,.88) 0%,rgba(16,67,122,.8) 52%,rgba(11,110,73,.82) 128%),url('https://images.unsplash.com/photo-1476157808914-828d68f0f401?auto=format&fit=crop&w=2400&q=72');background-size:cover;background-position:center;color:#fff;padding:112px 24px 96px;text-align:center;}
+  .phero .inner{max-width:780px;margin:0 auto;}
+  .phero .eyebrow{color:#bfe3d2;margin-bottom:22px;}
+  .phero .scbadge{background:rgba(255,255,255,.18);}
+  .phero h1{color:#fff;font-size:clamp(42px,7vw,70px);letter-spacing:-.045em;}
+  .phero .sub{color:rgba(255,255,255,.82);font-size:20px;max-width:580px;margin:20px auto 0;line-height:1.5;}
+  .phero .scrollcue{color:rgba(255,255,255,.8);}
+  .pull{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vw,36px);letter-spacing:-.035em;line-height:1.25;margin:0;max-width:760px;}
+  .pull em{font-style:normal;color:var(--brand-dark);}
+  /* boarding passes */
+  .passes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px;}
+  .bpass{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:visible;}
+  .bpass.low{border-color:rgba(14,158,102,.5);} .bpass.high{border-color:rgba(207,82,55,.5);}
+  .bp-head{background:var(--indigo);color:#fff;padding:11px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:16px 16px 0 0;}
+  .bp-head .air{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;font-weight:600;display:flex;align-items:center;gap:6px;}
+  .bp-head .cls{font-family:var(--mono);font-size:9px;letter-spacing:.1em;background:rgba(255,255,255,.16);padding:3px 7px;border-radius:5px;}
+  .bp-body{padding:16px 16px 14px;}
+  .bp-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;}
+  .bp-val{font-weight:700;font-size:13.5px;margin:2px 0 9px;line-height:1.2;}
+  .bp-fare{font-family:var(--display);font-size:clamp(26px,3.4vw,34px);font-weight:700;letter-spacing:-.03em;}
+  .bpass.low .bp-fare{color:var(--brand-dark);} .bpass.high .bp-fare{color:var(--bad);}
+  .bp-stub{position:relative;border-top:2px dashed var(--line-2);padding:13px 16px;display:flex;justify-content:space-between;align-items:center;}
+  .bp-stub::before,.bp-stub::after{content:"";position:absolute;top:-11px;width:18px;height:18px;border-radius:50%;background:var(--bg);}
+  .bp-stub::before{left:-10px;} .bp-stub::after{right:-10px;}
+  .bp-bar{height:30px;flex:1;margin-right:14px;background-image:repeating-linear-gradient(90deg,var(--ink) 0,var(--ink) 1px,transparent 1px,transparent 3px),repeating-linear-gradient(90deg,var(--ink) 0,var(--ink) 2px,transparent 2px,transparent 7px);opacity:.78;}
+  .bp-stub-fare{font-family:var(--mono);font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;}
+  .bp-stamp{position:absolute;top:56px;right:14px;font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:.08em;padding:4px 9px;border-radius:6px;transform:rotate(7deg);}
+  .bpass.low .bp-stamp{border:2px solid var(--brand);color:var(--brand-dark);} .bpass.high .bp-stamp{border:2px solid var(--bad);color:var(--bad);}
+  /* fareboard (scrolly graphic) */
+  .fareboard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:30px 32px;}
+  .fb-h{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:20px;}
+  .fb-row{opacity:0;transform:translateX(-12px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);margin:18px 0;}
+  .fb-row.show{opacity:1;transform:none;}
+  .fb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .fb-name{font-weight:600;font-size:15px;} .fb-fare{font-family:var(--display);font-size:23px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
+  .fb-bar{height:13px;border-radius:99px;background:var(--brand-tint);overflow:hidden;}
+  .fb-bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--brand);transition:width .8s cubic-bezier(.2,.7,.2,1);}
+  .fb-row.flag .fb-fare{color:var(--bad);} .fb-row.flag .fb-bar i{background:var(--bad);}
+  .fb-gap{margin-top:22px;padding-top:20px;border-top:1px solid var(--line);opacity:0;transform:translateY(10px);transition:.55s;text-align:center;}
+  .fb-gap.show{opacity:1;transform:none;}
+  .fb-gap-n{font-family:var(--display);font-size:clamp(40px,6vw,56px);font-weight:700;color:var(--bad);letter-spacing:-.04em;line-height:1;}
+  .fb-gap-l{font-size:14px;color:var(--muted);margin-top:8px;}
+  /* departures board */
+  .controls{max-width:620px;margin:0 auto 18px;}
+  .ctl-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:16px 0 9px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-family:var(--body);font-size:13.5px;font-weight:600;padding:9px 15px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--muted);cursor:pointer;transition:.15s;}
+  .chip:hover{border-color:var(--brand);color:var(--ink);} .chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .toggle{display:inline-flex;background:var(--surface);border:1px solid var(--line-2);border-radius:999px;padding:3px;}
+  .toggle button{font-family:var(--body);border:none;background:none;font-size:13px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;}
+  .toggle button.active{background:var(--brand);color:#fff;}
+  .board{background:#0C1411;border:1px solid #1c2a23;border-radius:18px;box-shadow:var(--shadow);overflow:hidden;}
+  .board-top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #1c2a23;}
+  .board-top .bt-l{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:#5fd0a0;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+  .board-top .bt-dot{width:8px;height:8px;border-radius:50%;background:#5fd0a0;box-shadow:0 0 8px #5fd0a0;}
+  .board-top .bt-r{font-family:var(--mono);font-size:11px;color:#6f8a7e;letter-spacing:.04em;}
+  .board-hd,.brow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:0 20px;}
+  .board-hd{padding-top:12px;padding-bottom:12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#6f8a7e;text-transform:uppercase;border-bottom:1px solid #16221d;}
+  .brow{padding:15px 20px;border-bottom:1px solid #16221d;} .brow:last-child{border-bottom:none;}
+  .brow .b-prov{font-family:var(--mono);font-size:15px;font-weight:500;color:#e8efe9;}
+  .brow .b-meta{font-family:var(--mono);font-size:10.5px;color:#6f8a7e;margin-top:4px;letter-spacing:.05em;text-transform:uppercase;}
+  .brow .b-fare{font-family:var(--mono);font-size:18px;font-weight:700;color:#e8efe9;font-variant-numeric:tabular-nums;}
+  .brow.low{background:rgba(14,158,102,.13);} .brow.low .b-fare{color:#5fd0a0;} .brow.high .b-fare{color:#ff9173;}
+  .b-tag{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;background:var(--brand);color:#fff;padding:2px 7px;border-radius:5px;margin-left:9px;vertical-align:2px;}
+  .farerange{max-width:620px;margin:18px auto 0;position:relative;height:30px;}
+  .fr-track{position:absolute;left:6px;right:6px;top:14px;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--brand),#cdb24e,var(--bad));opacity:.85;}
+  .fr-dot{position:absolute;top:14px;width:14px;height:14px;border-radius:50%;border:3px solid var(--bg);transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(13,20,17,.28);transition:left .6s cubic-bezier(.2,.7,.2,1);}
+  .savings{text-align:center;font-size:14px;color:var(--brand-dark);font-weight:600;margin:14px auto 0;max-width:620px;}
+  @media(max-width:640px){ .passes{grid-template-columns:1fr;} }
+  .imgband{position:relative;color:#fff;background-color:#13191e;padding:132px 24px;text-align:center;background-size:cover;background-position:center;background-repeat:no-repeat;}
+  .imgband::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(8,12,16,.5),rgba(8,12,16,.64));}
+  .imgband .inner{position:relative;max-width:760px;margin:0 auto;}
+  .imgband .pull{color:#fff;max-width:none;} .imgband .pull em{color:#7fe0b4;}
+  .bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;}
+  .scrollcue{margin-top:36px;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:9px;opacity:.75;}
+  .scrollcue svg{animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  .scrolly{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;margin-top:8px;}
+  .scrolly-graphic{position:sticky;top:0;height:100vh;display:flex;align-items:center;}
+  .scrolly-graphic .sg{width:100%;}
+  .scrolly-steps{padding:26vh 0 30vh;}
+  .step{min-height:80vh;display:flex;align-items:center;}
+  .step .sc{border-left:3px solid var(--line-2);padding:6px 0 6px 22px;opacity:.32;transition:opacity .45s,border-color .45s,transform .45s;transform:translateY(8px);}
+  .step.active .sc{opacity:1;border-left-color:var(--brand);transform:none;}
+  .step .sc .k{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-dark);margin-bottom:10px;}
+  .step .sc .t{font-family:var(--display);font-size:clamp(24px,3vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1.18;color:var(--ink);}
+  .step .sc .d{font-size:16px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  @media(max-width:820px){
+    .scrolly{grid-template-columns:1fr;gap:0;}
+    .scrolly-graphic{position:static;height:auto;margin-bottom:8px;}
+    .scrolly-steps{padding:0;}
+    .step{min-height:auto;margin:18px 0;}
+  }
+</style></head><body><div id="progress"></div><div class="topbar"><div class="bar"><a class="brandmark" href="preview-standalone.html"><span class="dot"><svg width="30" height="30" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 3C20 3 27.5 6.8 32.5 7.4C33.7 7.5 34.5 8.4 34.5 9.6V20.5C34.5 28.8 28.2 34.8 20 37.5C11.8 34.8 5.5 28.8 5.5 20.5V9.6C5.5 8.4 6.3 7.5 7.5 7.4C12.5 6.8 20 3 20 3Z" fill="#0E9E66"/><rect x="17.4" y="12.5" width="5.2" height="15" rx="2.2" fill="#fff"/><rect x="12.5" y="17.4" width="15" height="5.2" rx="2.2" fill="#fff"/></svg></span><span>SC Care Price Finder</span></a><span class="spacer"></span><nav class="storynav"><a href="plane-ticket-standalone.html" class="active">The plane ticket</a><a href="no-menu-standalone.html">The hidden menu</a><a href="story-standalone.html">By the numbers</a></nav><a class="navbtn" href="preview-standalone.html">Find prices &#8250;</a></div></div><header class="phero bleed"><div class="inner"><div class="eyebrow"><span class="scbadge"><svg width="34" height="34" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 9 a8 8 0 1 0 7 12 a6 6 0 1 1 -7 -12 z" fill="#fff"/><path d="M26 31 C25.4 26 25.8 22 26 19" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M26 19 C23 16 20 15.5 17.5 16.4" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C24 15.5 22 13.7 19.6 12.8" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C26 15 26.4 12.6 27.4 10.8" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C28.4 15.7 30.4 14 32.6 13.2" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C29 16.2 31.6 15.4 34 15.4" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg></span> South Carolina &middot; the price of care</div><h1>Same trip.<br>Three fares.</h1><p class="sub">Healthcare prices behave like airfare. The person beside you can pay a fraction of your price for the very same scan. Scroll to see it.</p><div class="scrollcue">Scroll <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div></div></header><div class="wrap"><div class="section" style="padding-top:54px"><div class="eyebrow reveal">Same scan, three centers</div><h2 class="reveal">Three South Carolina tickets</h2><div class="scene card reveal"><div class="c-h">One CT scan of the abdomen, three centers near Lexington</div><div class="c-s">Like three travelers in the same row, holding very different tickets.</div><div class="passes" id="passes"></div></div></div><div class="scrolly"><div class="scrolly-graphic"><div class="sg"><div class="fareboard"><div class="fb-h">CT scan of the abdomen, no contrast</div><div id="fb-rows"></div><div class="fb-gap" id="fb-gap"><div class="fb-gap-n" id="fb-gap-n">$0</div><div class="fb-gap-l" id="fb-gap-l"></div></div></div></div></div><div class="scrolly-steps"><div class="step" data-step="0"><div class="sc"><div class="k">The setup</div><div class="t">Three people in the Midlands need the same scan.</div><div class="d">A CT of the abdomen. Same machine type, same medical standards.</div></div></div><div class="step" data-step="1"><div class="sc"><div class="k">Two fares</div><div class="t">Two book at nearby centers and pay almost the same.</div><div class="d">A few dollars apart. So far, so reasonable.</div></div></div><div class="step" data-step="2"><div class="sc"><div class="k">The third</div><div class="t">The third books across town and pays far more.</div><div class="d">Nothing about the scan is different. Only the building.</div></div></div><div class="step" data-step="3"><div class="sc"><div class="k">The gap</div><div class="t">Same scan. Nearly four times the price.</div><div class="d">That gap is the whole story, and it repeats across almost every test.</div></div></div></div></div><section class="imgband bleed" style="background-image:url('https://images.unsplash.com/photo-1762960246763-dcb1e92b0b58?auto=format&amp;fit=crop&amp;w=2000&amp;q=72')"><div class="inner"><p class="pull">On a flight we shrug and blame the timing. For a scan, <em>there is no good reason</em> for the gap at all.</p></div></section><div class="section"><div class="eyebrow reveal">Now it is your trip</div><h2 class="reveal">Check the fare before you fly</h2><div class="prose reveal"><p>Pick your test, your part of the state, and how you pay. The fares sort cheapest first.</p></div><div class="controls reveal"><div class="ctl-label">Your test</div><div class="chips" id="ctl-tests"></div><div class="ctl-label">Your area</div><div class="chips" id="ctl-regs"></div><div class="ctl-label">How you pay</div><div class="toggle" id="ctl-mode"></div></div><div class="board reveal"><div class="board-top"><span class="bt-l"><span class="bt-dot"></span> Today&rsquo;s fares</span><span class="bt-r" id="board-sub"></span></div><div class="board-hd"><span id="board-dish">Provider</span><span>Fare</span></div><div id="board-rows"></div></div><div class="farerange reveal" id="farerange"></div><div class="savings reveal" id="savings"></div></div><div class="section"><div class="eyebrow reveal">What to do</div><h2 class="reveal">Shop it like a plane ticket</h2><div class="takeaways"><div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></div><h3>In-network &ne; cheap</h3><p>It only means the place can bill your plan.</p></div><div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>Ask for the code</h3><p>The CPT code lets you compare like for like.</p></div><div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Compare first</h3><p>The lowest fare meets the same standards.</p></div></div></div><div class="cta reveal"><h2>Find your fare</h2><p>Compare every provider near you, or ask the assistant in plain language.</p><a href="preview-standalone.html">Open the price finder &#8250;</a></div></div><div class="footer">A price transparency prototype &middot; SC sample data, abdomen example from a local fee schedule &middot; Not medical or financial advice &middot; Hero photo by JESHOOTS.COM on Unsplash</div><script>const EMBEDDED_DATA = {"services": [{"id": "mri_knee", "name_en": "Knee MRI", "name_es": "Resonancia de rodilla", "code": "73721", "category": "imaging", "providers": [{"name": "Lexington Imaging Center", "region": "mid", "type": "out", "distance": 4.2, "insurance": 612, "cash": 480}, {"name": "Columbia Open MRI", "region": "mid", "type": "out", "distance": 6.8, "insurance": 735, "cash": 525}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 1980, "cash": 1640}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 2240, "cash": 1875}, {"name": "Greenville Radiology", "region": "up", "type": "out", "distance": 92, "insurance": 640, "cash": 510}, {"name": "Prisma Greenville Memorial", "region": "up", "type": "hosp", "distance": 95, "insurance": 2110, "cash": 1720}, {"name": "Charleston Imaging Partners", "region": "low", "type": "out", "distance": 112, "insurance": 690, "cash": 540}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 2380, "cash": 1990}, {"name": "Florence Diagnostic Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 655, "cash": 500}]}, {"id": "mammo_screen", "name_en": "Screening Mammogram", "name_es": "Mamografía de detección", "code": "77067", "category": "imaging", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 168, "cash": 120}, {"name": "Columbia Breast Center", "region": "mid", "type": "out", "distance": 6.2, "insurance": 195, "cash": 135}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 410, "cash": 320}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 175, "cash": 125}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 455, "cash": 360}, {"name": "Florence Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 182, "cash": 130}]}, {"id": "a1c", "name_en": "A1C Blood Test", "name_es": "Análisis A1C", "code": "83036", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 28, "cash": 18}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 34, "cash": 22}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 96, "cash": 72}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 31, "cash": 20}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 108, "cash": 80}, {"name": "Florence Clinical Lab", "region": "pd", "type": "out", "distance": 78, "insurance": 29, "cash": 19}]}, {"id": "lipid_panel", "name_en": "Lipid Panel", "name_es": "Perfil de lípidos", "code": "80061", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 42, "cash": 29}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 55, "cash": 35}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 145, "cash": 110}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 48, "cash": 32}]}, {"id": "office_specialist", "name_en": "Specialist Office Visit", "name_es": "Consulta con especialista", "code": "99204", "category": "visit", "providers": [{"name": "Midlands Family Care", "region": "mid", "type": "out", "distance": 2.4, "insurance": 185, "cash": 140}, {"name": "Columbia Internal Medicine", "region": "mid", "type": "out", "distance": 5.7, "insurance": 220, "cash": 165}, {"name": "Prisma Specialty Clinic", "region": "mid", "type": "hosp", "distance": 7.0, "insurance": 380, "cash": 300}, {"name": "Greenville Health Associates", "region": "up", "type": "out", "distance": 91, "insurance": 198, "cash": 150}]}, {"id": "colonoscopy", "name_en": "Colonoscopy (Screening)", "name_es": "Colonoscopia (detección)", "code": "45378", "category": "procedure", "providers": [{"name": "Midlands Endoscopy Center", "region": "mid", "type": "out", "distance": 4.8, "insurance": 1150, "cash": 890}, {"name": "Columbia Digestive Health", "region": "mid", "type": "out", "distance": 6.5, "insurance": 1320, "cash": 980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 3240, "cash": 2680}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 3580, "cash": 2950}, {"name": "Greenville Endoscopy", "region": "up", "type": "out", "distance": 92, "insurance": 1210, "cash": 920}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 3720, "cash": 3050}]}, {"id": "carpal_tunnel", "name_en": "Carpal Tunnel Release", "name_es": "Liberación del túnel carpiano", "code": "64721", "category": "procedure", "providers": [{"name": "Midlands Surgery Center", "region": "mid", "type": "out", "distance": 5.2, "insurance": 2450, "cash": 1980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 5680, "cash": 4720}, {"name": "Greenville Surgical", "region": "up", "type": "out", "distance": 92, "insurance": 2610, "cash": 2100}]}, {"id": "prenatal_panel", "name_en": "Prenatal Lab Panel", "name_es": "Panel de laboratorio prenatal", "code": "80055", "category": "pregnancy", "providers": [{"name": "Lexington Women's Health", "region": "mid", "type": "out", "distance": 3.9, "insurance": 240, "cash": 180}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 285, "cash": 210}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 560, "cash": 430}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 255, "cash": 190}]}, {"id": "ultrasound_ob", "name_en": "Obstetric Ultrasound", "name_es": "Ecografía obstétrica", "code": "76805", "category": "pregnancy", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 320, "cash": 240}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 365, "cash": 270}, {"name": "Prisma Women's Hospital", "region": "mid", "type": "hosp", "distance": 7.3, "insurance": 780, "cash": 620}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 845, "cash": 670}]}, {"id": "mri_abdomen_noc", "name_en": "MRI Abdomen, without contrast", "name_es": "Resonancia de abdomen, sin contraste", "code": "74181", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 637.1, "cash": 637.1}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 654.31, "cash": 654.31}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1035.61, "cash": 1035.61}]}, {"id": "ct_abdomen_noc", "name_en": "CT Abdomen, without contrast", "name_es": "Tomografía de abdomen, sin contraste", "code": "74150", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 458.44, "cash": 458.44}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 468.97, "cash": 468.97}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1781.57, "cash": 1781.57}]}]};
+
+const money=n=>"$"+Math.round(n).toLocaleString();
+function byCode(s,c){for(let i=0;i<s.length;i++){if(String(s[i].code)===String(c))return s[i];}return null;}
+function initScrolly(setStep){
+  const steps=[].slice.call(document.querySelectorAll('.scrolly .step'));
+  if(!steps.length)return;
+  if(window.matchMedia("(max-width:820px)").matches){setStep(steps.length-1);steps.forEach(s=>s.classList.add('active'));return;}
+  let cur=-1;
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const i=+e.target.dataset.step;if(i!==cur){cur=i;setStep(i);}steps.forEach(s=>s.classList.toggle('active',+s.dataset.step===i));}});},{rootMargin:"-48% 0px -48% 0px",threshold:0});
+  steps.forEach(s=>io.observe(s));
+  setStep(0);
+}
+function progress(){const pb=document.getElementById("progress");function u(){const h=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(h>0?(scrollY/h)*100:0)+"%";}addEventListener("scroll",u,{passive:true});addEventListener("resize",u);u();}
+
+const REG=[["all","All of SC"],["up","Upstate"],["mid","Midlands"],["pd","Pee Dee"],["low","Lowcountry"]];
+const REGNAME={all:"All of South Carolina",up:"Upstate (Greenville)",mid:"Midlands (Columbia & Lexington)",pd:"Pee Dee (Florence)",low:"Lowcountry (Charleston)"};
+const POP=[["73721","Knee MRI"],["74150","CT abdomen"],["74181","MRI abdomen"],["45378","Colonoscopy"],["77067","Mammogram"],["83036","A1C test"]];
+let STATE={svcs:[],tests:[],code:"73721",region:"all",mode:"insurance"};
+const priceOf=p=>STATE.mode==="cash"?p.cash:p.insurance;
+let FBROWS=[],FBGAP=null;
+
+function renderPasses(){
+  const ct=byCode(STATE.svcs,"74150"); if(!ct) return;
+  const ps=ct.providers.slice().sort((a,b)=>a.insurance-b.insurance);
+  const lo=ps[0].insurance, hi=ps[ps.length-1].insurance;
+  document.getElementById("passes").innerHTML=ps.map((p,i)=>{
+    const c=p.insurance===lo?"low":(p.insurance===hi?"high":"");
+    const stamp=c==="low"?'<div class="bp-stamp">LOWEST FARE</div>':(c==="high"?'<div class="bp-stamp">TOP FARE</div>':'');
+    return '<div class="bpass '+c+'">'+stamp+
+      '<div class="bp-head"><span class="air">'+'<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>'+' BOARDING PASS</span><span class="cls">'+(p.type==="hosp"?"HOSPITAL":"OUTPATIENT")+'</span></div>'+
+      '<div class="bp-body"><div class="bp-label">Scan</div><div class="bp-val">CT Abdomen</div>'+
+      '<div class="bp-label">Center</div><div class="bp-val">'+p.name+'</div>'+
+      '<div class="bp-label">Fare</div><div class="bp-fare num">'+money(p.insurance)+'</div></div>'+
+      '<div class="bp-stub"><div class="bp-bar"></div><div class="bp-stub-fare">CPT 74150</div></div></div>';
+  }).join("");
+}
+function renderFareboard(){
+  const ct=byCode(STATE.svcs,"74150"); if(!ct) return;
+  const ps=ct.providers.slice().sort((a,b)=>a.insurance-b.insurance);
+  const lo=ps[0].insurance, hi=ps[ps.length-1].insurance;
+  document.getElementById("fb-rows").innerHTML=ps.map((p,i)=>{
+    return '<div class="fb-row" data-r="'+i+'"><div class="fb-top"><span class="fb-name">'+p.name+'</span><span class="fb-fare num">'+money(p.insurance)+'</span></div><div class="fb-bar"><i data-w="'+(p.insurance/hi*100)+'"></i></div></div>';
+  }).join("");
+  document.getElementById("fb-gap-n").textContent=money(hi-lo);
+  document.getElementById("fb-gap-l").textContent="more for the same scan \u00B7 nearly "+Math.round(hi/lo)+"x the price";
+  FBROWS=[].slice.call(document.querySelectorAll("#fb-rows .fb-row"));
+  FBGAP=document.getElementById("fb-gap");
+}
+function setStep(i){
+  FBROWS.forEach((r,idx)=>{const on=idx<=i;r.classList.toggle('show',on);const bar=r.querySelector('.fb-bar i');if(on)bar.style.width=bar.dataset.w+'%';});
+  if(FBROWS.length) FBROWS[FBROWS.length-1].classList.toggle('flag', i>=3);
+  if(FBGAP) FBGAP.classList.toggle('show', i>=3);
+}
+function renderControls(){
+  document.getElementById("ctl-tests").innerHTML=STATE.tests.map(t=>'<button class="chip'+(t[0]===STATE.code?' active':'')+'" data-test="'+t[0]+'">'+t[1]+'</button>').join("");
+  document.getElementById("ctl-regs").innerHTML=REG.map(r=>'<button class="chip'+(r[0]===STATE.region?' active':'')+'" data-reg="'+r[0]+'">'+r[1]+'</button>').join("");
+  document.getElementById("ctl-mode").innerHTML='<button class="'+(STATE.mode==="insurance"?"active":"")+'" data-mode="insurance">With insurance</button><button class="'+(STATE.mode==="cash"?"active":"")+'" data-mode="cash">Cash price</button>';
+  document.querySelectorAll('[data-test]').forEach(b=>b.onclick=()=>{STATE.code=b.dataset.test;renderControls();renderBoard();});
+  document.querySelectorAll('[data-reg]').forEach(b=>b.onclick=()=>{STATE.region=b.dataset.reg;renderControls();renderBoard();});
+  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{STATE.mode=b.dataset.mode;renderControls();renderBoard();});
+}
+function renderBoard(){
+  const svc=byCode(STATE.svcs,STATE.code); if(!svc) return;
+  let provs=svc.providers.slice(), note="";
+  if(STATE.region!=="all"){const f=provs.filter(p=>p.region===STATE.region); if(f.length) provs=f; else note="No "+REGNAME[STATE.region].split(" (")[0]+" options for this test, so here is all of South Carolina.";}
+  provs.sort((a,b)=>priceOf(a)-priceOf(b));
+  const min=priceOf(provs[0]), max=priceOf(provs[provs.length-1]);
+  document.getElementById("board-dish").textContent=svc.name_en;
+  document.getElementById("board-sub").textContent=(STATE.mode==="cash"?"CASH":"WITH INSURANCE")+"  \u00B7  "+REGNAME[STATE.region].toUpperCase();
+  document.getElementById("board-rows").innerHTML=provs.map((p,i)=>{
+    const best=i===0&&provs.length>1, high=i===provs.length-1&&provs.length>1;
+    return '<div class="brow'+(best?' low':'')+(high?' high':'')+'"><div><div class="b-prov">'+p.name+(best?'<span class="b-tag">LOWEST FARE</span>':'')+'</div>'+
+      '<div class="b-meta">'+(p.type==="hosp"?"HOSPITAL":"OUTPATIENT")+'  \u00B7  '+p.distance+' MI</div></div><div class="b-fare">'+money(priceOf(p))+'</div></div>';
+  }).join("");
+  const fr=document.getElementById("farerange");
+  if(provs.length>1&&max>min){fr.style.display="block";fr.innerHTML='<div class="fr-track"></div>'+provs.map(p=>{const pct=((priceOf(p)-min)/(max-min))*100;const c=priceOf(p)===min?"var(--good)":(priceOf(p)===max?"var(--bad)":"#bfa233");return '<div class="fr-dot" style="left:'+pct+'%;background:'+c+'"></div>';}).join("");document.getElementById("savings").textContent=note||("Booking the lowest fare saves you "+money(max-min)+" versus the priciest option.");}
+  else {fr.style.display="none";document.getElementById("savings").textContent=note||"Only one option is listed for this choice.";}
+}
+async function init(){
+  try{const data=EMBEDDED_DATA;STATE.svcs=data.services;}
+  catch(e){document.querySelector(".phero .sub").textContent="Open this on the published site to load the data.";progress();return;}
+  STATE.tests=POP.filter(t=>byCode(STATE.svcs,t[0]));
+  if(!byCode(STATE.svcs,STATE.code)&&STATE.tests.length) STATE.code=STATE.tests[0][0];
+  renderPasses(); renderFareboard(); renderControls(); renderBoard(); initScrolly(setStep); progress();
+}
+init();
+</script></body></html>

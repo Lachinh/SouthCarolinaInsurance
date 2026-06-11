@@ -1,2644 +1,517 @@
 {
-  "meta": {
-    "state": "South Carolina",
-    "currency": "USD",
-    "note": "SYNTHETIC sample data for prototype only. Replace with real transparency data."
-  },
   "services": [
     {
       "id": "mri_knee",
-      "code": "CPT 73721",
+      "name_en": "Knee MRI",
+      "name_es": "Resonancia de rodilla",
+      "code": "73721",
       "category": "imaging",
-      "name_en": "Knee MRI (without contrast)",
-      "name_es": "Resonancia de rodilla (sin contraste)",
       "providers": [
         {
-          "name": "Lexington Open Imaging",
+          "name": "Lexington Imaging Center",
           "region": "mid",
-          "type": "out",
-          "distance": 3.4,
-          "insurance": 415,
-          "cash": 670
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 6.2,
-          "insurance": 420,
-          "cash": 555
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 6.8,
-          "insurance": 930,
-          "cash": 1470
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 7.5,
-          "insurance": 635,
-          "cash": 960
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
-          "type": "out",
-          "distance": 6.0,
-          "insurance": 330,
-          "cash": 500
-        },
-        {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 5.6,
-          "insurance": 425,
-          "cash": 640
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 10.3,
-          "insurance": 880,
-          "cash": 1420
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 4.4,
-          "insurance": 920,
-          "cash": 1350
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 2.1,
-          "insurance": 515,
-          "cash": 755
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 5.7,
-          "insurance": 405,
-          "cash": 520
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 7.8,
-          "insurance": 1060,
-          "cash": 1420
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 8.0,
-          "insurance": 1040,
-          "cash": 1510
-        },
-        {
-          "name": "McLeod Imaging – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 525,
-          "cash": 720
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.4,
-          "insurance": 960,
-          "cash": 1280
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.7,
-          "insurance": 725,
-          "cash": 1080
-        }
-      ]
-    },
-    {
-      "id": "mri_brain",
-      "code": "CPT 70551",
-      "category": "imaging",
-      "name_en": "Brain MRI (without contrast)",
-      "name_es": "Resonancia cerebral (sin contraste)",
-      "providers": [
-        {
-          "name": "Lexington Open Imaging",
-          "region": "mid",
-          "type": "out",
-          "distance": 3.4,
-          "insurance": 515,
-          "cash": 805
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 4.1,
-          "insurance": 660,
-          "cash": 965
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 11.4,
-          "insurance": 1030,
-          "cash": 1540
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 4.5,
-          "insurance": 1400,
-          "cash": 1910
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
           "type": "out",
           "distance": 4.2,
-          "insurance": 650,
-          "cash": 1000
+          "insurance": 612,
+          "cash": 480
         },
         {
-          "name": "Upstate Imaging Center",
-          "region": "up",
+          "name": "Columbia Open MRI",
+          "region": "mid",
           "type": "out",
-          "distance": 5.4,
-          "insurance": 810,
-          "cash": 1100
+          "distance": 6.8,
+          "insurance": 735,
+          "cash": 525
         },
         {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 10.0,
-          "insurance": 1500,
-          "cash": 1940
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 5.8,
-          "insurance": 975,
-          "cash": 1560
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 8.1,
-          "insurance": 540,
-          "cash": 820
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 6.1,
-          "insurance": 715,
-          "cash": 1060
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
+          "name": "Prisma Health Baptist",
+          "region": "mid",
           "type": "hosp",
           "distance": 7.1,
-          "insurance": 1330,
-          "cash": 1700
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 8.1,
-          "insurance": 1060,
-          "cash": 1590
-        },
-        {
-          "name": "McLeod Imaging – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 7.8,
-          "insurance": 595,
-          "cash": 815
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 12.0,
-          "insurance": 1120,
-          "cash": 1700
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.4,
-          "insurance": 1140,
-          "cash": 1800
-        }
-      ]
-    },
-    {
-      "id": "ct_abd",
-      "code": "CPT 74178",
-      "category": "imaging",
-      "name_en": "CT scan, abdomen & pelvis",
-      "name_es": "Tomografía de abdomen y pelvis",
-      "providers": [
-        {
-          "name": "Lexington Open Imaging",
-          "region": "mid",
-          "type": "out",
-          "distance": 7.0,
-          "insurance": 490,
-          "cash": 670
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 4.2,
-          "insurance": 490,
-          "cash": 780
+          "insurance": 1980,
+          "cash": 1640
         },
         {
           "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 11.7,
-          "insurance": 1400,
-          "cash": 1950
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.5,
-          "insurance": 1150,
-          "cash": 1850
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
-          "type": "out",
-          "distance": 3.4,
-          "insurance": 620,
-          "cash": 870
-        },
-        {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 4.5,
-          "insurance": 545,
-          "cash": 855
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 10.9,
-          "insurance": 1220,
-          "cash": 1550
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 4.6,
-          "insurance": 995,
-          "cash": 1400
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 3.6,
-          "insurance": 735,
-          "cash": 945
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 2.6,
-          "insurance": 620,
-          "cash": 855
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 10.0,
-          "insurance": 1270,
-          "cash": 1780
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.9,
-          "insurance": 995,
-          "cash": 1600
-        },
-        {
-          "name": "McLeod Imaging – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 7.7,
-          "insurance": 505,
-          "cash": 640
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.5,
-          "insurance": 1240,
-          "cash": 1830
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.8,
-          "insurance": 1470,
-          "cash": 1860
-        }
-      ]
-    },
-    {
-      "id": "ct_head",
-      "code": "CPT 70450",
-      "category": "imaging",
-      "name_en": "CT scan, head (without contrast)",
-      "name_es": "Tomografía de cabeza (sin contraste)",
-      "providers": [
-        {
-          "name": "Lexington Open Imaging",
-          "region": "mid",
-          "type": "out",
-          "distance": 6.8,
-          "insurance": 375,
-          "cash": 590
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 4.8,
-          "insurance": 425,
-          "cash": 665
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 10.9,
-          "insurance": 800,
-          "cash": 1200
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 7.9,
-          "insurance": 740,
-          "cash": 1130
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
-          "type": "out",
-          "distance": 3.7,
-          "insurance": 430,
-          "cash": 655
-        },
-        {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 4.6,
-          "insurance": 530,
-          "cash": 720
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 5.0,
-          "insurance": 755,
-          "cash": 1180
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 5.1,
-          "insurance": 785,
-          "cash": 1080
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 5.9,
-          "insurance": 330,
-          "cash": 525
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 410,
-          "cash": 525
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 9.0,
-          "insurance": 620,
-          "cash": 930
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 11.4,
-          "insurance": 650,
-          "cash": 1010
-        },
-        {
-          "name": "McLeod Imaging – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 7.0,
-          "insurance": 430,
-          "cash": 615
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.9,
-          "insurance": 875,
-          "cash": 1340
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 7.2,
-          "insurance": 785,
-          "cash": 1130
-        }
-      ]
-    },
-    {
-      "id": "us_abd",
-      "code": "CPT 76700",
-      "category": "imaging",
-      "name_en": "Abdominal ultrasound",
-      "name_es": "Ecografía abdominal",
-      "providers": [
-        {
-          "name": "Lexington Open Imaging",
-          "region": "mid",
-          "type": "out",
-          "distance": 8.4,
-          "insurance": 245,
-          "cash": 330
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 3.9,
-          "insurance": 175,
-          "cash": 250
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 4.7,
-          "insurance": 460,
-          "cash": 690
-        },
-        {
-          "name": "Prisma Health Baptist",
           "region": "mid",
           "type": "hosp",
           "distance": 5.5,
-          "insurance": 400,
-          "cash": 575
+          "insurance": 2240,
+          "cash": 1875
         },
         {
-          "name": "Greenville Open Imaging",
+          "name": "Greenville Radiology",
           "region": "up",
           "type": "out",
-          "distance": 4.6,
-          "insurance": 210,
-          "cash": 270
+          "distance": 92,
+          "insurance": 640,
+          "cash": 510
         },
         {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 1.9,
-          "insurance": 250,
-          "cash": 350
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
+          "name": "Prisma Greenville Memorial",
           "region": "up",
           "type": "hosp",
-          "distance": 11.7,
-          "insurance": 565,
-          "cash": 730
+          "distance": 95,
+          "insurance": 2110,
+          "cash": 1720
         },
         {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 4.5,
-          "insurance": 550,
-          "cash": 710
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
+          "name": "Charleston Imaging Partners",
           "region": "low",
           "type": "out",
-          "distance": 4.3,
-          "insurance": 195,
-          "cash": 300
+          "distance": 112,
+          "insurance": 690,
+          "cash": 540
         },
         {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 8.4,
-          "insurance": 170,
-          "cash": 245
-        },
-        {
-          "name": "MUSC Health University",
+          "name": "MUSC Health",
           "region": "low",
           "type": "hosp",
-          "distance": 7.1,
-          "insurance": 400,
-          "cash": 525
+          "distance": 114,
+          "insurance": 2380,
+          "cash": 1990
         },
         {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 12.0,
-          "insurance": 450,
-          "cash": 570
-        },
-        {
-          "name": "McLeod Imaging – Florence",
+          "name": "Florence Diagnostic Imaging",
           "region": "pd",
           "type": "out",
-          "distance": 2.6,
-          "insurance": 230,
-          "cash": 310
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.2,
-          "insurance": 425,
-          "cash": 535
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.5,
-          "insurance": 455,
-          "cash": 605
-        }
-      ]
-    },
-    {
-      "id": "xray_chest",
-      "code": "CPT 71046",
-      "category": "imaging",
-      "name_en": "Chest X-ray (2 views)",
-      "name_es": "Radiografía de tórax (2 vistas)",
-      "providers": [
-        {
-          "name": "Lexington Open Imaging",
-          "region": "mid",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 90,
-          "cash": 125
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 2.1,
-          "insurance": 83,
-          "cash": 105
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.1,
-          "insurance": 150,
-          "cash": 205
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 11.0,
-          "insurance": 135,
-          "cash": 210
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
-          "type": "out",
-          "distance": 5.8,
-          "insurance": 79,
-          "cash": 110
-        },
-        {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 5.2,
-          "insurance": 86,
-          "cash": 120
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 9.4,
-          "insurance": 190,
-          "cash": 290
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 9.0,
-          "insurance": 145,
-          "cash": 210
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 6.8,
-          "insurance": 76,
-          "cash": 110
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 8.5,
-          "insurance": 70,
-          "cash": 100
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 4.9,
-          "insurance": 190,
-          "cash": 295
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 10.9,
-          "insurance": 170,
-          "cash": 215
-        },
-        {
-          "name": "McLeod Imaging – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 2.6,
-          "insurance": 98,
-          "cash": 140
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.5,
-          "insurance": 210,
-          "cash": 280
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.1,
-          "insurance": 220,
-          "cash": 295
+          "distance": 78,
+          "insurance": 655,
+          "cash": 500
         }
       ]
     },
     {
       "id": "mammo_screen",
-      "code": "CPT 77067",
-      "category": "imaging",
-      "name_en": "Screening mammogram",
+      "name_en": "Screening Mammogram",
       "name_es": "Mamografía de detección",
+      "code": "77067",
+      "category": "imaging",
       "providers": [
         {
-          "name": "Lexington Open Imaging",
+          "name": "Lexington Women's Imaging",
           "region": "mid",
           "type": "out",
-          "distance": 6.1,
-          "insurance": 170,
-          "cash": 255
+          "distance": 3.9,
+          "insurance": 168,
+          "cash": 120
         },
         {
-          "name": "Midlands Imaging Center",
+          "name": "Columbia Breast Center",
           "region": "mid",
           "type": "out",
-          "distance": 2.3,
-          "insurance": 170,
-          "cash": 265
+          "distance": 6.2,
+          "insurance": 195,
+          "cash": 135
         },
         {
           "name": "Lexington Medical Center",
           "region": "mid",
           "type": "hosp",
           "distance": 5.5,
-          "insurance": 260,
+          "insurance": 410,
+          "cash": 320
+        },
+        {
+          "name": "Greenville Women's Clinic",
+          "region": "up",
+          "type": "out",
+          "distance": 91,
+          "insurance": 175,
+          "cash": 125
+        },
+        {
+          "name": "MUSC Health",
+          "region": "low",
+          "type": "hosp",
+          "distance": 114,
+          "insurance": 455,
           "cash": 360
         },
         {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 4.8,
-          "insurance": 345,
-          "cash": 460
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
-          "type": "out",
-          "distance": 4.9,
-          "insurance": 160,
-          "cash": 235
-        },
-        {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 2.1,
-          "insurance": 205,
-          "cash": 265
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 3.0,
-          "insurance": 285,
-          "cash": 425
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 5.4,
-          "insurance": 365,
-          "cash": 495
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 4.5,
-          "insurance": 180,
-          "cash": 245
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 7.7,
-          "insurance": 110,
-          "cash": 175
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 10.5,
-          "insurance": 375,
-          "cash": 525
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 4.1,
-          "insurance": 295,
-          "cash": 455
-        },
-        {
-          "name": "McLeod Imaging – Florence",
+          "name": "Florence Imaging",
           "region": "pd",
           "type": "out",
-          "distance": 7.1,
-          "insurance": 160,
-          "cash": 205
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 4.9,
-          "insurance": 405,
-          "cash": 515
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 10.0,
-          "insurance": 250,
-          "cash": 390
-        }
-      ]
-    },
-    {
-      "id": "echo",
-      "code": "CPT 93306",
-      "category": "imaging",
-      "name_en": "Echocardiogram (heart ultrasound)",
-      "name_es": "Ecocardiograma",
-      "providers": [
-        {
-          "name": "Lexington Open Imaging",
-          "region": "mid",
-          "type": "out",
-          "distance": 5.8,
-          "insurance": 595,
-          "cash": 855
-        },
-        {
-          "name": "Midlands Imaging Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 7.6,
-          "insurance": 495,
-          "cash": 625
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 10.9,
-          "insurance": 1350,
-          "cash": 1770
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 6.0,
-          "insurance": 840,
-          "cash": 1120
-        },
-        {
-          "name": "Greenville Open Imaging",
-          "region": "up",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 665,
-          "cash": 870
-        },
-        {
-          "name": "Upstate Imaging Center",
-          "region": "up",
-          "type": "out",
-          "distance": 7.0,
-          "insurance": 555,
-          "cash": 835
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 10.7,
-          "insurance": 915,
-          "cash": 1180
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 7.1,
-          "insurance": 960,
-          "cash": 1250
-        },
-        {
-          "name": "Charleston Diagnostic Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 3.1,
-          "insurance": 515,
-          "cash": 675
-        },
-        {
-          "name": "Lowcountry Imaging",
-          "region": "low",
-          "type": "out",
-          "distance": 3.8,
-          "insurance": 385,
-          "cash": 585
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.5,
-          "insurance": 1340,
-          "cash": 1690
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 11.8,
-          "insurance": 1070,
-          "cash": 1540
-        },
-        {
-          "name": "McLeod Imaging – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 2.3,
-          "insurance": 590,
-          "cash": 745
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 11.7,
-          "insurance": 1150,
-          "cash": 1760
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 6.9,
-          "insurance": 820,
-          "cash": 1280
+          "distance": 78,
+          "insurance": 182,
+          "cash": 130
         }
       ]
     },
     {
       "id": "a1c",
-      "code": "CPT 83036",
+      "name_en": "A1C Blood Test",
+      "name_es": "Análisis A1C",
+      "code": "83036",
       "category": "lab",
-      "name_en": "A1C diabetes blood test",
-      "name_es": "Análisis de sangre A1C (diabetes)",
       "providers": [
         {
-          "name": "Quest Diagnostics – Lexington",
-          "region": "mid",
-          "type": "out",
-          "distance": 5.7,
-          "insurance": 36,
-          "cash": 53
-        },
-        {
-          "name": "Labcorp – Columbia",
-          "region": "mid",
-          "type": "out",
-          "distance": 5.5,
-          "insurance": 34,
-          "cash": 49
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 3.0,
-          "insurance": 115,
-          "cash": 155
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.5,
-          "insurance": 155,
-          "cash": 215
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
-          "region": "up",
-          "type": "out",
-          "distance": 4.0,
-          "insurance": 39,
-          "cash": 53
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 3.8,
-          "insurance": 30,
-          "cash": 41
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 9.5,
-          "insurance": 120,
-          "cash": 160
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 6.7,
-          "insurance": 105,
-          "cash": 155
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 2.4,
-          "insurance": 32,
-          "cash": 47
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 6.2,
-          "insurance": 37,
-          "cash": 47
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.7,
-          "insurance": 155,
-          "cash": 210
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.6,
-          "insurance": 110,
-          "cash": 180
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 6.1,
-          "insurance": 34,
-          "cash": 48
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 3.0,
-          "insurance": 34,
-          "cash": 48
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 10.2,
-          "insurance": 135,
-          "cash": 175
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 7.6,
-          "insurance": 92,
-          "cash": 145
-        }
-      ]
-    },
-    {
-      "id": "lipid",
-      "code": "CPT 80061",
-      "category": "lab",
-      "name_en": "Lipid (cholesterol) panel",
-      "name_es": "Panel de lípidos (colesterol)",
-      "providers": [
-        {
-          "name": "Quest Diagnostics – Lexington",
-          "region": "mid",
-          "type": "out",
-          "distance": 7.2,
-          "insurance": 42,
-          "cash": 61
-        },
-        {
-          "name": "Labcorp – Columbia",
+          "name": "Lexington Lab Services",
           "region": "mid",
           "type": "out",
           "distance": 3.1,
-          "insurance": 47,
-          "cash": 64
+          "insurance": 28,
+          "cash": 18
         },
         {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 5.2,
-          "insurance": 110,
-          "cash": 180
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 3.7,
-          "insurance": 160,
-          "cash": 205
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
-          "region": "up",
-          "type": "out",
-          "distance": 2.9,
-          "insurance": 42,
-          "cash": 57
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 3.2,
-          "insurance": 44,
-          "cash": 63
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 9.8,
-          "insurance": 140,
-          "cash": 225
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 6.8,
-          "insurance": 155,
-          "cash": 240
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 5.1,
-          "insurance": 41,
-          "cash": 52
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 7.4,
-          "insurance": 33,
-          "cash": 49
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 9.0,
-          "insurance": 155,
-          "cash": 205
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 11.6,
-          "insurance": 190,
-          "cash": 265
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 6.5,
-          "insurance": 49,
-          "cash": 67
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 5.3,
-          "insurance": 45,
-          "cash": 59
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 7.3,
-          "insurance": 190,
-          "cash": 255
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.7,
-          "insurance": 120,
-          "cash": 185
-        }
-      ]
-    },
-    {
-      "id": "cmp",
-      "code": "CPT 80053",
-      "category": "lab",
-      "name_en": "Comprehensive metabolic panel",
-      "name_es": "Panel metabólico completo",
-      "providers": [
-        {
-          "name": "Quest Diagnostics – Lexington",
+          "name": "Quest Diagnostics Columbia",
           "region": "mid",
           "type": "out",
-          "distance": 5.9,
-          "insurance": 53,
-          "cash": 75
-        },
-        {
-          "name": "Labcorp – Columbia",
-          "region": "mid",
-          "type": "out",
-          "distance": 3.5,
-          "insurance": 40,
-          "cash": 63
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 7.9,
-          "insurance": 145,
-          "cash": 215
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.2,
-          "insurance": 130,
-          "cash": 200
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
-          "region": "up",
-          "type": "out",
-          "distance": 4.4,
-          "insurance": 46,
-          "cash": 73
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 2.9,
-          "insurance": 48,
-          "cash": 69
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 8.3,
-          "insurance": 185,
-          "cash": 235
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 9.9,
-          "insurance": 210,
-          "cash": 270
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 4.0,
-          "insurance": 41,
-          "cash": 65
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 8.2,
-          "insurance": 58,
-          "cash": 74
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 7.9,
-          "insurance": 175,
-          "cash": 235
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
           "distance": 5.0,
-          "insurance": 170,
-          "cash": 260
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 3.9,
-          "insurance": 42,
-          "cash": 67
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 2.7,
-          "insurance": 50,
-          "cash": 73
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.6,
-          "insurance": 155,
-          "cash": 240
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.1,
-          "insurance": 130,
-          "cash": 185
-        }
-      ]
-    },
-    {
-      "id": "cbc",
-      "code": "CPT 85025",
-      "category": "lab",
-      "name_en": "Complete blood count (CBC)",
-      "name_es": "Hemograma completo",
-      "providers": [
-        {
-          "name": "Quest Diagnostics – Lexington",
-          "region": "mid",
-          "type": "out",
-          "distance": 2.4,
-          "insurance": 27,
-          "cash": 36
-        },
-        {
-          "name": "Labcorp – Columbia",
-          "region": "mid",
-          "type": "out",
-          "distance": 4.2,
-          "insurance": 27,
-          "cash": 43
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.9,
-          "insurance": 91,
-          "cash": 135
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 10.5,
-          "insurance": 110,
-          "cash": 150
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
-          "region": "up",
-          "type": "out",
-          "distance": 1.6,
-          "insurance": 25,
-          "cash": 40
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 3.9,
-          "insurance": 36,
-          "cash": 44
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 8.9,
-          "insurance": 130,
-          "cash": 170
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 4.8,
-          "insurance": 140,
-          "cash": 180
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 2.4,
-          "insurance": 24,
-          "cash": 36
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 3.0,
           "insurance": 34,
-          "cash": 47
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 4.5,
-          "insurance": 130,
-          "cash": 175
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 4.0,
-          "insurance": 125,
-          "cash": 165
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 2.3,
-          "insurance": 39,
-          "cash": 49
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 6.2,
-          "insurance": 25,
-          "cash": 36
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 9.4,
-          "insurance": 135,
-          "cash": 195
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.6,
-          "insurance": 92,
-          "cash": 125
-        }
-      ]
-    },
-    {
-      "id": "tsh",
-      "code": "CPT 84443",
-      "category": "lab",
-      "name_en": "Thyroid test (TSH)",
-      "name_es": "Análisis de tiroides (TSH)",
-      "providers": [
-        {
-          "name": "Quest Diagnostics – Lexington",
-          "region": "mid",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 51,
-          "cash": 67
-        },
-        {
-          "name": "Labcorp – Columbia",
-          "region": "mid",
-          "type": "out",
-          "distance": 8.4,
-          "insurance": 52,
-          "cash": 81
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 6.9,
-          "insurance": 220,
-          "cash": 320
+          "cash": 22
         },
         {
           "name": "Prisma Health Baptist",
           "region": "mid",
           "type": "hosp",
-          "distance": 6.1,
-          "insurance": 185,
-          "cash": 260
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
-          "region": "up",
-          "type": "out",
-          "distance": 2.2,
-          "insurance": 67,
-          "cash": 88
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 7.3,
-          "insurance": 67,
-          "cash": 91
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 9.6,
-          "insurance": 215,
-          "cash": 310
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 10.3,
-          "insurance": 230,
-          "cash": 345
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 4.5,
-          "insurance": 56,
-          "cash": 79
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 56,
-          "cash": 84
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 10.9,
-          "insurance": 210,
-          "cash": 330
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 8.5,
-          "insurance": 170,
-          "cash": 245
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 7.5,
-          "insurance": 47,
-          "cash": 75
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
           "distance": 7.1,
-          "insurance": 45,
-          "cash": 69
+          "insurance": 96,
+          "cash": 72
         },
         {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 9.3,
-          "insurance": 200,
-          "cash": 255
+          "name": "Greenville Lab Partners",
+          "region": "up",
+          "type": "out",
+          "distance": 90,
+          "insurance": 31,
+          "cash": 20
         },
         {
-          "name": "MUSC Health Florence",
-          "region": "pd",
+          "name": "MUSC Health",
+          "region": "low",
           "type": "hosp",
-          "distance": 11.5,
-          "insurance": 155,
-          "cash": 250
+          "distance": 114,
+          "insurance": 108,
+          "cash": 80
+        },
+        {
+          "name": "Florence Clinical Lab",
+          "region": "pd",
+          "type": "out",
+          "distance": 78,
+          "insurance": 29,
+          "cash": 19
         }
       ]
     },
     {
-      "id": "vitd",
-      "code": "CPT 82306",
+      "id": "lipid_panel",
+      "name_en": "Lipid Panel",
+      "name_es": "Perfil de lípidos",
+      "code": "80061",
       "category": "lab",
-      "name_en": "Vitamin D test",
-      "name_es": "Análisis de vitamina D",
       "providers": [
         {
-          "name": "Quest Diagnostics – Lexington",
+          "name": "Lexington Lab Services",
           "region": "mid",
           "type": "out",
-          "distance": 4.9,
-          "insurance": 81,
+          "distance": 3.1,
+          "insurance": 42,
+          "cash": 29
+        },
+        {
+          "name": "Quest Diagnostics Columbia",
+          "region": "mid",
+          "type": "out",
+          "distance": 5.0,
+          "insurance": 55,
+          "cash": 35
+        },
+        {
+          "name": "Lexington Medical Center",
+          "region": "mid",
+          "type": "hosp",
+          "distance": 5.5,
+          "insurance": 145,
           "cash": 110
         },
         {
-          "name": "Labcorp – Columbia",
+          "name": "Greenville Lab Partners",
+          "region": "up",
+          "type": "out",
+          "distance": 90,
+          "insurance": 48,
+          "cash": 32
+        }
+      ]
+    },
+    {
+      "id": "office_specialist",
+      "name_en": "Specialist Office Visit",
+      "name_es": "Consulta con especialista",
+      "code": "99204",
+      "category": "visit",
+      "providers": [
+        {
+          "name": "Midlands Family Care",
           "region": "mid",
           "type": "out",
-          "distance": 6.0,
-          "insurance": 105,
+          "distance": 2.4,
+          "insurance": 185,
           "cash": 140
         },
         {
-          "name": "Lexington Medical Center",
+          "name": "Columbia Internal Medicine",
           "region": "mid",
-          "type": "hosp",
-          "distance": 3.8,
-          "insurance": 345,
-          "cash": 455
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 5.8,
-          "insurance": 290,
-          "cash": 390
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
-          "region": "up",
-          "type": "out",
-          "distance": 5.2,
-          "insurance": 92,
-          "cash": 130
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 3.8,
-          "insurance": 93,
-          "cash": 125
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 5.3,
-          "insurance": 335,
-          "cash": 500
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 4.1,
-          "insurance": 240,
-          "cash": 365
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 2.8,
-          "insurance": 97,
-          "cash": 130
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 6.6,
-          "insurance": 81,
-          "cash": 115
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.5,
-          "insurance": 405,
-          "cash": 565
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.0,
-          "insurance": 235,
-          "cash": 360
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 5.2,
-          "insurance": 70,
-          "cash": 110
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 5.4,
-          "insurance": 93,
-          "cash": 115
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 10.8,
-          "insurance": 320,
-          "cash": 500
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.2,
-          "insurance": 350,
-          "cash": 455
-        }
-      ]
-    },
-    {
-      "id": "visit_new",
-      "code": "CPT 99204",
-      "category": "visit",
-      "name_en": "Office visit, new patient",
-      "name_es": "Consulta, paciente nuevo",
-      "providers": [
-        {
-          "name": "Midlands Family Medicine",
-          "region": "mid",
-          "type": "out",
-          "distance": 2.8,
-          "insurance": 135,
-          "cash": 195
-        },
-        {
-          "name": "Columbia Primary Care",
-          "region": "mid",
-          "type": "out",
-          "distance": 4.8,
-          "insurance": 125,
-          "cash": 160
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 3.7,
-          "insurance": 305,
-          "cash": 445
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 4.3,
-          "insurance": 255,
-          "cash": 410
-        },
-        {
-          "name": "Upstate Family Medicine",
-          "region": "up",
-          "type": "out",
-          "distance": 8.5,
-          "insurance": 135,
-          "cash": 200
-        },
-        {
-          "name": "Greenville Primary Care",
-          "region": "up",
           "type": "out",
           "distance": 5.7,
-          "insurance": 125,
+          "insurance": 220,
           "cash": 165
         },
         {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 7.7,
-          "insurance": 290,
-          "cash": 440
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 10.7,
-          "insurance": 265,
-          "cash": 375
-        },
-        {
-          "name": "Charleston Family Medicine",
-          "region": "low",
-          "type": "out",
-          "distance": 5.8,
-          "insurance": 160,
-          "cash": 235
-        },
-        {
-          "name": "Mt. Pleasant Primary Care",
-          "region": "low",
-          "type": "out",
-          "distance": 8.1,
-          "insurance": 155,
-          "cash": 205
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 8.9,
-          "insurance": 220,
-          "cash": 330
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 3.7,
-          "insurance": 210,
-          "cash": 325
-        },
-        {
-          "name": "Pee Dee Family Medicine",
-          "region": "pd",
-          "type": "out",
-          "distance": 5.7,
-          "insurance": 110,
-          "cash": 155
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 9.4,
-          "insurance": 230,
-          "cash": 345
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 9.2,
-          "insurance": 295,
-          "cash": 420
-        }
-      ]
-    },
-    {
-      "id": "visit_est",
-      "code": "CPT 99213",
-      "category": "visit",
-      "name_en": "Office visit, established patient",
-      "name_es": "Consulta, paciente establecido",
-      "providers": [
-        {
-          "name": "Midlands Family Medicine",
-          "region": "mid",
-          "type": "out",
-          "distance": 5.9,
-          "insurance": 95,
-          "cash": 125
-        },
-        {
-          "name": "Columbia Primary Care",
-          "region": "mid",
-          "type": "out",
-          "distance": 4.5,
-          "insurance": 88,
-          "cash": 110
-        },
-        {
-          "name": "Lexington Medical Center",
+          "name": "Prisma Specialty Clinic",
           "region": "mid",
           "type": "hosp",
-          "distance": 11.2,
-          "insurance": 155,
-          "cash": 210
+          "distance": 7.0,
+          "insurance": 380,
+          "cash": 300
         },
         {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 4.5,
-          "insurance": 150,
-          "cash": 240
-        },
-        {
-          "name": "Upstate Family Medicine",
+          "name": "Greenville Health Associates",
           "region": "up",
           "type": "out",
-          "distance": 5.5,
-          "insurance": 73,
-          "cash": 96
-        },
-        {
-          "name": "Greenville Primary Care",
-          "region": "up",
-          "type": "out",
-          "distance": 6.3,
-          "insurance": 61,
-          "cash": 95
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 7.5,
-          "insurance": 180,
-          "cash": 225
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 3.4,
-          "insurance": 130,
-          "cash": 205
-        },
-        {
-          "name": "Charleston Family Medicine",
-          "region": "low",
-          "type": "out",
-          "distance": 3.3,
-          "insurance": 69,
-          "cash": 100
-        },
-        {
-          "name": "Mt. Pleasant Primary Care",
-          "region": "low",
-          "type": "out",
-          "distance": 7.4,
-          "insurance": 69,
-          "cash": 87
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 12.0,
-          "insurance": 170,
-          "cash": 215
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 3.4,
-          "insurance": 150,
-          "cash": 225
-        },
-        {
-          "name": "Pee Dee Family Medicine",
-          "region": "pd",
-          "type": "out",
-          "distance": 6.1,
-          "insurance": 82,
-          "cash": 115
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.3,
-          "insurance": 160,
-          "cash": 245
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 3.8,
-          "insurance": 155,
-          "cash": 220
+          "distance": 91,
+          "insurance": 198,
+          "cash": 150
         }
       ]
     },
     {
       "id": "colonoscopy",
-      "code": "CPT 45378",
+      "name_en": "Colonoscopy (Screening)",
+      "name_es": "Colonoscopia (detección)",
+      "code": "45378",
       "category": "procedure",
-      "name_en": "Screening colonoscopy",
-      "name_es": "Colonoscopia de detección",
       "providers": [
         {
-          "name": "Columbia Endoscopy Center",
+          "name": "Midlands Endoscopy Center",
           "region": "mid",
           "type": "out",
-          "distance": 6.2,
-          "insurance": 980,
-          "cash": 1440
+          "distance": 4.8,
+          "insurance": 1150,
+          "cash": 890
         },
         {
-          "name": "Lexington Medical Center",
+          "name": "Columbia Digestive Health",
           "region": "mid",
-          "type": "hosp",
-          "distance": 9.2,
-          "insurance": 2400,
-          "cash": 3540
+          "type": "out",
+          "distance": 6.5,
+          "insurance": 1320,
+          "cash": 980
         },
         {
           "name": "Prisma Health Baptist",
           "region": "mid",
-          "type": "hosp",
-          "distance": 10.3,
-          "insurance": 2150,
-          "cash": 2720
-        },
-        {
-          "name": "Upstate GI Center",
-          "region": "up",
-          "type": "out",
-          "distance": 3.7,
-          "insurance": 1100,
-          "cash": 1570
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 6.6,
-          "insurance": 2200,
-          "cash": 2770
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 8.9,
-          "insurance": 2430,
-          "cash": 3050
-        },
-        {
-          "name": "Charleston Endoscopy Center",
-          "region": "low",
-          "type": "out",
-          "distance": 2.8,
-          "insurance": 1090,
-          "cash": 1570
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 8.6,
-          "insurance": 2140,
-          "cash": 2830
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 7.9,
-          "insurance": 2230,
-          "cash": 3400
-        },
-        {
-          "name": "McLeod Endoscopy",
-          "region": "pd",
-          "type": "out",
-          "distance": 6.4,
-          "insurance": 1270,
-          "cash": 1820
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.5,
-          "insurance": 1970,
-          "cash": 2480
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.0,
-          "insurance": 1720,
-          "cash": 2650
-        }
-      ]
-    },
-    {
-      "id": "egd",
-      "code": "CPT 43239",
-      "category": "procedure",
-      "name_en": "Upper endoscopy (EGD)",
-      "name_es": "Endoscopia digestiva alta",
-      "providers": [
-        {
-          "name": "Columbia Endoscopy Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 8.4,
-          "insurance": 865,
-          "cash": 1360
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 4.1,
-          "insurance": 2200,
-          "cash": 3120
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.4,
-          "insurance": 2150,
-          "cash": 3020
-        },
-        {
-          "name": "Upstate GI Center",
-          "region": "up",
-          "type": "out",
-          "distance": 7.3,
-          "insurance": 895,
-          "cash": 1340
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 8.0,
-          "insurance": 2130,
-          "cash": 3210
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 7.6,
-          "insurance": 1940,
-          "cash": 2470
-        },
-        {
-          "name": "Charleston Endoscopy Center",
-          "region": "low",
-          "type": "out",
-          "distance": 3.4,
-          "insurance": 1200,
-          "cash": 1550
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 11.4,
-          "insurance": 2060,
-          "cash": 2970
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.5,
-          "insurance": 2010,
-          "cash": 2620
-        },
-        {
-          "name": "McLeod Endoscopy",
-          "region": "pd",
-          "type": "out",
-          "distance": 8.5,
-          "insurance": 880,
-          "cash": 1220
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 7.8,
-          "insurance": 1680,
-          "cash": 2600
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 7.9,
-          "insurance": 1740,
-          "cash": 2420
-        }
-      ]
-    },
-    {
-      "id": "cataract",
-      "code": "CPT 66984",
-      "category": "procedure",
-      "name_en": "Cataract surgery (one eye)",
-      "name_es": "Cirugía de cataratas (un ojo)",
-      "providers": [
-        {
-          "name": "Lexington Surgery Center",
-          "region": "mid",
-          "type": "out",
-          "distance": 2.8,
-          "insurance": 1630,
-          "cash": 2400
-        },
-        {
-          "name": "Lexington Medical Center",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 5.1,
-          "insurance": 3800,
-          "cash": 5260
-        },
-        {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 9.7,
-          "insurance": 3420,
-          "cash": 5440
-        },
-        {
-          "name": "Greenville Surgery Center",
-          "region": "up",
-          "type": "out",
-          "distance": 4.2,
-          "insurance": 2040,
-          "cash": 2670
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 11.8,
-          "insurance": 3980,
-          "cash": 5180
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 7.5,
-          "insurance": 3010,
-          "cash": 4800
-        },
-        {
-          "name": "Lowcountry Surgery Center",
-          "region": "low",
-          "type": "out",
-          "distance": 7.6,
-          "insurance": 1980,
-          "cash": 2540
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
           "type": "hosp",
           "distance": 7.1,
-          "insurance": 3340,
-          "cash": 4680
+          "insurance": 3240,
+          "cash": 2680
         },
         {
-          "name": "Roper St. Francis",
+          "name": "Lexington Medical Center",
+          "region": "mid",
+          "type": "hosp",
+          "distance": 5.5,
+          "insurance": 3580,
+          "cash": 2950
+        },
+        {
+          "name": "Greenville Endoscopy",
+          "region": "up",
+          "type": "out",
+          "distance": 92,
+          "insurance": 1210,
+          "cash": 920
+        },
+        {
+          "name": "MUSC Health",
           "region": "low",
           "type": "hosp",
-          "distance": 8.9,
-          "insurance": 3690,
-          "cash": 5320
-        },
+          "distance": 114,
+          "insurance": 3720,
+          "cash": 3050
+        }
+      ]
+    },
+    {
+      "id": "carpal_tunnel",
+      "name_en": "Carpal Tunnel Release",
+      "name_es": "Liberación del túnel carpiano",
+      "code": "64721",
+      "category": "procedure",
+      "providers": [
         {
-          "name": "Pee Dee Surgery Center",
-          "region": "pd",
+          "name": "Midlands Surgery Center",
+          "region": "mid",
           "type": "out",
-          "distance": 8.3,
-          "insurance": 1470,
-          "cash": 2090
+          "distance": 5.2,
+          "insurance": 2450,
+          "cash": 1980
         },
         {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
+          "name": "Prisma Health Baptist",
+          "region": "mid",
           "type": "hosp",
-          "distance": 8.8,
-          "insurance": 3310,
-          "cash": 4450
+          "distance": 7.1,
+          "insurance": 5680,
+          "cash": 4720
         },
         {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 10.7,
-          "insurance": 4340,
-          "cash": 5610
+          "name": "Greenville Surgical",
+          "region": "up",
+          "type": "out",
+          "distance": 92,
+          "insurance": 2610,
+          "cash": 2100
         }
       ]
     },
     {
       "id": "prenatal_panel",
-      "code": "CPT 80055",
-      "category": "pregnancy",
-      "name_en": "Prenatal lab panel",
+      "name_en": "Prenatal Lab Panel",
       "name_es": "Panel de laboratorio prenatal",
+      "code": "80055",
+      "category": "pregnancy",
       "providers": [
         {
-          "name": "Quest Diagnostics – Lexington",
+          "name": "Lexington Women's Health",
           "region": "mid",
           "type": "out",
-          "distance": 6.5,
-          "insurance": 135,
-          "cash": 195
+          "distance": 3.9,
+          "insurance": 240,
+          "cash": 180
         },
         {
-          "name": "Labcorp – Columbia",
+          "name": "Columbia OB/GYN",
           "region": "mid",
           "type": "out",
-          "distance": 1.8,
-          "insurance": 175,
-          "cash": 225
+          "distance": 6.2,
+          "insurance": 285,
+          "cash": 210
         },
         {
           "name": "Lexington Medical Center",
           "region": "mid",
           "type": "hosp",
-          "distance": 11.3,
-          "insurance": 420,
-          "cash": 570
+          "distance": 5.5,
+          "insurance": 560,
+          "cash": 430
         },
         {
-          "name": "Prisma Health Baptist",
-          "region": "mid",
-          "type": "hosp",
-          "distance": 6.9,
-          "insurance": 695,
-          "cash": 925
-        },
-        {
-          "name": "Quest Diagnostics – Greenville",
+          "name": "Greenville Women's Clinic",
           "region": "up",
           "type": "out",
-          "distance": 7.6,
-          "insurance": 130,
-          "cash": 175
-        },
-        {
-          "name": "Labcorp – Spartanburg",
-          "region": "up",
-          "type": "out",
-          "distance": 7.8,
-          "insurance": 150,
-          "cash": 200
-        },
-        {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 5.6,
-          "insurance": 430,
-          "cash": 565
-        },
-        {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 7.8,
-          "insurance": 445,
-          "cash": 690
-        },
-        {
-          "name": "Quest Diagnostics – Charleston",
-          "region": "low",
-          "type": "out",
-          "distance": 2.7,
-          "insurance": 160,
-          "cash": 210
-        },
-        {
-          "name": "Labcorp – Mt. Pleasant",
-          "region": "low",
-          "type": "out",
-          "distance": 5.8,
-          "insurance": 135,
-          "cash": 175
-        },
-        {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 4.3,
-          "insurance": 500,
-          "cash": 635
-        },
-        {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 5.3,
-          "insurance": 480,
-          "cash": 720
-        },
-        {
-          "name": "Labcorp – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 7.8,
-          "insurance": 130,
-          "cash": 170
-        },
-        {
-          "name": "Quest Diagnostics – Florence",
-          "region": "pd",
-          "type": "out",
-          "distance": 4.6,
-          "insurance": 140,
-          "cash": 220
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.8,
-          "insurance": 490,
-          "cash": 675
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 10.6,
-          "insurance": 470,
-          "cash": 705
+          "distance": 91,
+          "insurance": 255,
+          "cash": 190
         }
       ]
     },
     {
-      "id": "delivery",
-      "code": "CPT 59400",
+      "id": "ultrasound_ob",
+      "name_en": "Obstetric Ultrasound",
+      "name_es": "Ecografía obstétrica",
+      "code": "76805",
       "category": "pregnancy",
-      "name_en": "Vaginal delivery (routine)",
-      "name_es": "Parto vaginal (de rutina)",
       "providers": [
         {
-          "name": "Lexington Medical Center",
+          "name": "Lexington Women's Imaging",
+          "region": "mid",
+          "type": "out",
+          "distance": 3.9,
+          "insurance": 320,
+          "cash": 240
+        },
+        {
+          "name": "Columbia OB/GYN",
+          "region": "mid",
+          "type": "out",
+          "distance": 6.2,
+          "insurance": 365,
+          "cash": 270
+        },
+        {
+          "name": "Prisma Women's Hospital",
           "region": "mid",
           "type": "hosp",
           "distance": 7.3,
-          "insurance": 7320,
-          "cash": 10620
+          "insurance": 780,
+          "cash": 620
         },
         {
-          "name": "Prisma Health Baptist",
+          "name": "MUSC Health",
+          "region": "low",
+          "type": "hosp",
+          "distance": 114,
+          "insurance": 845,
+          "cash": 670
+        }
+      ]
+    },
+    {
+      "id": "mri_abdomen_noc",
+      "name_en": "MRI Abdomen, without contrast",
+      "name_es": "Resonancia de abdomen, sin contraste",
+      "code": "74181",
+      "category": "imaging",
+      "providers": [
+        {
+          "name": "American Health Imaging",
           "region": "mid",
-          "type": "hosp",
-          "distance": 8.2,
-          "insurance": 7840,
-          "cash": 10840
+          "type": "out",
+          "distance": 8.0,
+          "insurance": 637.1,
+          "cash": 637.1
         },
         {
-          "name": "Prisma Health Greenville Memorial",
-          "region": "up",
-          "type": "hosp",
-          "distance": 11.8,
-          "insurance": 10270,
-          "cash": 15260
+          "name": "Palmetto Imaging",
+          "region": "mid",
+          "type": "out",
+          "distance": 7.0,
+          "insurance": 654.31,
+          "cash": 654.31
         },
         {
-          "name": "Spartanburg Regional",
-          "region": "up",
-          "type": "hosp",
-          "distance": 8.1,
-          "insurance": 8900,
-          "cash": 13300
+          "name": "Lexington Saluda Point",
+          "region": "mid",
+          "type": "out",
+          "distance": 3.0,
+          "insurance": 1035.61,
+          "cash": 1035.61
+        }
+      ]
+    },
+    {
+      "id": "ct_abdomen_noc",
+      "name_en": "CT Abdomen, without contrast",
+      "name_es": "Tomografía de abdomen, sin contraste",
+      "code": "74150",
+      "category": "imaging",
+      "providers": [
+        {
+          "name": "American Health Imaging",
+          "region": "mid",
+          "type": "out",
+          "distance": 8.0,
+          "insurance": 458.44,
+          "cash": 458.44
         },
         {
-          "name": "MUSC Health University",
-          "region": "low",
-          "type": "hosp",
-          "distance": 3.4,
-          "insurance": 10150,
-          "cash": 13460
+          "name": "Palmetto Imaging",
+          "region": "mid",
+          "type": "out",
+          "distance": 7.0,
+          "insurance": 468.97,
+          "cash": 468.97
         },
         {
-          "name": "Roper St. Francis",
-          "region": "low",
-          "type": "hosp",
-          "distance": 11.1,
-          "insurance": 9220,
-          "cash": 13000
-        },
-        {
-          "name": "McLeod Regional Medical Center",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.5,
-          "insurance": 8500,
-          "cash": 11120
-        },
-        {
-          "name": "MUSC Health Florence",
-          "region": "pd",
-          "type": "hosp",
-          "distance": 8.6,
-          "insurance": 8460,
-          "cash": 11510
+          "name": "Lexington Saluda Point",
+          "region": "mid",
+          "type": "out",
+          "distance": 3.0,
+          "insurance": 1781.57,
+          "cash": 1781.57
         }
       ]
     }

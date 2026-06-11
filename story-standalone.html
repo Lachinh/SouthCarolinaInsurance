@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why the same test costs so much more across South Carolina | SC Care Price Finder</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M20%203C20%203%2027.5%206.8%2032.5%207.4C33.7%207.5%2034.5%208.4%2034.5%209.6V20.5C34.5%2028.8%2028.2%2034.8%2020%2037.5C11.8%2034.8%205.5%2028.8%205.5%2020.5V9.6C5.5%208.4%206.3%207.5%207.5%207.4C12.5%206.8%2020%203%2020%203Z%22%20fill%3D%22%230E9E66%22/%3E%3Crect%20x%3D%2217.4%22%20y%3D%2212.5%22%20width%3D%225.2%22%20height%3D%2215%22%20rx%3D%222.2%22%20fill%3D%22%23fff%22/%3E%3Crect%20x%3D%2212.5%22%20y%3D%2217.4%22%20width%3D%2215%22%20height%3D%225.2%22%20rx%3D%222.2%22%20fill%3D%22%23fff%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F8F6;--surface:#FFFFFF;--surface-2:#FBFBF9;
+    --ink:#15201A;--muted:#5A655E;--faint:#8A958E;
+    --brand:#10A06A;--brand-dark:#0A7048;--brand-soft:#E5F4EC;--brand-tint:#EFF8F2;
+    --accent:#E76A47;--accent-soft:#FCEEE7;--accent-dark:#A8462A;--good:#10A06A;--bad:#E05A3E;
+    --indigo:#1C4E86;
+    --line:rgba(21,32,26,0.08);--line-2:rgba(21,32,26,0.14);
+    --radius:20px;--radius-lg:26px;--radius-sm:13px;
+    --shadow-sm:0 1px 2px rgba(21,32,26,.04);
+    --shadow:0 1px 3px rgba(21,32,26,.05),0 16px 40px -26px rgba(21,32,26,.30);
+    --display:"Plus Jakarta Sans",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;letter-spacing:-0.03em;}
+  a{color:inherit;}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+  .prose{max-width:680px;}
+  :focus-visible{outline:2.5px solid var(--brand-dark);outline-offset:3px;border-radius:8px;}
+
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--brand);z-index:70;transition:width .08s linear;}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(247,248,246,0.8);backdrop-filter:saturate(150%) blur(16px);-webkit-backdrop-filter:saturate(150%) blur(16px);border-bottom:1px solid var(--line);}
+  .topbar .bar{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:14px 24px;}
+  .brandmark{display:flex;align-items:center;gap:11px;font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-0.03em;color:var(--ink);text-decoration:none;}
+  .brandmark .dot{width:32px;height:32px;display:flex;}
+  .spacer{flex:1;}
+  .navbtn{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:11px 18px;border-radius:12px;transition:.18s;}
+  .navbtn:hover{background:var(--brand-dark);transform:translateY(-1px);}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--brand-dark);letter-spacing:0.13em;text-transform:uppercase;}
+  .scbadge{width:34px;height:34px;border-radius:50%;background:var(--indigo);display:inline-flex;flex-shrink:0;}
+  .hero{padding:64px 0 8px;text-align:center;}
+  .hero .eyebrow{margin-bottom:22px;}
+  .hero h1{font-size:clamp(38px,6vw,64px);font-weight:700;letter-spacing:-0.045em;}
+  .hero p.sub{font-size:20px;color:var(--muted);max-width:610px;margin:20px auto 0;line-height:1.5;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.shown{opacity:1;transform:none;}
+
+  .herocard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:34px 38px;margin:46px 0 0;text-align:left;}
+  .hc-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
+  .hc-title{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-0.02em;}
+  .hc-code{font-size:12px;font-weight:600;color:#fff;background:var(--ink);padding:3px 9px;border-radius:7px;}
+  .hc-sub{font-size:14px;color:var(--muted);margin-bottom:30px;}
+  .range{position:relative;height:18px;margin:46px 8px 12px;}
+  .range .track{position:absolute;left:0;right:0;top:50%;height:7px;border-radius:99px;background:linear-gradient(90deg,var(--brand) 0%,#cdb24e 55%,var(--bad) 100%);transform:translateY(-50%);opacity:.92;}
+  .range .pt{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;border:3.5px solid var(--surface);transform:translate(-50%,-50%);box-shadow:0 1px 5px rgba(21,32,26,.3);}
+  .range .pt.hi{transition:left 1s cubic-bezier(.3,.8,.3,1);}
+  .range .pt.lo{background:var(--good);} .range .pt.mid{background:#bfa233;width:13px;height:13px;} .range .pt.hi{background:var(--bad);}
+  .range .lab{position:absolute;font-size:12.5px;font-weight:700;white-space:nowrap;}
+  .range .lab .pv{font-family:var(--display);font-size:18px;letter-spacing:-0.02em;}
+  .range .lab.lo{transform:translateX(-50%);top:-42px;text-align:center;color:var(--brand-dark);}
+  .range .lab.hi{transform:translateX(-50%);top:-42px;text-align:center;color:var(--bad);transition:left 1s cubic-bezier(.3,.8,.3,1);}
+  .range .lab .nm{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:1px;}
+  .range .lab.mid{transform:translateX(-50%);top:22px;color:var(--muted);font-size:11px;}
+  .hc-foot{display:flex;gap:14px;align-items:center;margin-top:36px;padding-top:22px;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .hc-gap{display:flex;align-items:baseline;gap:9px;}
+  .hc-gap .big{font-family:var(--display);font-size:40px;font-weight:700;color:var(--bad);letter-spacing:-0.04em;}
+  .hc-gap .lbl{font-size:14px;color:var(--muted);}
+  .hc-mult{margin-left:auto;font-size:14px;color:var(--muted);}
+  .hc-mult b{font-family:var(--display);font-size:21px;color:var(--ink);letter-spacing:-0.02em;}
+
+  .anchor{background:var(--indigo);border-radius:var(--radius-lg);padding:38px 40px;margin:22px 0 0;color:#fff;}
+  .anchor .aq{font-family:var(--display);font-weight:700;font-size:clamp(22px,3vw,30px);letter-spacing:-0.03em;margin-bottom:8px;}
+  .anchor .aq span{color:#9fd8c0;}
+  .anchor p{color:rgba(255,255,255,.72);font-size:15.5px;margin:0 0 24px;max-width:560px;}
+  .dots{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;max-width:620px;}
+  .dots i{width:14px;height:14px;border-radius:50%;background:#5fd0a0;opacity:0;transform:scale(.3);transition:opacity .4s,transform .4s;}
+  .dotcap{font-size:14px;color:#fff;font-weight:600;}
+  .dotcap b{font-family:var(--display);font-size:18px;}
+  .aor{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);font-size:15.5px;color:rgba(255,255,255,.82);}
+  .aor b{color:#fff;font-family:var(--display);font-size:20px;letter-spacing:-0.02em;}
+
+  .section{padding:60px 0 0;}
+  .section h2{font-size:clamp(28px,4vw,40px);letter-spacing:-0.04em;margin-bottom:16px;}
+  .section .eyebrow{margin-bottom:14px;}
+  .section p{color:var(--muted);font-size:17.5px;}
+  .section p strong{color:var(--ink);font-weight:600;}
+  .chartcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:30px 32px;margin-top:30px;}
+  .ct-h{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:4px;letter-spacing:-0.02em;}
+  .ct-s{font-size:13.5px;color:var(--faint);margin-bottom:24px;}
+
+  .grp-row{margin-bottom:20px;}
+  .grp-name{font-weight:600;font-size:14.5px;margin-bottom:9px;}
+  .grp-bar{display:flex;align-items:center;gap:11px;margin:6px 0;}
+  .grp-tag{width:78px;font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0;}
+  .grp-track{flex:1;}
+  .grp-fill{height:26px;border-radius:8px;min-width:42px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;width:0;transition:width .9s cubic-bezier(.2,.7,.2,1);}
+  .grp-fill.mri{background:var(--brand);} .grp-fill.ct{background:var(--ink);}
+  .legend{display:flex;gap:18px;margin-top:6px;font-size:13px;color:var(--muted);}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px;}
+
+  .rng-row{display:grid;grid-template-columns:148px 1fr;gap:16px;align-items:center;padding:13px 0;border-top:1px solid var(--line);}
+  .rng-row:first-of-type{border-top:none;}
+  .rng-place{line-height:1.25;}
+  .rng-place b{font-size:14.5px;font-weight:700;}
+  .rng-place span{display:block;font-size:12px;color:var(--faint);font-weight:600;}
+  .rng-track{position:relative;height:30px;}
+  .rng-base{position:absolute;left:0;right:0;top:50%;height:2px;background:var(--line);transform:translateY(-50%);}
+  .rng-line{position:absolute;top:50%;height:6px;border-radius:99px;background:var(--brand);transform:translateY(-50%);width:0;transition:width .9s cubic-bezier(.2,.7,.2,1);}
+  .rng-dot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;border:2.5px solid var(--surface);transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(21,32,26,.22);}
+  .rng-dot.lo{background:var(--good);} .rng-dot.hi{background:var(--bad);transition:left .9s cubic-bezier(.2,.7,.2,1);}
+  .rng-v{position:absolute;top:50%;font-size:11.5px;font-weight:700;transform:translateY(-50%);font-variant-numeric:tabular-nums;}
+  .rng-v.lo{color:var(--brand-dark);right:auto;}
+  .rng-v.hi{color:var(--bad);transition:left .9s cubic-bezier(.2,.7,.2,1);}
+
+  .dumb-row{display:grid;grid-template-columns:170px 66px 1fr 74px;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--line);}
+  .dumb-row:first-of-type{border-top:none;}
+  .dumb-name{font-weight:600;font-size:14px;}
+  .dumb-name .flag{display:inline-block;margin-top:4px;font-size:10.5px;font-weight:700;color:var(--bad);background:var(--accent-soft);padding:2px 7px;border-radius:6px;letter-spacing:.02em;text-transform:uppercase;}
+  .dumb-lo{font-size:13px;font-weight:700;color:var(--brand-dark);text-align:right;font-variant-numeric:tabular-nums;}
+  .dumb-hi{font-size:13px;font-weight:700;color:var(--bad);text-align:left;font-variant-numeric:tabular-nums;}
+  .dumb-track{position:relative;height:18px;}
+  .dumb-base{position:absolute;left:0;right:0;top:50%;height:2px;background:var(--line);transform:translateY(-50%);}
+  .dumb-line{position:absolute;top:50%;height:5px;border-radius:99px;background:var(--brand);transform:translateY(-50%);width:0;transition:width .9s cubic-bezier(.2,.7,.2,1);}
+  .dumb-dot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;border:2.5px solid var(--surface);transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(21,32,26,.22);}
+  .dumb-dot.lo{background:var(--good);} .dumb-dot.hi{background:var(--bad);transition:left .9s cubic-bezier(.2,.7,.2,1);}
+  .dumb-axis{display:grid;grid-template-columns:170px 66px 1fr 74px;gap:14px;margin-top:12px;}
+  .dumb-axislbls{grid-column:3;display:flex;justify-content:space-between;font-size:11px;color:var(--faint);font-weight:600;}
+
+  .ovh-row{padding:16px 0;border-top:1px solid var(--line);}
+  .ovh-row:first-of-type{border-top:none;}
+  .ovh-name{font-weight:600;font-size:15px;margin-bottom:11px;}
+  .ovh-bar{display:flex;align-items:center;gap:11px;margin:6px 0;}
+  .ovh-tag{width:96px;font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0;}
+  .ovh-track{flex:1;}
+  .ovh-fill{height:26px;border-radius:8px;min-width:44px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;width:0;transition:width .9s cubic-bezier(.2,.7,.2,1);}
+  .ovh-fill.out{background:var(--brand);} .ovh-fill.hosp{background:var(--accent);}
+  .ovh-mult{font-size:13px;color:var(--accent-dark);font-weight:600;margin-top:7px;}
+
+  .takeaways{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:30px;}
+  .tk{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+  .tk .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-tint);color:var(--brand-dark);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+  .tk h3{font-family:var(--body);font-weight:700;font-size:16px;margin-bottom:6px;letter-spacing:-0.01em;}
+  .tk p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.5;}
+
+  .cta{background:var(--ink);border-radius:var(--radius-lg);padding:50px 40px;text-align:center;margin:64px 0 0;}
+  .cta h2{color:#fff;font-size:clamp(26px,3.6vw,38px);letter-spacing:-0.035em;margin-bottom:12px;}
+  .cta p{color:rgba(255,255,255,.66);max-width:480px;margin:0 auto 26px;font-size:16.5px;}
+  .cta a{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 28px;border-radius:14px;transition:.18s;}
+  .cta a:hover{background:#13B377;transform:translateY(-2px);}
+
+  .srcnote{font-size:13px;color:var(--faint);line-height:1.6;margin-top:30px;display:flex;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;}
+  .footer{text-align:center;color:var(--faint);font-size:13px;padding:50px 0 64px;}
+
+  @media(max-width:640px){
+    .hero{padding:44px 0 4px;} .herocard,.anchor{padding:26px 22px;} .range{margin:48px 2px 12px;}
+    .dumb-row,.dumb-axis{grid-template-columns:118px 52px 1fr 56px;gap:9px;}
+    .dumb-name{font-size:12.5px;} .dumb-lo,.dumb-hi{font-size:11.5px;}
+    .rng-row{grid-template-columns:108px 1fr;gap:11px;}
+    .hc-mult{margin-left:0;width:100%;}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;}*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<div class="topbar"><div class="bar">
+  <a class="brandmark" href="preview-standalone.html">
+    <span class="dot"><svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 3C20 3 27.5 6.8 32.5 7.4C33.7 7.5 34.5 8.4 34.5 9.6V20.5C34.5 28.8 28.2 34.8 20 37.5C11.8 34.8 5.5 28.8 5.5 20.5V9.6C5.5 8.4 6.3 7.5 7.5 7.4C12.5 6.8 20 3 20 3Z" fill="#10A06A"/><rect x="17.4" y="12.5" width="5.2" height="15" rx="2.2" fill="#fff"/><rect x="12.5" y="17.4" width="15" height="5.2" rx="2.2" fill="#fff"/></svg></span>
+    <span>SC Care Price Finder</span>
+  </a>
+  <span class="spacer"></span>
+  <a class="navbtn" href="preview-standalone.html">Find prices near you &#8250;</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow reveal shown">
+      <span class="scbadge"><svg width="34" height="34" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 9 a8 8 0 1 0 7 12 a6 6 0 1 1 -7 -12 z" fill="#fff"/><path d="M26 31 C25.4 26 25.8 22 26 19" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M26 19 C23 16 20 15.5 17.5 16.4" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C24 15.5 22 13.7 19.6 12.8" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C26 15 26.4 12.6 27.4 10.8" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C28.4 15.7 30.4 14 32.6 13.2" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C29 16.2 31.6 15.4 34 15.4" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg></span>
+      South Carolina &middot; the price of care
+    </div>
+    <h1 class="reveal shown">The same test,<br>very different prices</h1>
+    <p class="sub reveal shown">From the Upstate to the Lowcountry, the cost of a routine scan or lab test can change a lot depending only on where you go. Here is what the numbers look like, and what it means for you.</p>
+  </div>
+
+  <div class="herocard reveal" data-anim>
+    <div class="hc-top"><span class="hc-title" id="hero-name">Loading the data&hellip;</span><span class="hc-code" id="hero-code"></span></div>
+    <div class="hc-sub" id="hero-sub"></div>
+    <div class="range" id="hero-range"></div>
+    <div class="hc-foot" id="hero-foot"></div>
+  </div>
+
+  <div class="anchor reveal" data-anim id="anchor">
+    <div class="aq">What does <span id="a-gap">$0</span> really mean?</div>
+    <p>That is the extra you would pay by choosing the most expensive option for a single scan. Put in everyday terms:</p>
+    <div class="dots" id="a-dots"></div>
+    <div class="dotcap"><b class="num" id="a-n">0</b> <span id="a-n-lbl">blood tests it could cover</span></div>
+    <div class="aor">Or nearly <b class="num" id="a-scans">0</b> of the same scan at the low price, for what one costs at the high end.</div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow reveal">One test, three prices</div>
+    <h2 class="reveal">A single scan, priced three ways</h2>
+    <div class="prose reveal">
+      <p>Take an imaging study of the abdomen with no contrast. Three centers in the same area. The same scan, held to the same medical standards. <strong id="s1-line">The prices are not close.</strong></p>
+    </div>
+    <div class="chartcard reveal" data-anim id="abdomen-card">
+      <div class="ct-h">Abdomen imaging, by center</div>
+      <div class="ct-s">Price for one study. Same scan, same area.</div>
+      <div id="abdomen-chart"></div>
+      <div class="legend"><span><i style="background:var(--brand)"></i>MRI</span><span><i style="background:var(--ink)"></i>CT</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow reveal">Across the state</div>
+    <h2 class="reveal">Wherever you live, there is a cheap option and a costly one</h2>
+    <div class="prose reveal">
+      <p>The same test, region by region. Each line runs from the lowest price to the highest in that part of South Carolina.</p>
+    </div>
+    <div class="chartcard reveal" data-anim id="region-card">
+      <div class="ct-h" id="region-h">By region</div>
+      <div class="ct-s">Lowest to highest price in each area.</div>
+      <div id="region-chart"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow reveal">It is everywhere</div>
+    <h2 class="reveal">This pattern shows up across almost every service</h2>
+    <div class="prose reveal">
+      <p>Each line below runs from the lowest price near you to the highest. The longer the line, the more there is to save by choosing carefully.</p>
+    </div>
+    <div class="chartcard reveal" data-anim>
+      <div class="ct-h">Lowest to highest price, by service</div>
+      <div class="ct-s">Each dot is a real provider in the data. Green is the lowest, red is the highest.</div>
+      <div id="dumb-chart"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow reveal">Why the gap</div>
+    <h2 class="reveal">Hospitals often cost more than outpatient centers</h2>
+    <div class="prose reveal">
+      <p>Hospitals and hospital-owned clinics usually charge more than independent outpatient centers for the same service. A big reason is a separate <strong>facility fee</strong> that outpatient centers often do not add. For routine scans and lab work, that fee buys you nothing extra.</p>
+    </div>
+    <div class="chartcard reveal" data-anim>
+      <div class="ct-h">Lowest outpatient price vs lowest hospital price</div>
+      <div class="ct-s">Same service, cheapest option of each type in the data.</div>
+      <div id="ovh-chart"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow reveal">What it means for you</div>
+    <h2 class="reveal">You have more choice than it feels like</h2>
+    <div class="takeaways">
+      <div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Lower price, same quality</h3><p>The same test follows the same medical standards everywhere. A cheaper price does not mean a worse result.</p></div>
+      <div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Ask the price first</h3><p>You can ask what a test will cost before you book it, and you can choose where to go.</p></div>
+      <div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div><h3>Watch for facility fees</h3><p>Ask whether the price is all-in, or whether a separate facility fee will be added on top.</p></div>
+      <div class="tk reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div><h3>In-network or cash</h3><p>With insurance, ask if the location is in-network. Paying cash, ask for the self-pay price.</p></div>
+    </div>
+  </div>
+
+  <div class="cta reveal">
+    <h2>See what your test costs near you</h2>
+    <p>Use the price finder to compare real providers for your scan or test, or just ask the assistant a question in plain language.</p>
+    <a href="preview-standalone.html">Open the price finder &#8250;</a>
+  </div>
+
+  <div class="srcnote reveal" id="srcnote">&#9432;&nbsp; <span></span></div>
+
+</div>
+
+<div class="footer" id="foot"></div>
+
+<script>
+const EMBEDDED_DATA = {"services": [{"id": "mri_knee", "name_en": "Knee MRI", "name_es": "Resonancia de rodilla", "code": "73721", "category": "imaging", "providers": [{"name": "Lexington Imaging Center", "region": "mid", "type": "out", "distance": 4.2, "insurance": 612, "cash": 480}, {"name": "Columbia Open MRI", "region": "mid", "type": "out", "distance": 6.8, "insurance": 735, "cash": 525}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 1980, "cash": 1640}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 2240, "cash": 1875}, {"name": "Greenville Radiology", "region": "up", "type": "out", "distance": 92, "insurance": 640, "cash": 510}, {"name": "Prisma Greenville Memorial", "region": "up", "type": "hosp", "distance": 95, "insurance": 2110, "cash": 1720}, {"name": "Charleston Imaging Partners", "region": "low", "type": "out", "distance": 112, "insurance": 690, "cash": 540}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 2380, "cash": 1990}, {"name": "Florence Diagnostic Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 655, "cash": 500}]}, {"id": "mammo_screen", "name_en": "Screening Mammogram", "name_es": "Mamografía de detección", "code": "77067", "category": "imaging", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 168, "cash": 120}, {"name": "Columbia Breast Center", "region": "mid", "type": "out", "distance": 6.2, "insurance": 195, "cash": 135}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 410, "cash": 320}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 175, "cash": 125}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 455, "cash": 360}, {"name": "Florence Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 182, "cash": 130}]}, {"id": "a1c", "name_en": "A1C Blood Test", "name_es": "Análisis A1C", "code": "83036", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 28, "cash": 18}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 34, "cash": 22}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 96, "cash": 72}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 31, "cash": 20}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 108, "cash": 80}, {"name": "Florence Clinical Lab", "region": "pd", "type": "out", "distance": 78, "insurance": 29, "cash": 19}]}, {"id": "lipid_panel", "name_en": "Lipid Panel", "name_es": "Perfil de lípidos", "code": "80061", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 42, "cash": 29}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 55, "cash": 35}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 145, "cash": 110}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 48, "cash": 32}]}, {"id": "office_specialist", "name_en": "Specialist Office Visit", "name_es": "Consulta con especialista", "code": "99204", "category": "visit", "providers": [{"name": "Midlands Family Care", "region": "mid", "type": "out", "distance": 2.4, "insurance": 185, "cash": 140}, {"name": "Columbia Internal Medicine", "region": "mid", "type": "out", "distance": 5.7, "insurance": 220, "cash": 165}, {"name": "Prisma Specialty Clinic", "region": "mid", "type": "hosp", "distance": 7.0, "insurance": 380, "cash": 300}, {"name": "Greenville Health Associates", "region": "up", "type": "out", "distance": 91, "insurance": 198, "cash": 150}]}, {"id": "colonoscopy", "name_en": "Colonoscopy (Screening)", "name_es": "Colonoscopia (detección)", "code": "45378", "category": "procedure", "providers": [{"name": "Midlands Endoscopy Center", "region": "mid", "type": "out", "distance": 4.8, "insurance": 1150, "cash": 890}, {"name": "Columbia Digestive Health", "region": "mid", "type": "out", "distance": 6.5, "insurance": 1320, "cash": 980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 3240, "cash": 2680}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 3580, "cash": 2950}, {"name": "Greenville Endoscopy", "region": "up", "type": "out", "distance": 92, "insurance": 1210, "cash": 920}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 3720, "cash": 3050}]}, {"id": "carpal_tunnel", "name_en": "Carpal Tunnel Release", "name_es": "Liberación del túnel carpiano", "code": "64721", "category": "procedure", "providers": [{"name": "Midlands Surgery Center", "region": "mid", "type": "out", "distance": 5.2, "insurance": 2450, "cash": 1980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 5680, "cash": 4720}, {"name": "Greenville Surgical", "region": "up", "type": "out", "distance": 92, "insurance": 2610, "cash": 2100}]}, {"id": "prenatal_panel", "name_en": "Prenatal Lab Panel", "name_es": "Panel de laboratorio prenatal", "code": "80055", "category": "pregnancy", "providers": [{"name": "Lexington Women's Health", "region": "mid", "type": "out", "distance": 3.9, "insurance": 240, "cash": 180}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 285, "cash": 210}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 560, "cash": 430}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 255, "cash": 190}]}, {"id": "ultrasound_ob", "name_en": "Obstetric Ultrasound", "name_es": "Ecografía obstétrica", "code": "76805", "category": "pregnancy", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 320, "cash": 240}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 365, "cash": 270}, {"name": "Prisma Women's Hospital", "region": "mid", "type": "hosp", "distance": 7.3, "insurance": 780, "cash": 620}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 845, "cash": 670}]}, {"id": "mri_abdomen_noc", "name_en": "MRI Abdomen, without contrast", "name_es": "Resonancia de abdomen, sin contraste", "code": "74181", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 637.1, "cash": 637.1}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 654.31, "cash": 654.31}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1035.61, "cash": 1035.61}]}, {"id": "ct_abdomen_noc", "name_en": "CT Abdomen, without contrast", "name_es": "Tomografía de abdomen, sin contraste", "code": "74150", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 458.44, "cash": 458.44}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 468.97, "cash": 468.97}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1781.57, "cash": 1781.57}]}]};
+const money=n=>"$"+Math.round(n).toLocaleString();
+const FOOT="A price transparency prototype \u2022 Synthetic sample data \u2022 Not medical or financial advice";
+const SRC="Figures are sample data shown to illustrate the pattern, except the abdomen example, which comes from a local imaging fee schedule. Use the price finder for live prices when real data is loaded.";
+const REG_NAME={mid:"Midlands",up:"Upstate",low:"Lowcountry",pd:"Pee Dee"};
+const REG_CITY={mid:"Columbia & Lexington",up:"Greenville",low:"Charleston",pd:"Florence"};
+const REG_ORDER=["up","mid","pd","low"];
+
+function byCode(s,c){for(let i=0;i<s.length;i++){if(String(s[i].code)===String(c))return s[i];}return null;}
+const ins=p=>p.insurance;
+function spread(s){const v=s.providers.map(ins);return {lo:Math.min.apply(null,v),hi:Math.max.apply(null,v)};}
+function loProv(s){return s.providers.slice().sort((a,b)=>ins(a)-ins(b))[0];}
+function hiProv(s){return s.providers.slice().sort((a,b)=>ins(b)-ins(a))[0];}
+
+let HEROGAP=0, HEROLO=0;
+
+function renderHero(svcs){
+  let s=byCode(svcs,"74150");
+  if(!s){let best=null,br=0;svcs.forEach(x=>{const sp=spread(x);const r=sp.hi/sp.lo;if(r>br){br=r;best=x;}});s=best;}
+  const sp=spread(s),lp=loProv(s),hp=hiProv(s);
+  HEROGAP=sp.hi-sp.lo; HEROLO=sp.lo;
+  document.getElementById("hero-name").textContent=s.name_en;
+  document.getElementById("hero-code").textContent="CPT "+s.code;
+  document.getElementById("hero-sub").textContent="Same scan, same area. One price at the low end, a very different price at the high end.";
+  const max=sp.hi,pct=v=>6+(v/max)*88;
+  const sortedV=s.providers.map(ins).sort((a,b)=>a-b);
+  const midVal=sortedV[Math.floor(sortedV.length/2)];
+  let html='<div class="track"></div>';
+  html+='<div class="pt lo" style="left:'+pct(sp.lo)+'%"></div>';
+  if(sortedV.length>2){html+='<div class="pt mid" style="left:'+pct(midVal)+'%"></div><div class="lab mid" style="left:'+pct(midVal)+'%">'+money(midVal)+'</div>';}
+  html+='<div class="pt hi" style="left:'+pct(sp.lo)+'%" data-left="'+pct(sp.hi)+'"></div>';
+  html+='<div class="lab lo" style="left:'+pct(sp.lo)+'%"><span class="pv">'+money(sp.lo)+'</span><span class="nm">'+lp.name+'</span></div>';
+  html+='<div class="lab hi" style="left:'+pct(sp.lo)+'%" data-left="'+pct(sp.hi)+'"><span class="pv">'+money(sp.hi)+'</span><span class="nm">'+hp.name+'</span></div>';
+  document.getElementById("hero-range").innerHTML=html;
+  document.getElementById("hero-foot").innerHTML=
+    '<div class="hc-gap"><span class="big num" data-to="'+HEROGAP+'" data-fmt="money">$0</span><span class="lbl">more for the same test</span></div>'+
+    '<div class="hc-mult">The highest price is <b class="num" data-to="'+(sp.hi/sp.lo)+'" data-fmt="mult">0.0x</b> the lowest</div>';
+}
+
+function renderAnchor(svcs){
+  const a1c=byCode(svcs,"83036");
+  const a1clo=a1c?spread(a1c).lo:25;
+  const n=Math.round(HEROGAP/a1clo);
+  const scans=Math.round((HEROGAP+HEROLO)/HEROLO);
+  document.getElementById("a-gap").setAttribute("data-to",HEROGAP);
+  document.getElementById("a-gap").setAttribute("data-fmt","money");
+  document.getElementById("a-n").setAttribute("data-to",n);
+  document.getElementById("a-n").setAttribute("data-fmt","int");
+  document.getElementById("a-scans").setAttribute("data-to",scans);
+  document.getElementById("a-scans").setAttribute("data-fmt","int");
+  document.getElementById("a-n-lbl").textContent="\u00D7 "+(a1c?a1c.name_en:"blood test")+", at the lowest price";
+  let dh="";const cap=Math.min(n,72);
+  for(let i=0;i<cap;i++) dh+='<i data-dot="'+i+'"></i>';
+  if(n>cap) dh+='<i style="background:transparent;color:#9fd8c0;width:auto;opacity:1;transform:none;font-weight:700;font-size:13px">+'+(n-cap)+'</i>';
+  document.getElementById("a-dots").innerHTML=dh;
+}
+
+function renderAbdomen(svcs){
+  const mri=byCode(svcs,"74181"),ct=byCode(svcs,"74150");
+  if(!(mri&&ct)){document.getElementById("abdomen-card").style.display="none";return;}
+  const names=ct.providers.map(p=>p.name);
+  const get=(s,nm)=>{const p=s.providers.filter(x=>x.name===nm)[0];return p?ins(p):null;};
+  let max=0;names.forEach(nm=>{max=Math.max(max,get(mri,nm)||0,get(ct,nm)||0);});
+  let html="";
+  names.forEach(nm=>{
+    const m=get(mri,nm),c=get(ct,nm);
+    html+='<div class="grp-row"><div class="grp-name">'+nm+'</div>';
+    if(m!=null) html+='<div class="grp-bar"><span class="grp-tag">MRI</span><div class="grp-track"><div class="grp-fill mri" data-w="'+(m/max*100)+'">'+money(m)+'</div></div></div>';
+    if(c!=null) html+='<div class="grp-bar"><span class="grp-tag">CT</span><div class="grp-track"><div class="grp-fill ct" data-w="'+(c/max*100)+'">'+money(c)+'</div></div></div>';
+    html+='</div>';
+  });
+  document.getElementById("abdomen-chart").innerHTML=html;
+  const sp=spread(ct);
+  document.getElementById("s1-line").textContent="The CT alone runs from "+money(sp.lo)+" to "+money(sp.hi)+", a difference of "+money(sp.hi-sp.lo)+".";
+}
+
+function pickRegional(svcs){
+  const rc=s=>new Set(s.providers.map(p=>p.region)).size;
+  const knee=byCode(svcs,"73721");
+  if(knee&&rc(knee)>=2) return knee;
+  let b=null,bc=0;svcs.forEach(s=>{const c=rc(s);if(c>bc){bc=c;b=s;}});return b;
+}
+function renderRegional(svcs){
+  const s=pickRegional(svcs);
+  if(!s){document.getElementById("region-card").style.display="none";return;}
+  document.getElementById("region-h").textContent=s.name_en+", by region";
+  const byReg={};
+  s.providers.forEach(p=>{(byReg[p.region]=byReg[p.region]||[]).push(ins(p));});
+  const regs=REG_ORDER.filter(r=>byReg[r]);
+  let gmax=0;regs.forEach(r=>{gmax=Math.max(gmax,Math.max.apply(null,byReg[r]));});
+  const pct=v=>2+(v/gmax)*92;
+  let html="";
+  regs.forEach(r=>{
+    const lo=Math.min.apply(null,byReg[r]),hi=Math.max.apply(null,byReg[r]);
+    const x1=pct(lo),x2=pct(hi);
+    html+='<div class="rng-row"><div class="rng-place"><b>'+REG_NAME[r]+'</b><span>'+REG_CITY[r]+'</span></div>'+
+      '<div class="rng-track"><div class="rng-base"></div>'+
+      '<div class="rng-line" style="left:'+x1+'%" data-w="'+(x2-x1)+'"></div>'+
+      '<div class="rng-dot lo" style="left:'+x1+'%"></div>'+
+      (hi>lo?'<div class="rng-dot hi" style="left:'+x1+'%" data-left="'+x2+'"></div>':'')+
+      '<div class="rng-v lo" style="left:'+x1+'%;transform:translate(-110%,-50%)">'+money(lo)+'</div>'+
+      (hi>lo?'<div class="rng-v hi" style="left:'+x1+'%;transform:translate(12%,-50%)" data-left="'+x2+'">'+money(hi)+'</div>':'')+
+      '</div></div>';
+  });
+  document.getElementById("region-chart").innerHTML=html;
+}
+
+function renderDumb(svcs){
+  const rows=svcs.map(s=>{const sp=spread(s);return {n:s.name_en,lo:sp.lo,hi:sp.hi,ratio:sp.hi/sp.lo};}).sort((a,b)=>b.hi-a.hi);
+  const gmax=Math.max.apply(null,rows.map(r=>r.hi));
+  let maxRatio=0;rows.forEach(r=>{if(r.ratio>maxRatio)maxRatio=r.ratio;});
+  const pct=v=>(v/gmax)*100;
+  let html="";
+  rows.forEach(r=>{
+    const x1=pct(r.lo),x2=pct(r.hi);
+    const flag=(r.ratio===maxRatio)?'<br><span class="flag">biggest gap</span>':'';
+    html+='<div class="dumb-row"><div class="dumb-name">'+r.n+flag+'</div>'+
+      '<div class="dumb-lo num">'+money(r.lo)+'</div>'+
+      '<div class="dumb-track"><div class="dumb-base"></div>'+
+        '<div class="dumb-line" style="left:'+x1+'%" data-w="'+(x2-x1)+'"></div>'+
+        '<div class="dumb-dot lo" style="left:'+x1+'%"></div>'+
+        '<div class="dumb-dot hi" style="left:'+x1+'%" data-left="'+x2+'"></div>'+
+      '</div>'+
+      '<div class="dumb-hi num">'+money(r.hi)+'</div></div>';
+  });
+  html+='<div class="dumb-axis"><div class="dumb-axislbls"><span>$0</span><span>'+money(gmax)+'</span></div></div>';
+  document.getElementById("dumb-chart").innerHTML=html;
+}
+
+function renderOvh(svcs){
+  const rows=[];
+  svcs.forEach(s=>{
+    const o=s.providers.filter(p=>p.type==="out").map(ins),h=s.providers.filter(p=>p.type==="hosp").map(ins);
+    if(o.length&&h.length) rows.push({n:s.name_en,out:Math.min.apply(null,o),hosp:Math.min.apply(null,h)});
+  });
+  rows.sort((a,b)=>(b.hosp/b.out)-(a.hosp/a.out));
+  let html="";
+  rows.slice(0,6).forEach(r=>{
+    const mult=(r.hosp/r.out).toFixed(1);
+    html+='<div class="ovh-row"><div class="ovh-name">'+r.n+'</div>'+
+      '<div class="ovh-bar"><span class="ovh-tag">Outpatient</span><div class="ovh-track"><div class="ovh-fill out" data-w="'+(r.out/r.hosp*100)+'">'+money(r.out)+'</div></div></div>'+
+      '<div class="ovh-bar"><span class="ovh-tag">Hospital</span><div class="ovh-track"><div class="ovh-fill hosp" data-w="100">'+money(r.hosp)+'</div></div></div>'+
+      '<div class="ovh-mult">Hospital costs about '+mult+'x the outpatient price</div></div>';
+  });
+  document.getElementById("ovh-chart").innerHTML=html;
+}
+
+function animNum(el){
+  const to=parseFloat(el.dataset.to),fmt=el.dataset.fmt,dur=1000,s=performance.now();
+  function tick(t){let p=Math.min(1,(t-s)/dur);p=1-Math.pow(1-p,3);const v=to*p;
+    el.textContent=fmt==="mult"?v.toFixed(1)+"x":fmt==="int"?Math.round(v).toLocaleString():money(v);
+    if(p<1)requestAnimationFrame(tick);}
+  requestAnimationFrame(tick);
+}
+function animateIn(card){
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    card.querySelectorAll('[data-w]').forEach(x=>{x.style.width=x.dataset.w+'%';});
+    card.querySelectorAll('[data-left]').forEach(x=>{x.style.left=x.dataset.left+'%';});
+  }));
+  card.querySelectorAll('[data-to]').forEach(animNum);
+  const dots=card.querySelectorAll('[data-dot]');
+  dots.forEach((d,i)=>{setTimeout(()=>{d.style.opacity="1";d.style.transform="scale(1)";},200+i*22);});
+}
+
+function setupReveal(){
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("shown"); if(e.target.hasAttribute("data-anim")) animateIn(e.target); io.unobserve(e.target);} });
+  },{threshold:0.16,rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+}
+function setupProgress(){
+  const bar=document.getElementById("progress");
+  function upd(){const h=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(h>0?(window.scrollY/h)*100:0)+"%";}
+  window.addEventListener("scroll",upd,{passive:true});window.addEventListener("resize",upd);upd();
+}
+
+async function init(){
+  document.getElementById("foot").textContent=FOOT;
+  document.querySelector("#srcnote span").textContent=SRC;
+  try{
+    const data=EMBEDDED_DATA;
+    const svcs=data.services;
+    renderHero(svcs); renderAnchor(svcs); renderAbdomen(svcs); renderRegional(svcs); renderDumb(svcs); renderOvh(svcs);
+  }catch(e){
+    document.getElementById("hero-name").textContent="Could not load the data.";
+    document.getElementById("hero-sub").textContent="If you opened this file directly, your browser blocks loading data.json. Run a local web server or view it on the published site.";
+  }
+  setupReveal(); setupProgress();
+}
+init();
+</script>
+</body>
+</html>
