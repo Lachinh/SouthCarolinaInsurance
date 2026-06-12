@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC Care Price Finder</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M20%203C20%203%2027.5%206.8%2032.5%207.4C33.7%207.5%2034.5%208.4%2034.5%209.6V20.5C34.5%2028.8%2028.2%2034.8%2020%2037.5C11.8%2034.8%205.5%2028.8%205.5%2020.5V9.6C5.5%208.4%206.3%207.5%207.5%207.4C12.5%206.8%2020%203%2020%203Z%22%20fill%3D%22%2310A56A%22/%3E%3Crect%20x%3D%2217.4%22%20y%3D%2212.5%22%20width%3D%225.2%22%20height%3D%2215%22%20rx%3D%222.2%22%20fill%3D%22%23fff%22/%3E%3Crect%20x%3D%2212.5%22%20y%3D%2217.4%22%20width%3D%2215%22%20height%3D%225.2%22%20rx%3D%222.2%22%20fill%3D%22%23fff%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F8F6;--surface:#FFFFFF;--surface-2:#FBFBF9;
+    --ink:#15201A;--muted:#5A655E;--faint:#8A958E;
+    --brand:#10A06A;--brand-dark:#0A7048;--brand-soft:#E5F4EC;--brand-tint:#EFF8F2;
+    --accent:#E76A47;--accent-soft:#FCEEE7;--good:#10A06A;--bad:#E05A3E;
+    --line:rgba(21,32,26,0.08);--line-2:rgba(21,32,26,0.14);
+    --radius:20px;--radius-lg:26px;--radius-sm:13px;
+    --shadow-sm:0 1px 2px rgba(21,32,26,.04);
+    --shadow:0 1px 3px rgba(21,32,26,.05),0 16px 40px -26px rgba(21,32,26,.30);
+    --shadow-lg:0 2px 8px rgba(21,32,26,.05),0 34px 64px -34px rgba(21,32,26,.34);
+    --display:"Plus Jakarta Sans",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;letter-spacing:-0.025em;}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+  :focus-visible{outline:2.5px solid var(--brand-dark);outline-offset:3px;border-radius:8px;}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(247,248,246,0.78);backdrop-filter:saturate(150%) blur(16px);-webkit-backdrop-filter:saturate(150%) blur(16px);border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;padding:14px 24px;}
+  .brandmark{display:flex;align-items:center;gap:11px;font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-0.03em;color:var(--ink);background:none;border:none;padding:0;}
+  .brandmark .dot{width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+  .spacer{flex:1;}
+  .navlink{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-sm);transition:.18s;margin-right:4px;}
+  .navlink:hover{border-color:var(--brand);color:var(--brand-dark);}
+  .lang{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);}
+  .lang button{border:none;background:none;color:var(--muted);font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;transition:.18s;}
+  .lang button.on{background:var(--ink);color:#fff;}
+
+  .protobar{text-align:center;font-size:12px;padding:10px 24px 4px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--faint);}
+  .protobar:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;}
+
+  .hero{text-align:center;padding:72px 0 12px;}
+  .hero h1{font-size:clamp(40px,6.4vw,66px);font-weight:700;letter-spacing:-0.045em;margin-bottom:18px;}
+  .hero p{font-size:19px;color:var(--muted);margin:0 auto;max-width:520px;line-height:1.5;}
+  .searchwrap{max-width:660px;margin:38px auto 0;position:relative;z-index:20;}
+  .searchwrap input{width:100%;height:66px;border-radius:20px;border:1px solid var(--line-2);background:var(--surface);padding:0 26px 0 60px;font-size:18px;font-family:inherit;color:var(--ink);box-shadow:var(--shadow);transition:border-color .18s,box-shadow .18s,transform .18s;}
+  .searchwrap input::placeholder{color:var(--faint);}
+  .searchwrap input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft),var(--shadow);}
+  .searchwrap .mag{position:absolute;left:23px;top:50%;transform:translateY(-50%);color:var(--faint);display:flex;pointer-events:none;}
+  .sugg{position:absolute;left:0;right:0;top:calc(100% + 10px);background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);padding:7px;display:none;text-align:left;}
+  .sugg.open{display:block;}
+  .sg-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 15px;border-radius:13px;cursor:pointer;transition:background .14s;}
+  .sg-item:hover,.sg-item.act{background:var(--brand-tint);}
+  .sg-main{display:flex;align-items:center;gap:11px;min-width:0;}
+  .sg-name{font-weight:600;font-size:15.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sg-price{font-family:var(--display);font-weight:700;color:var(--brand-dark);font-size:16px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .sg-price i{font-style:normal;font-size:11px;color:var(--faint);font-weight:600;margin-left:5px;}
+  .sg-empty{padding:20px 16px;color:var(--muted);font-size:14px;text-align:center;}
+  .controls{max-width:660px;margin:18px auto 0;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;}
+  .toggle{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;box-shadow:var(--shadow-sm);}
+  .toggle button{border:none;background:none;font-size:14px;font-weight:600;color:var(--muted);padding:10px 18px;border-radius:10px;transition:.18s;}
+  .toggle button.on{background:var(--ink);color:#fff;}
+  .selwrap{position:relative;}
+  select{appearance:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 40px 13px 18px;cursor:pointer;box-shadow:var(--shadow-sm);transition:.18s;}
+  select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft);}
+  .selwrap .chev{position:absolute;right:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--muted);font-size:12px;}
+  .popular{max-width:660px;margin:24px auto 0;text-align:center;}
+  .popular .lbl{font-size:13px;color:var(--faint);font-weight:600;margin-right:6px;}
+  .chip{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 17px;font-size:14px;font-weight:600;margin:5px 4px;color:var(--ink);transition:.18s;box-shadow:var(--shadow-sm);}
+  .chip:hover{border-color:var(--brand);color:var(--brand-dark);transform:translateY(-2px);}
+
+  .browse{margin:64px 0 72px;}
+  .browse .sec-lbl{text-align:center;font-size:12px;font-weight:700;color:var(--faint);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:28px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:16px;}
+  .cat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-align:left;transition:transform .2s cubic-bezier(.2,.7,.2,1),border-color .2s,box-shadow .2s;opacity:0;animation:cardIn .55s cubic-bezier(.2,.7,.2,1) forwards;}
+  .cat:hover{transform:translateY(-5px);border-color:var(--line-2);box-shadow:var(--shadow);}
+  .cat .ic{width:52px;height:52px;border-radius:16px;background:var(--brand-tint);color:var(--brand-dark);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px;transition:.2s;}
+  .cat:hover .ic{background:var(--brand);color:#fff;transform:scale(1.04);}
+  .cat h3{font-family:var(--body);font-size:17px;font-weight:700;letter-spacing:-0.01em;margin-bottom:5px;}
+  .cat p{font-size:14px;color:var(--muted);margin:0;}
+  .skel{height:158px;border-radius:var(--radius);background:linear-gradient(100deg,#e9ece8 28%,#f4f6f2 50%,#e9ece8 72%);background-size:220% 100%;animation:shimmer 1.3s linear infinite;}
+
+  .backbtn{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:var(--brand-dark);font-size:15px;font-weight:600;padding:30px 0 8px;transition:gap .18s;}
+  .backbtn:hover{gap:12px;}
+  .list-head{padding:8px 0 20px;border-bottom:1px solid var(--line);margin-bottom:24px;}
+  .list-head h1{font-size:clamp(28px,4vw,38px);letter-spacing:-0.035em;}
+  .list-head .meta{color:var(--muted);font-size:15px;margin-top:8px;}
+
+  .svclist{display:flex;flex-direction:column;gap:12px;}
+  .svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;width:100%;text-align:left;transition:transform .18s cubic-bezier(.2,.7,.2,1),border-color .18s,box-shadow .18s;opacity:0;animation:cardIn .55s cubic-bezier(.2,.7,.2,1) forwards;}
+  .svc:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:var(--shadow);}
+  .svc h3{font-family:var(--body);font-size:17px;font-weight:700;letter-spacing:-0.01em;margin-bottom:7px;}
+  .svc .code{display:inline-block;background:var(--ink);color:#fff;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:7px;letter-spacing:0.02em;font-variant-numeric:tabular-nums;}
+  .svc .from{text-align:right;white-space:nowrap;}
+  .svc .from .v{font-family:var(--display);font-size:23px;font-weight:700;letter-spacing:-0.03em;color:var(--brand-dark);font-variant-numeric:tabular-nums;}
+  .svc .from small{display:block;font-size:11.5px;color:var(--faint);font-weight:600;}
+
+  .res-head{padding:8px 0 22px;border-bottom:1px solid var(--line);margin-bottom:26px;}
+  .res-head h1{font-size:clamp(30px,4.2vw,42px);letter-spacing:-0.04em;margin-bottom:10px;}
+  .res-head .meta{color:var(--muted);font-size:15px;}
+  .res-head .code{display:inline-block;background:var(--ink);color:#fff;font-size:12px;font-weight:600;padding:4px 11px;border-radius:8px;margin-left:10px;vertical-align:middle;letter-spacing:0.02em;font-variant-numeric:tabular-nums;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+  .stat{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 20px;}
+  .stat .k{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+  .stat .v{font-family:var(--display);font-size:31px;font-weight:700;letter-spacing:-0.035em;margin-top:5px;font-variant-numeric:tabular-nums;}
+  .stat.lo .v{color:var(--good);} .stat.hi .v{color:var(--bad);}
+  .savecard{display:flex;align-items:center;gap:17px;background:var(--brand-tint);border:1px solid var(--brand-soft);border-radius:var(--radius);padding:18px 24px;margin-bottom:28px;}
+  .savecard .ic{width:46px;height:46px;border-radius:14px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+  .savecard .s-big{font-family:var(--display);font-size:29px;font-weight:700;color:var(--brand-dark);letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;}
+  .savecard .s-lbl{font-size:13.5px;color:var(--brand-dark);margin-top:5px;opacity:.92;line-height:1.4;}
+  .res-controls{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;margin-bottom:20px;}
+  .ctrl-grp{display:flex;align-items:center;gap:10px;}
+  .ctrl-lbl{font-size:11.5px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.1em;}
+  .seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px;box-shadow:var(--shadow-sm);}
+  .seg button{border:none;background:none;font-size:13.5px;font-weight:600;color:var(--muted);padding:8px 15px;border-radius:9px;transition:.16s;}
+  .seg button.on{background:var(--ink);color:#fff;}
+  .provlist{display:flex;flex-direction:column;gap:14px;}
+  .prov{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;text-align:left;transition:transform .18s cubic-bezier(.2,.7,.2,1),border-color .18s,box-shadow .18s;width:100%;opacity:0;animation:cardIn .55s cubic-bezier(.2,.7,.2,1) forwards;}
+  .prov:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:var(--shadow);}
+  .prov .row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+  .prov h3{font-family:var(--body);font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px;}
+  .prov .sub{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .badge{font-size:12px;font-weight:600;padding:4px 11px;border-radius:8px;}
+  .badge.hosp{background:#EDF0EE;color:#4a5650;} .badge.out{background:var(--brand-soft);color:var(--brand-dark);} .badge.best{background:var(--ink);color:#fff;}
+  .prov .price{font-family:var(--display);font-size:28px;font-weight:700;letter-spacing:-0.035em;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .prov .price.lo{color:var(--good);} .prov .price.hi{color:var(--bad);}
+  .prov .price small{display:block;font-family:var(--body);font-size:12px;font-weight:600;color:var(--faint);margin-top:3px;font-variant-numeric:tabular-nums;}
+  .bar{position:relative;height:6px;border-radius:99px;background:var(--line);margin-top:22px;}
+  .bar i{display:block;height:6px;border-radius:99px;background:var(--brand);position:relative;transition:width .55s cubic-bezier(.2,.7,.2,1);}
+  .bar i::after{content:"";position:absolute;right:0;top:50%;width:14px;height:14px;border-radius:50%;background:var(--brand);border:3px solid var(--surface);transform:translate(50%,-50%);box-shadow:0 1px 4px rgba(21,32,26,.28);}
+  .bar i.lo,.bar i.lo::after{background:var(--good);} .bar i.hi,.bar i.hi::after{background:var(--bad);}
+  .gocue{font-size:13px;color:var(--brand-dark);font-weight:600;margin-top:18px;display:flex;align-items:center;gap:5px;opacity:.9;}
+  .emptyrow{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px 26px;text-align:center;color:var(--muted);font-size:15px;}
+
+  .det-head{padding:8px 0 26px;}
+  .det-head h1{font-size:clamp(28px,4vw,40px);letter-spacing:-0.04em;margin-bottom:10px;}
+  .det-head .meta{color:var(--muted);font-size:15px;}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:30px 32px;margin-bottom:18px;box-shadow:var(--shadow-sm);}
+  .panel h2{font-size:23px;letter-spacing:-0.03em;margin-bottom:7px;}
+  .panel .lede{color:var(--muted);font-size:15px;margin:0 0 24px;}
+  .pricetag{font-family:var(--display);font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-0.03em;font-variant-numeric:tabular-nums;}
+  .slider{display:flex;align-items:center;gap:18px;margin-bottom:20px;}
+  .slider label{font-size:15px;color:var(--muted);font-weight:500;width:210px;}
+  .slider input[type=range]{flex:1;accent-color:var(--brand);height:6px;}
+  .slider .out{font-family:var(--display);font-size:17px;font-weight:700;width:78px;text-align:right;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
+  .estbox,.cashbox{background:var(--ink);border-radius:var(--radius);padding:30px;text-align:center;margin-top:8px;}
+  .estbox .k,.cashbox .k{font-size:13px;color:rgba(255,255,255,0.58);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+  .estbox .v{font-family:var(--display);font-size:56px;font-weight:700;color:#fff;line-height:1.02;margin:8px 0 5px;letter-spacing:-0.045em;font-variant-numeric:tabular-nums;}
+  .estbox .bd{font-size:13px;color:rgba(255,255,255,0.6);font-variant-numeric:tabular-nums;}
+  .cashbox .v{font-family:var(--display);font-size:56px;font-weight:700;color:#7FE3B0;margin:8px 0 5px;letter-spacing:-0.045em;font-variant-numeric:tabular-nums;}
+  .ask{list-style:none;padding:0;margin:0;}
+  .ask li{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line);font-size:15.5px;}
+  .ask li:last-child{border-bottom:none;}
+  .ask .q{width:27px;height:27px;border-radius:50%;background:var(--brand-tint);color:var(--brand-dark);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .qual{display:flex;gap:14px;align-items:flex-start;background:var(--brand-tint);border-radius:var(--radius-sm);padding:22px 24px;}
+  .qual .ic{width:31px;height:31px;border-radius:50%;background:var(--brand);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .qual p{margin:0;color:var(--brand-dark);font-size:15.5px;}
+  .note{font-size:13px;color:var(--faint);line-height:1.6;margin-top:18px;display:flex;gap:8px;}
+  .errbar{background:var(--accent-soft);color:#8a3d1f;border-radius:16px;padding:18px 22px;font-size:14px;font-weight:600;line-height:1.5;max-width:660px;margin:26px auto;}
+  .footer{text-align:center;color:var(--faint);font-size:13px;padding:44px 0 64px;}
+
+  .hidden{display:none;}
+  .reveal{animation:viewIn .5s cubic-bezier(.2,.7,.2,1);}
+  @keyframes viewIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+  @keyframes cardIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @keyframes shimmer{from{background-position:220% 0;}to{background-position:-220% 0;}}
+  .cat:nth-child(1),.prov:nth-child(1),.svc:nth-child(1){animation-delay:.02s;}
+  .cat:nth-child(2),.prov:nth-child(2),.svc:nth-child(2){animation-delay:.05s;}
+  .cat:nth-child(3),.prov:nth-child(3),.svc:nth-child(3){animation-delay:.08s;}
+  .cat:nth-child(4),.prov:nth-child(4),.svc:nth-child(4){animation-delay:.11s;}
+  .cat:nth-child(5),.prov:nth-child(5),.svc:nth-child(5){animation-delay:.14s;}
+  .cat:nth-child(6),.prov:nth-child(6),.svc:nth-child(6){animation-delay:.17s;}
+  .prov:nth-child(n+7),.svc:nth-child(n+7){animation-delay:.20s;}
+  @media(max-width:620px){
+    .hero{padding:52px 0 8px;} .stats{grid-template-columns:1fr;}
+    .slider label{width:140px;font-size:14px;} .slider{gap:12px;}
+    .prov .price{font-size:24px;} .estbox .v,.cashbox .v{font-size:44px;} .panel{padding:24px 22px;}
+    .res-controls{gap:12px;} .ctrl-grp{width:100%;justify-content:space-between;}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}.cat,.prov,.svc{opacity:1!important;}}
+
+
+  .chat-fab{position:fixed;right:22px;bottom:22px;width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-lg);z-index:60;transition:transform .18s,background .18s;}
+  .chat-fab:hover{transform:translateY(-2px) scale(1.03);background:var(--brand-dark);}
+  .chat-panel{position:fixed;right:22px;bottom:22px;width:382px;max-width:calc(100vw - 32px);height:564px;max-height:calc(100vh - 96px);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);z-index:61;display:none;flex-direction:column;overflow:hidden;}
+  .chat-panel.open{display:flex;animation:chatIn .26s cubic-bezier(.2,.7,.2,1);}
+  @keyframes chatIn{from{opacity:0;transform:translateY(16px) scale(.98);}to{opacity:1;transform:none;}}
+  .chat-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line);}
+  .chat-htitle{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.02em;}
+  .chat-cdot{width:9px;height:9px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px var(--brand-soft);}
+  .chat-x{background:none;border:none;color:var(--faint);font-size:15px;padding:6px 8px;border-radius:8px;line-height:1;}
+  .chat-x:hover{color:var(--ink);background:var(--bg);}
+  .chat-disc{font-size:11.5px;color:var(--faint);padding:9px 18px;background:var(--surface-2);border-bottom:1px solid var(--line);line-height:1.4;}
+  .chat-msgs{flex:1;overflow-y:auto;padding:16px 16px 10px;display:flex;flex-direction:column;gap:11px;}
+  .chat-msg{max-width:88%;font-size:14.5px;line-height:1.5;}
+  .chat-msg p{margin:0;}
+  .chat-msg.bot{align-self:flex-start;background:var(--brand-tint);color:var(--ink);padding:11px 14px;border-radius:5px 16px 16px 16px;}
+  .chat-msg.user{align-self:flex-end;background:var(--ink);color:#fff;padding:11px 14px;border-radius:16px 16px 5px 16px;}
+  .chat-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
+  .chat-pill{background:var(--surface);border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--brand-dark);transition:.15s;}
+  .chat-pill:hover{border-color:var(--brand);background:var(--brand-soft);}
+  .chat-go{margin-top:10px;background:var(--surface);border:1px solid var(--line-2);border-radius:10px;padding:8px 13px;font-size:13px;font-weight:600;color:var(--brand-dark);transition:.15s;}
+  .chat-go:hover{border-color:var(--brand);background:var(--brand-soft);}
+  .chat-list{display:flex;flex-direction:column;gap:5px;margin-top:9px;}
+  .chat-li{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:7px 11px;background:var(--surface);border:1px solid var(--line);border-radius:9px;}
+  .chat-li b{color:var(--brand-dark);}
+  .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);}
+  .chat-input input{flex:1;height:42px;border:1px solid var(--line-2);border-radius:12px;padding:0 14px;font-family:inherit;font-size:14.5px;color:var(--ink);background:var(--surface);}
+  .chat-input input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft);}
+  .chat-send{width:42px;height:42px;border-radius:12px;background:var(--brand);color:#fff;border:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s;}
+  .chat-send:hover{background:var(--brand-dark);}
+  @media(max-width:620px){
+    .chat-panel{right:12px;left:12px;bottom:12px;width:auto;height:min(74vh,560px);}
+    .chat-fab{right:16px;bottom:16px;}
+  }
+
+
+/* ===== hidden-menu story (scoped to #story) ===== */
+  :root{
+    --bg:#F7F8F6;--surface:#FFFFFF;--surface-2:#FBFBF9;
+    --ink:#15201A;--muted:#5A655E;--faint:#8A958E;
+    --brand:#10A06A;--brand-dark:#0A7048;--brand-soft:#E5F4EC;--brand-tint:#EFF8F2;
+    --accent:#D8452E;--accent-soft:#FBE8E2;--accent-dark:#A6351E;--good:#10A06A;--bad:#D8452E;
+    --indigo:#0A7048;
+    --line:rgba(21,32,26,0.08);--line-2:rgba(21,32,26,0.14);
+    --radius:20px;--radius-lg:26px;--radius-sm:13px;
+    --shadow-sm:0 1px 2px rgba(21,32,26,.05);
+    --shadow:0 1px 3px rgba(21,32,26,.05),0 16px 40px -26px rgba(21,32,26,.28);
+    --display:"Plus Jakarta Sans",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+  }#story h1, #story h2, #story h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;letter-spacing:-0.03em;}#story a{color:inherit;}#story .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}#story .swrap{max-width:880px;margin:0 auto;padding:0 24px;}#story .prose{max-width:680px;}#story :focus-visible{outline:2.5px solid var(--brand-dark);outline-offset:3px;border-radius:8px;}#story #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--brand);z-index:70;transition:width .08s linear;}#story .topbar{position:sticky;top:0;z-index:50;background:rgba(247,248,246,0.82);backdrop-filter:saturate(150%) blur(16px);-webkit-backdrop-filter:saturate(150%) blur(16px);border-bottom:1px solid var(--line);}#story .topbar .bar{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:13px 24px;}#story .brandmark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:-0.03em;color:var(--ink);text-decoration:none;flex-shrink:0;}#story .brandmark .dot{width:30px;height:30px;display:flex;}#story .spacer{flex:1;}#story .storynav{display:flex;gap:16px;align-items:center;}#story .storynav a{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 2px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;}#story .storynav a:hover{color:var(--ink);}#story .storynav a.active{color:var(--ink);border-bottom-color:var(--brand);}#story .navbtn{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:11px;transition:.18s;flex-shrink:0;}#story .navbtn:hover{background:var(--brand-dark);}#story .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--brand-dark);letter-spacing:0.13em;text-transform:uppercase;}#story .scbadge{width:34px;height:34px;border-radius:50%;background:var(--indigo);display:inline-flex;flex-shrink:0;}#story .hero{padding:64px 0 8px;text-align:center;}#story .hero .eyebrow{margin-bottom:22px;}#story .hero h1{font-size:clamp(38px,6vw,62px);font-weight:700;letter-spacing:-0.045em;}#story .hero p.sub{font-size:20px;color:var(--muted);max-width:610px;margin:20px auto 0;line-height:1.5;}#story .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}#story .reveal.shown{opacity:1;transform:none;}#story .section{padding:58px 0 0;}#story .section h2{font-size:clamp(26px,3.8vw,38px);letter-spacing:-0.04em;margin-bottom:15px;}#story .section .eyebrow{margin-bottom:13px;}#story .section p{color:var(--muted);font-size:17.5px;}#story .section p strong{color:var(--ink);font-weight:600;}#story .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:30px 32px;margin-top:28px;}#story .card .c-h{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:4px;letter-spacing:-0.02em;}#story .card .c-s{font-size:13.5px;color:var(--faint);margin-bottom:22px;}#story .src{font-size:12px;color:var(--faint);margin-top:16px;}#story .src a{color:var(--brand-dark);}#story .cmp-bar{display:flex;align-items:center;gap:12px;margin:9px 0;}#story .cmp-tag{width:150px;font-size:13px;color:var(--muted);font-weight:600;flex-shrink:0;}#story .cmp-track{flex:1;}#story .cmp-fill{height:36px;border-radius:9px;min-width:62px;display:flex;align-items:center;justify-content:flex-end;padding-right:13px;color:#fff;font-family:var(--display);font-weight:700;font-size:15px;width:0;transition:width 1s cubic-bezier(.2,.7,.2,1);font-variant-numeric:tabular-nums;}#story .cmp-fill.lo{background:var(--brand);}#story .cmp-fill.hi{background:var(--accent);}#story .cmp-note{font-size:13.5px;color:var(--accent-dark);font-weight:600;margin-top:10px;}#story .bigstat{background:var(--indigo);color:#fff;border-radius:var(--radius-lg);padding:40px;text-align:center;margin-top:28px;}#story .bigstat .n{font-family:var(--display);font-size:clamp(56px,9vw,76px);font-weight:700;letter-spacing:-.05em;line-height:1;}#story .bigstat .l{font-size:16px;color:rgba(255,255,255,.8);margin:12px auto 0;max-width:520px;}#story .pull{font-family:var(--display);font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:-.03em;line-height:1.3;margin:0;}#story .pull em{font-style:normal;color:var(--brand-dark);}#story .takeaways{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px;}#story .tk{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}#story .tk .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-tint);color:var(--brand-dark);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}#story .tk h3{font-family:var(--body);font-weight:700;font-size:16px;margin-bottom:6px;}#story .tk p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.5;}#story .cta{background:var(--ink);border-radius:var(--radius-lg);padding:50px 40px;text-align:center;margin:62px 0 0;}#story .cta h2{color:#fff;font-size:clamp(26px,3.6vw,38px);letter-spacing:-0.035em;margin-bottom:12px;}#story .cta p{color:rgba(255,255,255,.66);max-width:500px;margin:0 auto 26px;font-size:16.5px;}#story .cta a{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 28px;border-radius:14px;transition:.18s;}#story .cta a:hover{background:#13B377;transform:translateY(-2px);}#story .sources{margin-top:30px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px 22px;}#story .sources h4{font-family:var(--body);font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);font-weight:700;margin-bottom:10px;}#story .sources ol{margin:0;padding-left:18px;font-size:13px;color:var(--muted);line-height:1.7;}#story .sources a{color:var(--brand-dark);}#story .footer{text-align:center;color:var(--faint);font-size:13px;padding:46px 0 64px;}@media(max-width:720px){#story .storynav{display:none;}}@media(prefers-reduced-motion:reduce){#story .reveal{opacity:1!important;transform:none!important;}}
+
+  :root{--serif:"Playfair Display",Georgia,serif;}#story .mhero{background:var(--bg);padding:80px 24px 4px;text-align:center;}#story .mhero .inner{max-width:760px;margin:0 auto;}#story .mhero .eyebrow{margin-bottom:22px;color:var(--brand-dark);}#story .mhero h1{font-family:var(--serif);font-weight:700;font-size:clamp(42px,7vw,66px);letter-spacing:-.01em;line-height:1.04;color:var(--ink);}#story .mhero .sub{color:var(--muted);font-size:20px;max-width:580px;margin:20px auto 0;line-height:1.5;}#story .mhero .scrollcue{color:var(--faint);}#story .pull{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vw,36px);letter-spacing:-.035em;line-height:1.25;margin:0;max-width:760px;}#story .pull em{font-style:normal;color:var(--brand-dark);}#story .statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:26px;}#story .statbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center;}#story .statbox .n{font-family:var(--display);font-size:40px;font-weight:700;letter-spacing:-.04em;}#story .statbox .l{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.4;}#story .bigstat{background:var(--indigo);color:#fff;border-radius:var(--radius-lg);padding:44px 40px;text-align:center;margin-top:28px;}#story .bigstat .n{font-family:var(--display);font-size:clamp(60px,11vw,92px);font-weight:700;letter-spacing:-.05em;line-height:.95;}#story .bigstat .l{font-size:16px;color:rgba(255,255,255,.82);margin:14px auto 0;max-width:520px;}#story .rmenu{max-width:580px;margin:0 auto;background:linear-gradient(180deg,#FFFDF8,#FFFEFC);border:1px solid var(--line-2);border-radius:18px;box-shadow:var(--shadow);padding:34px 40px 28px;position:relative;}#story .rmenu-crest{width:48px;height:48px;border-radius:50%;background:var(--indigo);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}#story .rmenu-title{font-family:var(--serif);font-weight:700;font-size:27px;text-align:center;}#story .rmenu-meta{text-align:center;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-top:4px;}#story .rmenu-rule{height:4px;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);max-width:90px;margin:16px auto 4px;}#story .rmenu-dish{font-family:var(--serif);font-style:italic;font-size:17px;text-align:center;color:var(--ink);margin:14px 0 2px;}#story .rmenu-sub{text-align:center;font-size:12px;color:var(--faint);font-weight:600;margin-bottom:10px;}#story .ritem{display:flex;align-items:baseline;gap:7px;padding:13px 12px;border-radius:10px;}#story .ritem.best{background:var(--brand-tint);}#story .r-name{font-family:var(--serif);font-size:16.5px;font-weight:500;color:var(--ink);white-space:nowrap;}#story .r-name small{font-family:var(--body);font-size:11.5px;color:var(--faint);font-weight:600;margin-left:9px;white-space:nowrap;}#story .r-tag{font-family:var(--body);display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--brand);color:#fff;padding:2px 7px;border-radius:6px;margin-left:9px;vertical-align:2px;}#story .r-dots{flex:1;border-bottom:2px dotted var(--line-2);position:relative;top:-5px;min-width:18px;}#story .r-price{font-family:var(--body);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink);}#story .ritem.best .r-price{color:var(--brand-dark);}#story .ritem.high .r-price{color:var(--bad);}#story .b-old{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--accent-dark);white-space:nowrap;}#story .b-new{font-family:var(--body);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap;}#story .rmenu:not(.priced) .b-new{display:none;}#story .rmenu.priced .b-old{display:none;}#story .ritem.best .b-new{color:var(--brand-dark);}#story .ritem.high .b-new{color:var(--bad);}#story .rmenu-range{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line-2);position:relative;height:30px;}#story .rr-track{position:absolute;left:6px;right:6px;top:16px;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--brand),#cdb24e,var(--bad));opacity:.85;}#story .rr-dot{position:absolute;top:16px;width:14px;height:14px;border-radius:50%;border:3px solid #FFFDF8;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(13,20,17,.28);transition:left .6s cubic-bezier(.2,.7,.2,1);}#story .rmenu-foot{text-align:center;font-size:13.5px;color:var(--brand-dark);font-weight:600;margin-top:16px;min-height:1.2em;opacity:0;transition:opacity .4s;}#story .rmenu-foot.show{opacity:1;}#story .stamp{position:absolute;top:24px;right:18px;border:2.5px solid var(--accent);color:var(--accent);font-family:var(--body);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:8px;transform:rotate(8deg);opacity:0;transition:opacity .4s;}#story .rmenu:not(.priced) .stamp{opacity:.85;}#story .controls{max-width:580px;margin:0 auto 16px;}#story .ctl-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:16px 0 9px;}#story .chips{display:flex;flex-wrap:wrap;gap:8px;}#story .chip{font-family:var(--body);font-size:13.5px;font-weight:600;padding:9px 15px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--muted);cursor:pointer;transition:.15s;}#story .chip:hover{border-color:var(--brand);color:var(--ink);}#story .chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}#story .toggle{display:inline-flex;background:var(--surface);border:1px solid var(--line-2);border-radius:999px;padding:3px;}#story .toggle button{font-family:var(--body);border:none;background:none;font-size:13px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;}#story .toggle button.active{background:var(--brand);color:#fff;}@media(max-width:560px){#story .rmenu{padding:28px 22px;}#story .r-name small{display:none;}}#story .imgband{position:relative;color:var(--ink);background:var(--surface);padding:86px 24px;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}#story .imgband::before{display:none;}#story .imgband .inner{position:relative;max-width:760px;margin:0 auto;}#story .imgband .pull{color:var(--ink);max-width:none;}#story .imgband .pull em{color:var(--brand-dark);}#story .bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;}#story .scrollcue{margin-top:36px;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:9px;opacity:.75;}#story .scrollcue svg{animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}#story .scrolly{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;margin-top:8px;}#story .scrolly-graphic{position:sticky;top:0;height:100vh;display:flex;align-items:center;}#story .scrolly-graphic .sg{width:100%;}#story .scrolly-steps{padding:26vh 0 30vh;}#story .step{min-height:80vh;display:flex;align-items:center;}#story .step .sc{border-left:3px solid var(--line-2);padding:6px 0 6px 22px;opacity:.32;transition:opacity .45s,border-color .45s,transform .45s;transform:translateY(8px);}#story .step.active .sc{opacity:1;border-left-color:var(--brand);transform:none;}#story .step .sc .k{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-dark);margin-bottom:10px;}#story .step .sc .t{font-family:var(--display);font-size:clamp(24px,3vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1.18;color:var(--ink);}#story .step .sc .d{font-size:16px;color:var(--muted);margin-top:10px;line-height:1.5;}@media(max-width:820px){#story .scrolly{grid-template-columns:1fr;gap:0;}#story .scrolly-graphic{position:static;height:auto;margin-bottom:8px;}#story .scrolly-steps{padding:0;}#story .step{min-height:auto;margin:18px 0;}}#story .step .sc{opacity:1;border-left-color:var(--brand);transform:none;}#story .step.read .sc{opacity:.38;}@media(min-width:821px){#story .step{min-height:52vh;}#story .scrolly-steps{padding:12vh 0 14vh;}}
+#story .story-kicker{max-width:640px;margin:0 auto;padding:36px 24px 0;text-align:center;color:var(--muted);font-size:17px;line-height:1.55;}.hero{padding:42px 0 6px;}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <button class="brandmark" onclick="goHome()">
+    <span class="dot"><svg width="34" height="34" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 3C20 3 27.5 6.8 32.5 7.4C33.7 7.5 34.5 8.4 34.5 9.6V20.5C34.5 28.8 28.2 34.8 20 37.5C11.8 34.8 5.5 28.8 5.5 20.5V9.6C5.5 8.4 6.3 7.5 7.5 7.4C12.5 6.8 20 3 20 3Z" fill="#10A56A"/><rect x="17.4" y="12.5" width="5.2" height="15" rx="2.2" fill="#fff"/><rect x="12.5" y="17.4" width="15" height="5.2" rx="2.2" fill="#fff"/></svg></span>
+    <span id="brand-name">SC Care Price Finder</span>
+  </button>
+  <span class="spacer"></span>
+  <a class="navlink" href="no-menu-standalone.html">Stories</a>
+  <div class="lang">
+    <button id="lang-en" class="on" onclick="setLang('en')">EN</button>
+    <button id="lang-es" onclick="setLang('es')">ES</button>
+  </div>
+</div></div>
+<div class="protobar" id="proto-banner"></div>
+
+<div id="view-home">
+  <div class="wrap">
+    <div class="hero">
+      <h1 id="h-title"></h1>
+      <p id="h-sub"></p>
+      <div class="searchwrap">
+        <span class="mag"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
+        <input id="search" type="text" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="sugg">
+        <div class="sugg" id="sugg" role="listbox"></div>
+      </div>
+      <div class="controls">
+        <div class="toggle" role="group">
+          <button id="t-ins" class="on" onclick="setMode('ins')"></button>
+          <button id="t-cash" onclick="setMode('cash')"></button>
+        </div>
+        <div class="selwrap">
+          <select id="region" aria-label="Region">
+            <option value="mid">Midlands (Columbia area)</option>
+            <option value="up">Upstate (Greenville / Spartanburg)</option>
+            <option value="low">Lowcountry (Charleston area)</option>
+            <option value="pd">Pee Dee (Florence area)</option>
+            <option value="all">All of South Carolina</option>
+          </select>
+          <span class="chev">&#9662;</span>
+        </div>
+      </div>
+      <div class="popular"><span class="lbl" id="pop-lbl"></span><span id="pop-chips"></span></div>
+    </div>
+    </div>
+<div id="story"><p class="story-kicker">Here is the menu South Carolina hospitals handed you. Scroll to watch the prices appear.</p><div class="swrap"><div class="scrolly"><div class="scrolly-graphic"><div class="sg"><div class="rmenu" id="sgmenu"><div class="stamp">No prices</div><div class="rmenu-crest"><svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 9 a8 8 0 1 0 7 12 a6 6 0 1 1 -7 -12 z" fill="#fff"/><path d="M26 31 C25.4 26 25.8 22 26 19" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M26 19 C23 16 20 15.5 17.5 16.4" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C24 15.5 22 13.7 19.6 12.8" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C26 15 26.4 12.6 27.4 10.8" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C28.4 15.7 30.4 14 32.6 13.2" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M26 19 C29 16.2 31.6 15.4 34 15.4" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg></div><div class="rmenu-title">The Hospital</div><div class="rmenu-meta" id="sgmeta">The old way</div><div class="rmenu-rule"></div><div class="rmenu-dish">CT scan of the abdomen</div><div id="sgitems"></div><div class="rmenu-foot" id="sgfoot"></div></div></div></div><div class="scrolly-steps"><div class="step" data-step="0"><div class="sc"><div class="k">The old way</div><div class="t">You ordered, then found out the price.</div><div class="d">No menu, no way to compare, no warning.</div></div></div><div class="step" data-step="1"><div class="sc"><div class="k">2021</div><div class="t">A federal law forced the prices into the open.</div><div class="d">Hospitals must now post what they actually charge.</div></div></div><div class="step" data-step="2"><div class="sc"><div class="k">Best value</div><div class="t">Suddenly you can see the cheapest option.</div><div class="d">Same scan, a far lower price, right there in black and white.</div></div></div><div class="step" data-step="3"><div class="sc"><div class="k">The gap</div><div class="t">And the priciest. Hundreds apart.</div><div class="d">The menu finally shows what you would have overpaid.</div></div></div></div></div><section class="imgband bleed"><div class="inner"><p class="pull">No restaurant could survive a menu like this. <em>Hospitals used it for decades.</em></p></div></section><section class="imgband bleed"><div class="inner"><p class="pull">The prices are public now. <em>You just have to know to look.</em></p></div></section></div></div>
+<div class="wrap">
+<div class="browse">
+      <div class="sec-lbl" id="browse-lbl"></div>
+      <div id="cat-area"><div class="cards" id="cat-cards"></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="view-list" class="hidden"><div class="wrap">
+  <button class="backbtn" onclick="goHome()">&#8249; <span id="back-home"></span></button>
+  <div class="list-head"><h1 id="list-title"></h1><div class="meta" id="list-meta"></div></div>
+  <div class="svclist" id="svc-list"></div>
+</div></div>
+
+<div id="view-results" class="hidden"><div class="wrap">
+  <button class="backbtn" onclick="resultsBack()">&#8249; <span id="back-res"></span></button>
+  <div class="res-head"><h1 id="res-name"></h1><div class="meta" id="res-meta"></div></div>
+  <div class="stats" id="res-stats"></div>
+  <div id="res-save"></div>
+  <div class="res-controls" id="res-controls"></div>
+  <div class="provlist" id="res-list"></div>
+  <p class="note" id="res-note"></p>
+</div></div>
+
+<div id="view-detail" class="hidden"><div class="wrap">
+  <button class="backbtn" onclick="goResults()">&#8249; <span id="back-res2"></span></button>
+  <div class="det-head"><h1 id="det-name"></h1><div class="meta" id="det-meta"></div></div>
+  <div class="panel" id="det-cost"></div>
+  <div class="panel"><h2 id="ask-title"></h2><ul class="ask" id="ask-list"></ul></div>
+  <div class="panel"><div class="qual"><span class="ic">&#10003;</span><p id="qual-text"></p></div></div>
+</div></div>
+
+
+<button id="chat-fab" class="chat-fab" onclick="chatToggle()" aria-expanded="false" aria-label="Price assistant">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/></svg>
+</button>
+<div id="chat-panel" class="chat-panel" role="dialog" aria-label="Price assistant">
+  <div class="chat-head">
+    <div class="chat-htitle"><span class="chat-cdot"></span><span id="chat-title">Price assistant</span></div>
+    <button class="chat-x" onclick="closeChat()" aria-label="Close">&#10005;</button>
+  </div>
+  <div class="chat-disc" id="chat-disc"></div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="chat-input">
+    <input id="chat-in" type="text" autocomplete="off">
+    <button id="chat-send" class="chat-send" aria-label="Send"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+  </div>
+</div>
+
+<div class="footer" id="foot"></div>
+
+<script>
+const EMBEDDED_DATA = {"services": [{"id": "mri_knee", "name_en": "Knee MRI", "name_es": "Resonancia de rodilla", "code": "73721", "category": "imaging", "providers": [{"name": "Lexington Imaging Center", "region": "mid", "type": "out", "distance": 4.2, "insurance": 612, "cash": 480}, {"name": "Columbia Open MRI", "region": "mid", "type": "out", "distance": 6.8, "insurance": 735, "cash": 525}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 1980, "cash": 1640}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 2240, "cash": 1875}, {"name": "Greenville Radiology", "region": "up", "type": "out", "distance": 92, "insurance": 640, "cash": 510}, {"name": "Prisma Greenville Memorial", "region": "up", "type": "hosp", "distance": 95, "insurance": 2110, "cash": 1720}, {"name": "Charleston Imaging Partners", "region": "low", "type": "out", "distance": 112, "insurance": 690, "cash": 540}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 2380, "cash": 1990}, {"name": "Florence Diagnostic Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 655, "cash": 500}]}, {"id": "mammo_screen", "name_en": "Screening Mammogram", "name_es": "Mamografía de detección", "code": "77067", "category": "imaging", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 168, "cash": 120}, {"name": "Columbia Breast Center", "region": "mid", "type": "out", "distance": 6.2, "insurance": 195, "cash": 135}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 410, "cash": 320}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 175, "cash": 125}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 455, "cash": 360}, {"name": "Florence Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 182, "cash": 130}]}, {"id": "a1c", "name_en": "A1C Blood Test", "name_es": "Análisis A1C", "code": "83036", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 28, "cash": 18}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 34, "cash": 22}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 96, "cash": 72}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 31, "cash": 20}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 108, "cash": 80}, {"name": "Florence Clinical Lab", "region": "pd", "type": "out", "distance": 78, "insurance": 29, "cash": 19}]}, {"id": "lipid_panel", "name_en": "Lipid Panel", "name_es": "Perfil de lípidos", "code": "80061", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 42, "cash": 29}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 55, "cash": 35}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 145, "cash": 110}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 48, "cash": 32}]}, {"id": "office_specialist", "name_en": "Specialist Office Visit", "name_es": "Consulta con especialista", "code": "99204", "category": "visit", "providers": [{"name": "Midlands Family Care", "region": "mid", "type": "out", "distance": 2.4, "insurance": 185, "cash": 140}, {"name": "Columbia Internal Medicine", "region": "mid", "type": "out", "distance": 5.7, "insurance": 220, "cash": 165}, {"name": "Prisma Specialty Clinic", "region": "mid", "type": "hosp", "distance": 7.0, "insurance": 380, "cash": 300}, {"name": "Greenville Health Associates", "region": "up", "type": "out", "distance": 91, "insurance": 198, "cash": 150}]}, {"id": "colonoscopy", "name_en": "Colonoscopy (Screening)", "name_es": "Colonoscopia (detección)", "code": "45378", "category": "procedure", "providers": [{"name": "Midlands Endoscopy Center", "region": "mid", "type": "out", "distance": 4.8, "insurance": 1150, "cash": 890}, {"name": "Columbia Digestive Health", "region": "mid", "type": "out", "distance": 6.5, "insurance": 1320, "cash": 980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 3240, "cash": 2680}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 3580, "cash": 2950}, {"name": "Greenville Endoscopy", "region": "up", "type": "out", "distance": 92, "insurance": 1210, "cash": 920}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 3720, "cash": 3050}]}, {"id": "carpal_tunnel", "name_en": "Carpal Tunnel Release", "name_es": "Liberación del túnel carpiano", "code": "64721", "category": "procedure", "providers": [{"name": "Midlands Surgery Center", "region": "mid", "type": "out", "distance": 5.2, "insurance": 2450, "cash": 1980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 5680, "cash": 4720}, {"name": "Greenville Surgical", "region": "up", "type": "out", "distance": 92, "insurance": 2610, "cash": 2100}]}, {"id": "prenatal_panel", "name_en": "Prenatal Lab Panel", "name_es": "Panel de laboratorio prenatal", "code": "80055", "category": "pregnancy", "providers": [{"name": "Lexington Women's Health", "region": "mid", "type": "out", "distance": 3.9, "insurance": 240, "cash": 180}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 285, "cash": 210}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 560, "cash": 430}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 255, "cash": 190}]}, {"id": "ultrasound_ob", "name_en": "Obstetric Ultrasound", "name_es": "Ecografía obstétrica", "code": "76805", "category": "pregnancy", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 320, "cash": 240}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 365, "cash": 270}, {"name": "Prisma Women's Hospital", "region": "mid", "type": "hosp", "distance": 7.3, "insurance": 780, "cash": 620}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 845, "cash": 670}]}, {"id": "mri_abdomen_noc", "name_en": "MRI Abdomen, without contrast", "name_es": "Resonancia de abdomen, sin contraste", "code": "74181", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 637.1, "cash": 637.1}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 654.31, "cash": 654.31}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1035.61, "cash": 1035.61}]}, {"id": "ct_abdomen_noc", "name_en": "CT Abdomen, without contrast", "name_es": "Tomografía de abdomen, sin contraste", "code": "74150", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 458.44, "cash": 458.44}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 468.97, "cash": 468.97}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1781.57, "cash": 1781.57}]}]};
+const T={
+ en:{brand:"SC Care Price Finder",title:"A menu with no prices.",
+  sub:"That was hospital pricing for years. It is public now. Search any test or scan and see what providers near you actually charge.",
+  search:"Try a service or code, e.g. \u201Cknee MRI\u201D or \u201C73721\u201D",
+  ins:"I have insurance",cash:"I'm paying cash",popLbl:"Popular:",browseLbl:"Browse by category",
+  backHome:"Back to search",backRes:"Back to results",
+  lowest:"Lowest near you",median:"Area median",highest:"Highest near you",
+  near:"providers near you",insPrice:"insurance price",cashWord:"cash",cheapest:"Lowest price",goCue:"See your cost",
+  from:"from",services:"services",allServices:"All services",resultsFor:"Results for",
+  noMatch:"No exact match, showing all services",
+  searchNo:"No services match that. Try a body part, test name, or billing code.",
+  outp:"Outpatient center",hospital:"Hospital",
+  saveBig:"",saveCap:"in potential savings, the gap between the lowest and highest price here",
+  sortLbl:"Sort",sortPrice:"Price",sortDist:"Distance",sortName:"Name",
+  filtLbl:"Show",filtAll:"All",filtOut:"Outpatient",filtHosp:"Hospital",
+  noFilterRes:"No providers match this filter in this area. Try \u201CAll\u201D or a different region.",
+  estTitle:"What will I actually pay?",estLede:"Your insurance price is",
+  dedLabel:"Deductible left to meet",coinLabel:"Your coinsurance after that",
+  estK:"Estimated you'll pay",towardDed:"toward deductible",coins:"coinsurance",
+  fullDed:"Full price goes toward your deductible",
+  cashK:"Your cash price",cashLede:"Paying without insurance? This is the price you'd pay this provider directly.",
+  estNote:"Estimate only. You pay the full insurance price until your deductible is met, then your coinsurance share. Doesn't include any out-of-pocket maximum you may have reached.",
+  askTitle:"Questions to ask when you book",
+  ask:["Is this the all-in price, or will there be a separate facility fee?",
+       "Does the price include the doctor reading the results?",
+       "What is your cash price if I don't use insurance?",
+       "Is this location in-network for my plan?"],
+  qual:"For standard scans and lab tests, a lower price does not mean lower quality. The same test follows the same medical standards everywhere. A nearby outpatient center is often far cheaper than a hospital for the exact same service.",
+  resNote:"Insurance prices are negotiated rates. Your actual cost depends on your deductible and coinsurance.",
+  resNoteCash:"Cash prices are self-pay rates. Always confirm the price when you book.",
+  foot:"A price transparency prototype \u2022 Synthetic sample data \u2022 Not medical or financial advice",
+  errLoad:"Couldn't load the price data. If you opened this file directly from your computer, your browser blocks loading data.json. Upload it to GitHub Pages (or run a local web server) and it will work.",
+  pop:["Knee MRI","Mammogram","A1C blood test","Colonoscopy"]},
+ es:{brand:"Buscador de Precios de Salud SC",title:"Un men\u00FA sin precios.",
+  sub:"Ahora los precios son p\u00FAblicos. Busca cualquier estudio y compara lo que cobran los proveedores cerca de ti.",
+  search:"Prueba un servicio o c\u00F3digo, p.ej. \u201Crodilla\u201D o \u201C73721\u201D",
+  ins:"Tengo seguro",cash:"Pago en efectivo",popLbl:"Populares:",browseLbl:"Explorar por categor\u00EDa",
+  backHome:"Volver a buscar",backRes:"Volver a resultados",
+  lowest:"M\u00E1s bajo cerca de ti",median:"Mediana del \u00E1rea",highest:"M\u00E1s alto cerca de ti",
+  near:"proveedores cerca de ti",insPrice:"precio con seguro",cashWord:"efectivo",cheapest:"Precio m\u00E1s bajo",goCue:"Ver tu costo",
+  from:"desde",services:"servicios",allServices:"Todos los servicios",resultsFor:"Resultados para",
+  noMatch:"Sin coincidencia exacta, mostrando todos los servicios",
+  searchNo:"Ning\u00FAn servicio coincide. Prueba una parte del cuerpo, nombre o c\u00F3digo.",
+  outp:"Centro ambulatorio",hospital:"Hospital",
+  saveBig:"",saveCap:"en ahorro potencial, la diferencia entre el precio m\u00E1s bajo y el m\u00E1s alto aqu\u00ED",
+  sortLbl:"Ordenar",sortPrice:"Precio",sortDist:"Distancia",sortName:"Nombre",
+  filtLbl:"Mostrar",filtAll:"Todos",filtOut:"Ambulatorio",filtHosp:"Hospital",
+  noFilterRes:"Ning\u00FAn proveedor coincide con este filtro en esta \u00E1rea. Prueba \u201CTodos\u201D u otra regi\u00F3n.",
+  estTitle:"\u00BFCu\u00E1nto pagar\u00E9 realmente?",estLede:"Tu precio con seguro es",
+  dedLabel:"Deducible que falta por cubrir",coinLabel:"Tu coaseguro despu\u00E9s de eso",
+  estK:"Pagar\u00EDas aproximadamente",towardDed:"para el deducible",coins:"coaseguro",
+  fullDed:"El precio completo cuenta para tu deducible",
+  cashK:"Tu precio en efectivo",cashLede:"\u00BFPagas sin seguro? Este es el precio que pagar\u00EDas directamente a este proveedor.",
+  estNote:"Solo una estimaci\u00F3n. Pagas el precio completo hasta cubrir tu deducible, luego tu parte del coaseguro. No incluye un posible m\u00E1ximo de gastos ya alcanzado.",
+  askTitle:"Preguntas que debes hacer al reservar",
+  ask:["\u00BFEs el precio total, o habr\u00E1 un cargo de instalaci\u00F3n aparte?",
+       "\u00BFIncluye el precio al m\u00E9dico que interpreta los resultados?",
+       "\u00BFCu\u00E1l es su precio en efectivo si no uso seguro?",
+       "\u00BFEst\u00E1 este lugar dentro de la red de mi plan?"],
+  qual:"Para estudios y an\u00E1lisis est\u00E1ndar, un precio m\u00E1s bajo no significa menor calidad. La misma prueba sigue las mismas normas en todas partes. Un centro ambulatorio cercano suele ser mucho m\u00E1s barato que un hospital por el mismo servicio.",
+  resNote:"Los precios con seguro son tarifas negociadas. Tu costo real depende de tu deducible y coaseguro.",
+  resNoteCash:"Los precios en efectivo son tarifas de pago propio. Confirma siempre el precio al reservar.",
+  foot:"Prototipo de transparencia de precios \u2022 Datos sint\u00E9ticos de ejemplo \u2022 No es consejo m\u00E9dico ni financiero",
+  errLoad:"No se pudieron cargar los datos. Si abriste este archivo directamente, el navegador bloquea la carga de data.json. S\u00FAbelo a GitHub Pages (o usa un servidor local) y funcionar\u00E1.",
+  pop:["Resonancia de rodilla","Mamograf\u00EDa","An\u00E1lisis A1C","Colonoscopia"]}
+};
+const CATS=[
+ {id:"imaging",ic:"\u25C9",en:["Imaging","MRI, CT, X-ray, ultrasound"],es:["Estudios","Resonancia, TC, rayos X"]},
+ {id:"lab",ic:"\u2697",en:["Lab tests","Bloodwork, screenings"],es:["Laboratorio","An\u00E1lisis de sangre"]},
+ {id:"visit",ic:"\u271A",en:["Office visits","Checkups, specialists"],es:["Consultas","Chequeos, especialistas"]},
+ {id:"procedure",ic:"\u2295",en:["Procedures","Colonoscopy, surgery"],es:["Procedimientos","Colonoscopia, cirug\u00EDa"]},
+ {id:"pregnancy",ic:"\u2740",en:["Pregnancy","Prenatal, delivery"],es:["Embarazo","Prenatal, parto"]},
+ {id:"all",ic:"\u22EF",en:["See all","Full list of services"],es:["Ver todo","Lista completa"]}
+];
+const REGION_NAMES={en:{mid:"the Midlands",up:"the Upstate",low:"the Lowcountry",pd:"the Pee Dee",all:"South Carolina"},
+ es:{mid:"Midlands",up:"Upstate",low:"Lowcountry",pd:"Pee Dee",all:"Carolina del Sur"}};
+const POP_IDS=["mri_knee","mammo_screen","a1c","colonoscopy"];
+
+let lang="en",mode="ins",region="mid";
+let SERVICES={},DATA={},ORDER=[];
+let curList=[],curService=null,curProvider=null;
+let listIds=[],listTitle="",resultsFrom="home";
+let resSort="price",resFilter="all";
+let suggMatches=[],suggIdx=-1;
+
+const $=id=>document.getElementById(id);
+const money=n=>"$"+Math.round(n).toLocaleString();
+
+async function init(){
+  renderChrome();renderLoading();
+  try{
+    const data=EMBEDDED_DATA;
+    data.services.forEach(s=>{
+      SERVICES[s.id]={name:{en:s.name_en,es:s.name_es},code:s.code,cat:s.category};
+      DATA[s.id]=s.providers.map(p=>[p.name,p.region,p.type,p.distance,p.insurance,p.cash]);
+      ORDER.push(s.id);
+    });
+    renderCats();
+  }catch(e){
+    $("cat-area").innerHTML='<div class="errbar">'+T[lang].errLoad+'</div>';
+  }
+}
+function renderChrome(){
+  const t=T[lang];
+  $("brand-name").textContent=t.brand;$("proto-banner").textContent=t.foot.split("\u2022")[1].trim();
+  $("h-title").textContent=t.title;$("h-sub").textContent=t.sub;$("search").placeholder=t.search;
+  $("search").setAttribute("aria-label",t.title);
+  $("t-ins").textContent=t.ins;$("t-cash").textContent=t.cash;$("pop-lbl").textContent=t.popLbl;
+  $("browse-lbl").textContent=t.browseLbl;$("back-home").textContent=t.backHome;
+  $("back-res").textContent=t.backRes;$("back-res2").textContent=t.backRes;
+  $("ask-title").textContent=t.askTitle;$("foot").textContent=t.foot;
+  $("pop-chips").innerHTML=t.pop.map((p,i)=>`<span class="chip" tabindex="0" role="button" onclick="openService('${POP_IDS[i]}','home')" onkeydown="if(event.key==='Enter')openService('${POP_IDS[i]}','home')">${p}</span>`).join("");
+}
+function renderLoading(){
+  $("cat-area").innerHTML='<div class="cards">'+Array(6).fill('<div class="skel"></div>').join("")+'</div>';
+}
+function renderCats(){
+  $("cat-area").innerHTML='<div class="cards" id="cat-cards"></div>';
+  $("cat-cards").innerHTML=CATS.map(c=>`<button class="cat" onclick="openCategory('${c.id}')"><div class="ic">${c.ic}</div><h3>${c[lang][0]}</h3><p>${c[lang][1]}</p></button>`).join("");
+}
+function svcLowest(id){
+  let rows=DATA[id].filter(p=>region==="all"||p[1]===region);
+  if(!rows.length) rows=DATA[id];
+  const idx=mode==="ins"?4:5;
+  return Math.min(...rows.map(p=>p[idx]));
+}
+
+/* ---- live search suggestions ---- */
+function matchIds(q){
+  q=q.trim().toLowerCase();
+  if(!q) return [];
+  return ORDER.filter(id=>SERVICES[id].name[lang].toLowerCase().includes(q)||
+    SERVICES[id].name.en.toLowerCase().includes(q)||SERVICES[id].code.toLowerCase().includes(q));
+}
+function runSugg(q){
+  if(!ORDER.length||!q.trim()){closeSugg();return;}
+  suggMatches=matchIds(q).slice(0,6);suggIdx=-1;renderSugg();
+}
+function renderSugg(){
+  const t=T[lang],el=$("sugg");
+  if(!suggMatches.length){
+    el.innerHTML=`<div class="sg-empty">${t.searchNo}</div>`;
+  }else{
+    el.innerHTML=suggMatches.map((id,i)=>{
+      const s=SERVICES[id];
+      return `<div class="sg-item${i===suggIdx?' act':''}" role="option" aria-selected="${i===suggIdx}" onmousedown="pickSugg(${i})"><div class="sg-main"><span class="sg-name">${s.name[lang]}</span><span class="code">${s.code}</span></div><span class="sg-price">${money(svcLowest(id))}<i>${t.from}</i></span></div>`;
+    }).join("");
+  }
+  el.classList.add("open");$("search").setAttribute("aria-expanded","true");
+}
+function closeSugg(){
+  $("sugg").classList.remove("open");$("sugg").innerHTML="";
+  $("search").setAttribute("aria-expanded","false");suggMatches=[];suggIdx=-1;
+}
+function pickSugg(i){const id=suggMatches[i];if(id){closeSugg();$("search").blur();openService(id,"home");}}
+
+function openCategory(cat){
+  const t=T[lang];
+  if(cat==="all"){listIds=ORDER.slice();listTitle=t.allServices;}
+  else{listIds=ORDER.filter(id=>SERVICES[id].cat===cat);
+       const c=CATS.find(x=>x.id===cat);listTitle=c?c[lang][0]:cat;}
+  showList();
+}
+function openSearch(q){
+  const t=T[lang];q=q.trim().toLowerCase();
+  if(!q){openCategory("all");return;}
+  const m=matchIds(q);
+  if(m.length===1){openService(m[0],"home");return;}
+  if(m.length>1){listIds=m;listTitle=`${t.resultsFor} \u201C${q}\u201D`;showList();return;}
+  listIds=ORDER.slice();listTitle=t.noMatch;showList();
+}
+function showList(){
+  const t=T[lang];
+  $("list-title").textContent=listTitle;
+  $("list-meta").textContent=`${listIds.length} ${t.services} \u00B7 ${REGION_NAMES[lang][region]}`;
+  $("svc-list").innerHTML=listIds.map(id=>{
+    const s=SERVICES[id];
+    return `<button class="svc" onclick="openService('${id}','list')"><div><h3>${s.name[lang]}</h3><span class="code">${s.code}</span></div><div class="from"><div class="v">${money(svcLowest(id))}</div><small>${t.from}</small></div></button>`;
+  }).join("");
+  show("view-list");
+}
+function buildList(){
+  let list=DATA[curService].filter(p=>region==="all"||p[1]===region);
+  if(!list.length) list=DATA[curService].slice();
+  if(resFilter!=="all") list=list.filter(p=>p[2]===resFilter);
+  const idx=mode==="ins"?4:5;
+  if(resSort==="dist") list.sort((a,b)=>a[3]-b[3]);
+  else if(resSort==="name") list.sort((a,b)=>a[0].localeCompare(b[0]));
+  else list.sort((a,b)=>a[idx]-b[idx]);
+  curList=list;
+}
+function openService(id,from){
+  curService=id;resultsFrom=from||"home";resSort="price";resFilter="all";
+  buildList();renderResults();show("view-results");
+}
+function renderResControls(){
+  const t=T[lang];
+  const seg=(grp,opts)=>`<div class="ctrl-grp"><span class="ctrl-lbl">${grp.lbl}</span><div class="seg">`+
+    opts.map(o=>`<button class="${o.on?'on':''}" onclick="${o.fn}">${o.t}</button>`).join("")+`</div></div>`;
+  $("res-controls").innerHTML=
+    seg({lbl:t.sortLbl},[
+      {t:t.sortPrice,on:resSort==="price",fn:"setSort('price')"},
+      {t:t.sortDist,on:resSort==="dist",fn:"setSort('dist')"},
+      {t:t.sortName,on:resSort==="name",fn:"setSort('name')"}])+
+    seg({lbl:t.filtLbl},[
+      {t:t.filtAll,on:resFilter==="all",fn:"setFilter('all')"},
+      {t:t.filtOut,on:resFilter==="out",fn:"setFilter('out')"},
+      {t:t.filtHosp,on:resFilter==="hosp",fn:"setFilter('hosp')"}]);
+}
+function renderResults(){
+  const t=T[lang],s=SERVICES[curService],idx=mode==="ins"?4:5;
+  $("res-name").innerHTML=s.name[lang]+`<span class="code">${s.code}</span>`;
+  $("res-meta").textContent=`${curList.length} ${t.near} \u00B7 ${REGION_NAMES[lang][region]} \u00B7 ${mode==="ins"?t.ins:t.cash}`;
+  renderResControls();
+  if(!curList.length){
+    $("res-stats").innerHTML="";$("res-save").innerHTML="";
+    $("res-list").innerHTML=`<div class="emptyrow">${t.noFilterRes}</div>`;
+    $("res-note").innerHTML="\u24D8&nbsp; "+(mode==="ins"?t.resNote:t.resNoteCash);
+    return;
+  }
+  const prices=curList.map(p=>p[idx]);
+  const lo=Math.min(...prices),hi=Math.max(...prices);
+  const med=prices.slice().sort((a,b)=>a-b)[Math.floor(prices.length/2)];
+  $("res-stats").innerHTML=`<div class="stat lo"><div class="k">${t.lowest}</div><div class="v">${money(lo)}</div></div><div class="stat"><div class="k">${t.median}</div><div class="v">${money(med)}</div></div><div class="stat hi"><div class="k">${t.highest}</div><div class="v">${money(hi)}</div></div>`;
+  const save=hi-lo;
+  $("res-save").innerHTML = (save>0&&curList.length>1)
+    ? `<div class="savecard"><span class="ic">\u2193</span><div><div class="s-big">${money(save)}</div><div class="s-lbl">${t.saveCap}</div></div></div>` : "";
+  $("res-list").innerHTML=curList.map((p,i)=>{
+    const price=p[idx],alt=mode==="ins"?p[5]:p[4];
+    const pct=Math.max(6,Math.round((price/hi)*100));
+    const isLo=price===lo,isHi=price===hi&&hi!==lo,cls=isLo?"lo":(isHi?"hi":"");
+    const tb=p[2]==="out"?`<span class="badge out">${t.outp}</span>`:`<span class="badge hosp">${t.hospital}</span>`;
+    const bb=isLo?`<span class="badge best">${t.cheapest}</span>`:"";
+    const al=mode==="ins"?t.cashWord:t.insPrice;
+    return `<button class="prov" onclick="openProvider(${i})"><div class="row"><div><h3>${p[0]}</h3><div class="sub">${tb} ${bb} <span>\u00B7 ${p[3]} mi</span></div></div><div class="price ${cls}">${money(price)}<small>${al} ${money(alt)}</small></div></div><div class="bar"><i class="${cls}" style="width:${pct}%"></i></div><div class="gocue">${t.goCue} \u203A</div></button>`;
+  }).join("");
+  $("res-note").innerHTML="\u24D8&nbsp; "+(mode==="ins"?t.resNote:t.resNoteCash);
+}
+function setSort(s){resSort=s;buildList();renderResults();}
+function setFilter(f){resFilter=f;buildList();renderResults();}
+function openProvider(i){curProvider=curList[i];renderDetail();show("view-detail");}
+function renderDetail(){
+  const t=T[lang],s=SERVICES[curService],p=curProvider,insP=p[4],cashP=p[5];
+  $("det-name").textContent=s.name[lang];
+  $("det-meta").textContent=`${p[0]} \u00B7 ${p[3]} mi \u00B7 ${p[2]==="out"?t.outp:t.hospital}`;
+  if(mode==="cash"){
+    $("det-cost").innerHTML=`<h2>${t.cashK}</h2><p class="lede">${t.cashLede}</p><div class="cashbox"><div class="k">${t.cashK}</div><div class="v">${money(cashP)}</div></div><p class="note">\u24D8&nbsp; ${t.resNoteCash}</p>`;
+  }else{
+    $("det-cost").innerHTML=`<h2>${t.estTitle}</h2><p class="lede">${t.estLede} <span class="pricetag">${money(insP)}</span></p><div class="slider"><label for="ded">${t.dedLabel}</label><input type="range" id="ded" min="0" max="2500" step="50" value="800"><span class="out" id="ded-out">$800</span></div><div class="slider"><label for="coin">${t.coinLabel}</label><input type="range" id="coin" min="0" max="50" step="5" value="20"><span class="out" id="coin-out">20%</span></div><div class="estbox"><div class="k">${t.estK}</div><div class="v" id="oop"></div><div class="bd" id="bd"></div></div><p class="note">\u24D8&nbsp; ${t.estNote}</p>`;
+    wireEst(insP);
+  }
+  $("ask-list").innerHTML=t.ask.map(a=>`<li><span class="q">?</span><span>${a}</span></li>`).join("");
+  $("qual-text").textContent=t.qual;
+}
+function wireEst(price){
+  const t=T[lang],ded=$("ded"),coin=$("coin");
+  function c(){
+    const d=+ded.value,cc=+coin.value/100;
+    $("ded-out").textContent=money(d);$("coin-out").textContent=Math.round(cc*100)+"%";
+    const tw=Math.min(d,price),af=Math.max(0,price-d),cp=af*cc,tot=tw+cp;
+    $("oop").textContent=money(tot);
+    $("bd").textContent=af>0?`${money(tw)} ${t.towardDed} + ${money(cp)} ${t.coins}`:t.fullDed;
+  }
+  ded.addEventListener("input",c);coin.addEventListener("input",c);c();
+}
+function show(v){
+  ["view-home","view-list","view-results","view-detail"].forEach(id=>$(id).classList.add("hidden"));
+  const el=$(v);el.classList.remove("hidden");el.classList.remove("reveal");void el.offsetWidth;el.classList.add("reveal");
+}
+function goHome(){closeSugg();show("view-home");window.scrollTo(0,0);}
+function goResults(){show("view-results");window.scrollTo(0,0);}
+function resultsBack(){resultsFrom==="list"?showList():goHome();}
+function setLang(l){
+  lang=l;$("lang-en").classList.toggle("on",l==="en");$("lang-es").classList.toggle("on",l==="es");
+  renderChrome();if(ORDER.length)renderCats();
+  if(!$("view-list").classList.contains("hidden"))showList();
+  if(!$("view-results").classList.contains("hidden"))renderResults();
+  if(!$("view-detail").classList.contains("hidden"))renderDetail();
+}
+function setMode(m){
+  mode=m;$("t-ins").classList.toggle("on",m==="ins");$("t-cash").classList.toggle("on",m==="cash");
+  if(!$("view-list").classList.contains("hidden"))showList();
+  if(!$("view-results").classList.contains("hidden")){buildList();renderResults();}
+}
+$("region").addEventListener("change",e=>{
+  region=e.target.value;
+  if(!$("view-list").classList.contains("hidden"))showList();
+  if(!$("view-results").classList.contains("hidden")){buildList();renderResults();}
+});
+const searchEl=$("search");
+searchEl.addEventListener("input",e=>runSugg(e.target.value));
+searchEl.addEventListener("focus",e=>{if(e.target.value.trim())runSugg(e.target.value);});
+searchEl.addEventListener("keydown",e=>{
+  if(suggMatches.length&&(e.key==="ArrowDown"||e.key==="ArrowUp")){
+    e.preventDefault();
+    suggIdx=e.key==="ArrowDown"?(suggIdx+1)%suggMatches.length:(suggIdx-1+suggMatches.length)%suggMatches.length;
+    renderSugg();return;
+  }
+  if(e.key==="Enter"){
+    if(suggIdx>=0&&suggMatches[suggIdx]){pickSugg(suggIdx);}
+    else{closeSugg();openSearch(e.target.value);}
+  }
+  if(e.key==="Escape"){closeSugg();}
+});
+searchEl.addEventListener("blur",()=>setTimeout(closeSugg,140));
+
+const CHAT={
+ en:{
+  title:"Price assistant",
+  greeting:"Hi. Ask me about any price on this site. For example: \u2018compare CT abdomen prices\u2019, \u2018cheapest MRI abdomen\u2019, or \u2018how much can I save on a CT abdomen\u2019. I only answer from the data on this site.",
+  ph:"Ask about a price\u2026",
+  disc:"Answers use only the price data on this site. They are not medical or financial advice.",
+  examples:["Compare CT abdomen prices","Cheapest MRI abdomen","Save on a CT abdomen"],
+  notFound:function(ex){return "I could not find that in the price data. Try a test name or code, for example: "+ex+".";},
+  modeIns:"with insurance",modeCash:"cash",
+  fell:"No providers in that area, so I am showing all of South Carolina. ",
+  didYouMean:"I found a few matches. Which one?",viewAll:"View all providers",
+  summary:function(o){return "For "+o.n+" "+o.mt+" in "+o.rn+", prices run from "+o.lo+" to "+o.hi+". The lowest is "+o.loProv+" at "+o.lo+".";},
+  lowest:function(o){return "The lowest price for "+o.n+" "+o.mt+" in "+o.rn+" is "+o.lo+" at "+o.loProv+".";},
+  highest:function(o){return "The highest price for "+o.n+" "+o.mt+" in "+o.rn+" is "+o.hi+" at "+o.hiProv+".";},
+  save:function(o){return "For "+o.n+" "+o.mt+" in "+o.rn+", you could save up to "+o.save+" by choosing "+o.loProv+" ("+o.lo+") over "+o.hiProv+" ("+o.hi+").";},
+  listIntro:function(o){return o.n+" "+o.mt+" in "+o.rn+":";}
+ },
+ es:{
+  title:"Asistente de precios",
+  greeting:"Hola. Preg\u00FAntame por cualquier precio de este sitio. Por ejemplo: \u2018comparar precios de tomograf\u00EDa de abdomen\u2019, \u2018resonancia de abdomen m\u00E1s barata\u2019 o \u2018cu\u00E1nto puedo ahorrar en una tomograf\u00EDa de abdomen\u2019. Solo respondo con los datos de este sitio.",
+  ph:"Pregunta por un precio\u2026",
+  disc:"Las respuestas usan solo los datos de precios de este sitio. No son consejo m\u00E9dico ni financiero.",
+  examples:["Comparar precios de tomograf\u00EDa de abdomen","Resonancia de abdomen m\u00E1s barata","Ahorrar en una tomograf\u00EDa de abdomen"],
+  notFound:function(ex){return "No encontr\u00E9 eso en los datos de precios. Prueba un nombre o c\u00F3digo, por ejemplo: "+ex+".";},
+  modeIns:"con seguro",modeCash:"en efectivo",
+  fell:"No hay proveedores en esa zona, as\u00ED que muestro toda Carolina del Sur. ",
+  didYouMean:"Encontr\u00E9 varias opciones. \u00BFCu\u00E1l?",viewAll:"Ver todos los proveedores",
+  summary:function(o){return "Para "+o.n+" "+o.mt+" en "+o.rn+", los precios van de "+o.lo+" a "+o.hi+". El m\u00E1s bajo es "+o.loProv+" con "+o.lo+".";},
+  lowest:function(o){return "El precio m\u00E1s bajo para "+o.n+" "+o.mt+" en "+o.rn+" es "+o.lo+" en "+o.loProv+".";},
+  highest:function(o){return "El precio m\u00E1s alto para "+o.n+" "+o.mt+" en "+o.rn+" es "+o.hi+" en "+o.hiProv+".";},
+  save:function(o){return "Para "+o.n+" "+o.mt+" en "+o.rn+", podr\u00EDas ahorrar hasta "+o.save+" eligiendo "+o.loProv+" ("+o.lo+") en vez de "+o.hiProv+" ("+o.hi+").";},
+  listIntro:function(o){return o.n+" "+o.mt+" en "+o.rn+":";}
+ }
+};
+const CHAT_STOP=new Set(["the","of","a","an","and","or","to","in","for","with","without","near","price","prices","cost","how","much","is","what","me","my","i","do","you","get","there","scan","de","la","el","los","las","un","una","y","o","en","con","sin","por","cerca","precio","precios","cuanto","cu\u00E1nto","que","es","del","para"]);
+function chatTokens(str){
+  var parts=str.toLowerCase().replace(/[^\p{L}\p{N} ]+/gu," ").split(/\s+/);
+  var out=[],seen={};
+  for(var i=0;i<parts.length;i++){var w=parts[i];if(w.length>=2&&!CHAT_STOP.has(w)&&!seen[w]){seen[w]=1;out.push(w);}}
+  return out;
+}
+function chatScore(id,ql){
+  var s=SERVICES[id],sc=0;
+  if(ql.indexOf(s.code.toLowerCase())>=0) sc+=5;
+  var toks=chatTokens(s.name.en+" "+s.name.es);
+  for(var i=0;i<toks.length;i++){ if(ql.indexOf(toks[i])>=0) sc+=1; }
+  return sc;
+}
+function chatAnswer(q){
+  var C=CHAT[lang], ql=" "+q.toLowerCase()+" ";
+  var m=mode;
+  if(/cash|self ?pay|out of pocket|efectivo|sin seguro/.test(ql)) m="cash";
+  else if(/insurance|insured|in ?network|con seguro|seguro/.test(ql)) m="ins";
+  var r=region;
+  var RM=[[/charleston|lowcountry|low country|musc/,"low"],[/greenville|spartanburg|upstate/,"up"],[/florence|pee dee|peedee/,"pd"],[/columbia|midlands|lexington/,"mid"],[/all of|south carolina|statewide|anywhere|everywhere|toda carolina/,"all"]];
+  for(var i=0;i<RM.length;i++){ if(RM[i][0].test(ql)){ r=RM[i][1]; break; } }
+  var scored=ORDER.map(function(id){return [id,chatScore(id,ql)];}).filter(function(a){return a[1]>0;}).sort(function(a,b){return b[1]-a[1];});
+  if(!scored.length) return C.notFound(C.examples.slice(0,2).join(", "));
+  var top=scored[0][1];
+  var tied=scored.filter(function(a){return a[1]===top;}).map(function(a){return a[0];});
+  if(tied.length>1 && top<5){
+    var btns=tied.slice(0,5).map(function(id){return "<button class=\"chat-pill\" onclick=\"chatResolve('"+id+"')\">"+SERVICES[id].name[lang]+"</button>";}).join("");
+    return "<p>"+C.didYouMean+"</p><div class=\"chat-pills\">"+btns+"</div>";
+  }
+  return chatReply(tied[0],ql,m,r);
+}
+function chatReply(id,ql,m,r){
+  var C=CHAT[lang],s=SERVICES[id],idx=m==="ins"?4:5;
+  var rows=DATA[id].filter(function(p){return r==="all"||p[1]===r;}),fell=false;
+  if(!rows.length){ rows=DATA[id].slice(); fell=true; }
+  var sorted=rows.slice().sort(function(a,b){return a[idx]-b[idx];});
+  var loP=sorted[0],hiP=sorted[sorted.length-1];
+  var lo=money(loP[idx]),hi=money(hiP[idx]);
+  var rn=REGION_NAMES[lang][fell?"all":r],n=s.name[lang],mt=m==="ins"?C.modeIns:C.modeCash;
+  var pre=fell?C.fell:"",html;
+  if(/compare|list|options|show|every|all the|comparar|lista|opciones|todos|todas/.test(ql)){
+    var lines=sorted.map(function(p){return "<div class=\"chat-li\"><span>"+p[0]+"</span><b class=\"num\">"+money(p[idx])+"</b></div>";}).join("");
+    html="<p>"+pre+C.listIntro({n:n,mt:mt,rn:rn})+"</p><div class=\"chat-list\">"+lines+"</div>";
+  }else{
+    var body;
+    if(/save|saving|ahorr/.test(ql) && loP!==hiP) body=C.save({n:n,mt:mt,rn:rn,save:money(hiP[idx]-loP[idx]),lo:lo,hi:hi,loProv:loP[0],hiProv:hiP[0]});
+    else if(/highest|most expensive|priciest|m\u00E1s caro|mas caro|m\u00E1s alto|mas alto/.test(ql)) body=C.highest({n:n,mt:mt,rn:rn,hi:hi,hiProv:hiP[0]});
+    else if(/cheap|lowest|least|best price|barat|m\u00E1s bajo|mas bajo|menor/.test(ql)) body=C.lowest({n:n,mt:mt,rn:rn,lo:lo,loProv:loP[0]});
+    else body=C.summary({n:n,mt:mt,rn:rn,lo:lo,hi:hi,loProv:loP[0]});
+    html="<p>"+pre+body+"</p>";
+  }
+  html+="<button class=\"chat-go\" onclick=\"chatGo('"+id+"')\">"+C.viewAll+" \u203A</button>";
+  return html;
+}
+function chatResolve(id){ appendMsg("bot", chatReply(id,"",mode,region)); }
+function chatGo(id){ closeChat(); openService(id,"home"); }
+var chatStarted=false;
+function appendMsg(role,html){ var d=document.createElement("div"); d.className="chat-msg "+role; d.innerHTML=html; var m=$("chat-msgs"); m.appendChild(d); m.scrollTop=m.scrollHeight; }
+function chatGreet(){ var C=CHAT[lang]; var chips=C.examples.map(function(e){return "<button class=\"chat-pill\" onclick=\"chatExample(this)\">"+e+"</button>";}).join(""); $("chat-msgs").innerHTML=""; appendMsg("bot","<p>"+C.greeting+"</p><div class=\"chat-pills\">"+chips+"</div>"); chatStarted=true; }
+function chatExample(el){ $("chat-in").value=el.textContent; chatSend(); }
+function chatSend(){ var v=$("chat-in").value.trim(); if(!v) return; appendMsg("user","<p>"+v.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+"</p>"); $("chat-in").value=""; appendMsg("bot", chatAnswer(v)); }
+function chatToggle(){ var p=$("chat-panel"); var open=p.classList.toggle("open"); $("chat-fab").setAttribute("aria-expanded",open); if(open && !chatStarted) chatGreet(); if(open) setTimeout(function(){$("chat-in").focus();},60); }
+function closeChat(){ $("chat-panel").classList.remove("open"); $("chat-fab").setAttribute("aria-expanded","false"); }
+function renderChatChrome(){ var C=CHAT[lang]; $("chat-title").textContent=C.title; $("chat-in").placeholder=C.ph; $("chat-disc").textContent=C.disc; $("chat-fab").setAttribute("aria-label",C.title); if(chatStarted) chatGreet(); }
+$("chat-send").addEventListener("click",chatSend);
+$("chat-in").addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); chatSend(); } });
+var _origRenderChrome=renderChrome;
+renderChrome=function(){ _origRenderChrome(); renderChatChrome(); };
+
+init();
+</script>
+<script>/* hidden-menu story (scoped) */
+(function(){
+const EMBEDDED_DATA = {"services": [{"id": "mri_knee", "name_en": "Knee MRI", "name_es": "Resonancia de rodilla", "code": "73721", "category": "imaging", "providers": [{"name": "Lexington Imaging Center", "region": "mid", "type": "out", "distance": 4.2, "insurance": 612, "cash": 480}, {"name": "Columbia Open MRI", "region": "mid", "type": "out", "distance": 6.8, "insurance": 735, "cash": 525}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 1980, "cash": 1640}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 2240, "cash": 1875}, {"name": "Greenville Radiology", "region": "up", "type": "out", "distance": 92, "insurance": 640, "cash": 510}, {"name": "Prisma Greenville Memorial", "region": "up", "type": "hosp", "distance": 95, "insurance": 2110, "cash": 1720}, {"name": "Charleston Imaging Partners", "region": "low", "type": "out", "distance": 112, "insurance": 690, "cash": 540}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 2380, "cash": 1990}, {"name": "Florence Diagnostic Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 655, "cash": 500}]}, {"id": "mammo_screen", "name_en": "Screening Mammogram", "name_es": "Mamografía de detección", "code": "77067", "category": "imaging", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 168, "cash": 120}, {"name": "Columbia Breast Center", "region": "mid", "type": "out", "distance": 6.2, "insurance": 195, "cash": 135}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 410, "cash": 320}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 175, "cash": 125}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 455, "cash": 360}, {"name": "Florence Imaging", "region": "pd", "type": "out", "distance": 78, "insurance": 182, "cash": 130}]}, {"id": "a1c", "name_en": "A1C Blood Test", "name_es": "Análisis A1C", "code": "83036", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 28, "cash": 18}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 34, "cash": 22}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 96, "cash": 72}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 31, "cash": 20}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 108, "cash": 80}, {"name": "Florence Clinical Lab", "region": "pd", "type": "out", "distance": 78, "insurance": 29, "cash": 19}]}, {"id": "lipid_panel", "name_en": "Lipid Panel", "name_es": "Perfil de lípidos", "code": "80061", "category": "lab", "providers": [{"name": "Lexington Lab Services", "region": "mid", "type": "out", "distance": 3.1, "insurance": 42, "cash": 29}, {"name": "Quest Diagnostics Columbia", "region": "mid", "type": "out", "distance": 5.0, "insurance": 55, "cash": 35}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 145, "cash": 110}, {"name": "Greenville Lab Partners", "region": "up", "type": "out", "distance": 90, "insurance": 48, "cash": 32}]}, {"id": "office_specialist", "name_en": "Specialist Office Visit", "name_es": "Consulta con especialista", "code": "99204", "category": "visit", "providers": [{"name": "Midlands Family Care", "region": "mid", "type": "out", "distance": 2.4, "insurance": 185, "cash": 140}, {"name": "Columbia Internal Medicine", "region": "mid", "type": "out", "distance": 5.7, "insurance": 220, "cash": 165}, {"name": "Prisma Specialty Clinic", "region": "mid", "type": "hosp", "distance": 7.0, "insurance": 380, "cash": 300}, {"name": "Greenville Health Associates", "region": "up", "type": "out", "distance": 91, "insurance": 198, "cash": 150}]}, {"id": "colonoscopy", "name_en": "Colonoscopy (Screening)", "name_es": "Colonoscopia (detección)", "code": "45378", "category": "procedure", "providers": [{"name": "Midlands Endoscopy Center", "region": "mid", "type": "out", "distance": 4.8, "insurance": 1150, "cash": 890}, {"name": "Columbia Digestive Health", "region": "mid", "type": "out", "distance": 6.5, "insurance": 1320, "cash": 980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 3240, "cash": 2680}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 3580, "cash": 2950}, {"name": "Greenville Endoscopy", "region": "up", "type": "out", "distance": 92, "insurance": 1210, "cash": 920}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 3720, "cash": 3050}]}, {"id": "carpal_tunnel", "name_en": "Carpal Tunnel Release", "name_es": "Liberación del túnel carpiano", "code": "64721", "category": "procedure", "providers": [{"name": "Midlands Surgery Center", "region": "mid", "type": "out", "distance": 5.2, "insurance": 2450, "cash": 1980}, {"name": "Prisma Health Baptist", "region": "mid", "type": "hosp", "distance": 7.1, "insurance": 5680, "cash": 4720}, {"name": "Greenville Surgical", "region": "up", "type": "out", "distance": 92, "insurance": 2610, "cash": 2100}]}, {"id": "prenatal_panel", "name_en": "Prenatal Lab Panel", "name_es": "Panel de laboratorio prenatal", "code": "80055", "category": "pregnancy", "providers": [{"name": "Lexington Women's Health", "region": "mid", "type": "out", "distance": 3.9, "insurance": 240, "cash": 180}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 285, "cash": 210}, {"name": "Lexington Medical Center", "region": "mid", "type": "hosp", "distance": 5.5, "insurance": 560, "cash": 430}, {"name": "Greenville Women's Clinic", "region": "up", "type": "out", "distance": 91, "insurance": 255, "cash": 190}]}, {"id": "ultrasound_ob", "name_en": "Obstetric Ultrasound", "name_es": "Ecografía obstétrica", "code": "76805", "category": "pregnancy", "providers": [{"name": "Lexington Women's Imaging", "region": "mid", "type": "out", "distance": 3.9, "insurance": 320, "cash": 240}, {"name": "Columbia OB/GYN", "region": "mid", "type": "out", "distance": 6.2, "insurance": 365, "cash": 270}, {"name": "Prisma Women's Hospital", "region": "mid", "type": "hosp", "distance": 7.3, "insurance": 780, "cash": 620}, {"name": "MUSC Health", "region": "low", "type": "hosp", "distance": 114, "insurance": 845, "cash": 670}]}, {"id": "mri_abdomen_noc", "name_en": "MRI Abdomen, without contrast", "name_es": "Resonancia de abdomen, sin contraste", "code": "74181", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 637.1, "cash": 637.1}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 654.31, "cash": 654.31}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1035.61, "cash": 1035.61}]}, {"id": "ct_abdomen_noc", "name_en": "CT Abdomen, without contrast", "name_es": "Tomografía de abdomen, sin contraste", "code": "74150", "category": "imaging", "providers": [{"name": "American Health Imaging", "region": "mid", "type": "out", "distance": 8.0, "insurance": 458.44, "cash": 458.44}, {"name": "Palmetto Imaging", "region": "mid", "type": "out", "distance": 7.0, "insurance": 468.97, "cash": 468.97}, {"name": "Lexington Saluda Point", "region": "mid", "type": "out", "distance": 3.0, "insurance": 1781.57, "cash": 1781.57}]}]};
+
+const money=n=>"$"+Math.round(n).toLocaleString();
+function byCode(s,c){for(let i=0;i<s.length;i++){if(String(s[i].code)===String(c))return s[i];}return null;}
+const animNum=(el)=>{const to=parseFloat(el.dataset.to),fmt=el.dataset.fmt,dur=1100,s=performance.now();function tick(t){let p=Math.min(1,(t-s)/dur);p=1-Math.pow(1-p,3);const v=to*p;el.textContent=fmt==="x"?Math.round(v)+"x":fmt==="pct"?Math.round(v)+"%":Math.round(v).toLocaleString();if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);};
+function reveals(){const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("shown");e.querySelectorAll&&e.querySelectorAll('[data-to]').forEach(animNum);io.unobserve(e.target);}});},{threshold:0.16,rootMargin:"0px 0px -8% 0px"});document.querySelectorAll(".reveal").forEach(el=>io.observe(el));}
+function progress(){const pb=document.getElementById("progress");if(!pb)return;function u(){const h=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=(h>0?(scrollY/h)*100:0)+"%";}addEventListener("scroll",u,{passive:true});addEventListener("resize",u);u();}
+function initScrolly(setStep){const steps=[].slice.call(document.querySelectorAll('.scrolly .step'));if(!steps.length)return;if(window.matchMedia("(max-width:820px)").matches){setStep(steps.length-1);steps.forEach(s=>s.classList.add('active'));const mark=()=>{const t=innerHeight*0.4;steps.forEach(s=>{s.classList.toggle('read',s.getBoundingClientRect().bottom<t);});};addEventListener('scroll',mark,{passive:true});mark();return;}let cur=-1;const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const i=+e.target.dataset.step;if(i!==cur){cur=i;setStep(i);}steps.forEach(s=>{const si=+s.dataset.step;s.classList.toggle('active',si===i);s.classList.toggle('read',si<i);});}});},{rootMargin:"-48% 0px -48% 0px",threshold:0});steps.forEach(s=>io.observe(s));setStep(0);}
+
+const REG=[["all","All of SC"],["up","Upstate"],["mid","Midlands"],["pd","Pee Dee"],["low","Lowcountry"]];
+const REGNAME={all:"All of South Carolina",up:"Upstate (Greenville)",mid:"Midlands (Columbia & Lexington)",pd:"Pee Dee (Florence)",low:"Lowcountry (Charleston)"};
+const POP=[["74150","CT abdomen"],["74181","MRI abdomen"],["73721","Knee MRI"],["45378","Colonoscopy"],["77067","Mammogram"],["83036","A1C test"]];
+let STATE={svcs:[],tests:[],code:"74150",region:"mid",mode:"insurance"};
+const priceOf=p=>STATE.mode==="cash"?p.cash:p.insurance;
+let SGROWS=[],SGLO=0,SGHI=0;
+
+function renderSg(){
+  const ct=byCode(STATE.svcs,"74150"); if(!ct) return;
+  const ps=ct.providers.slice().sort((a,b)=>a.insurance-b.insurance);
+  SGLO=ps[0].insurance; SGHI=ps[ps.length-1].insurance;
+  document.getElementById("sgitems").innerHTML=ps.map((p,i)=>'<div class="ritem" data-r="'+i+'"><span class="r-name">'+p.name+'</span><span class="r-dots"></span><span class="b-old">price after scan</span><span class="b-new">'+money(p.insurance)+'</span></div>').join("");
+  SGROWS=[].slice.call(document.querySelectorAll("#sgitems .ritem"));
+}
+function setStep(i){
+  const m=document.getElementById("sgmenu");
+  m.classList.toggle("priced", i>=1);
+  document.getElementById("sgmeta").textContent = i>=1?"Today\u2019s prices":"The old way";
+  SGROWS.forEach((r,idx)=>{r.classList.toggle("best", i>=2&&idx===0);r.classList.toggle("high", i>=3&&idx===SGROWS.length-1);});
+  const f=document.getElementById("sgfoot");
+  f.classList.toggle("show", i>=3);
+  f.textContent = i>=3 ? ("Choosing the best value saves you "+money(SGHI-SGLO)+".") : "";
+}
+function renderControls(){
+  document.getElementById("ctl-tests").innerHTML=STATE.tests.map(t=>'<button class="chip'+(t[0]===STATE.code?' active':'')+'" data-test="'+t[0]+'">'+t[1]+'</button>').join("");
+  document.getElementById("ctl-regs").innerHTML=REG.map(r=>'<button class="chip'+(r[0]===STATE.region?' active':'')+'" data-reg="'+r[0]+'">'+r[1]+'</button>').join("");
+  document.getElementById("ctl-mode").innerHTML='<button class="'+(STATE.mode==="insurance"?"active":"")+'" data-mode="insurance">With insurance</button><button class="'+(STATE.mode==="cash"?"active":"")+'" data-mode="cash">Cash price</button>';
+  document.querySelectorAll('[data-test]').forEach(b=>b.onclick=()=>{STATE.code=b.dataset.test;renderControls();renderMenu();});
+  document.querySelectorAll('[data-reg]').forEach(b=>b.onclick=()=>{STATE.region=b.dataset.reg;renderControls();renderMenu();});
+  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{STATE.mode=b.dataset.mode;renderControls();renderMenu();});
+}
+function renderMenu(){
+  const svc=byCode(STATE.svcs,STATE.code); if(!svc) return;
+  let provs=svc.providers.slice(), note="";
+  if(STATE.region!=="all"){const f=provs.filter(p=>p.region===STATE.region); if(f.length) provs=f; else note="No "+REGNAME[STATE.region].split(" (")[0]+" providers for this test, so here is all of South Carolina.";}
+  provs.sort((a,b)=>priceOf(a)-priceOf(b));
+  const min=priceOf(provs[0]), max=priceOf(provs[provs.length-1]);
+  document.getElementById("menu-dish").textContent=svc.name_en;
+  document.getElementById("menu-sub").textContent=(STATE.mode==="cash"?"Cash price":"With insurance")+"  \u00B7  "+REGNAME[STATE.region];
+  document.getElementById("menu-items").innerHTML=provs.map((p,i)=>{const best=i===0&&provs.length>1,high=i===provs.length-1&&provs.length>1;return '<div class="ritem'+(best?' best':'')+(high?' high':'')+'"><span class="r-name">'+p.name+'<small>'+(p.type==="hosp"?"Hospital":"Outpatient")+' &middot; '+p.distance+' mi</small>'+(best?'<span class="r-tag">Best value</span>':'')+'</span><span class="r-dots"></span><span class="r-price">'+money(priceOf(p))+'</span></div>';}).join("");
+  const rng=document.getElementById("menu-range");
+  if(provs.length>1&&max>min){rng.style.display="block";rng.innerHTML='<div class="rr-track"></div>'+provs.map(p=>{const pct=((priceOf(p)-min)/(max-min))*100;const c=priceOf(p)===min?"var(--good)":(priceOf(p)===max?"var(--bad)":"#bfa233");return '<div class="rr-dot" style="left:'+pct+'%;background:'+c+'"></div>';}).join("");document.getElementById("menu-foot").classList.add("show");document.getElementById("menu-foot").textContent=note||("Choosing the best value saves you "+money(max-min)+" versus the priciest option.");}
+  else {rng.style.display="none";document.getElementById("menu-foot").classList.add("show");document.getElementById("menu-foot").textContent=note||"Only one option is listed for this choice.";}
+}
+async function init(){
+  try{const data=EMBEDDED_DATA;STATE.svcs=data.services;}
+  catch(e){document.querySelector(".mhero .sub").textContent="Open this on the published site to load the data.";reveals();progress();return;}
+  STATE.tests=POP.filter(t=>byCode(STATE.svcs,t[0]));
+  if(!byCode(STATE.svcs,STATE.code)&&STATE.tests.length) STATE.code=STATE.tests[0][0];
+  renderSg(); initScrolly(setStep); reveals(); progress();
+}
+init();
+
+})();</script>
+</body>
+</html>
